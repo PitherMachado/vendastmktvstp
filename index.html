@@ -2,1245 +2,701 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Telemarketing vs Aquisição Digital — Tese Técnica (Crédito)</title>
-  <meta name="description" content="Deck técnico (HTML fullscreen) com dados citados: evolução do telemarketing, vendas online, tendências de mídia e proposta híbrida para crédito." />
-  <meta name="theme-color" content="#0b1020" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Método Vendas de Alto Ticket — Intermediação Automotiva</title>
+  <meta name="description" content="Construa sua primeira renda de alto ticket usando apenas estratégia, parceria e execução. Aplicação inicial: Intermediação Automotiva. Quem pensa como dono, lucra como dono." />
+  <meta name="theme-color" content="#0a0c12" />
 
+  <!-- Open Graph -->
+  <meta property="og:title" content="Método Vendas de Alto Ticket" />
+  <meta property="og:description" content="Intermediação Automotiva • Estratégia • Parceria • Execução. Quem pensa como dono, lucra como dono." />
+  <meta property="og:type" content="website" />
+
+  <!-- Font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <style>
-    :root{
-      --bg0:#070A14;
-      --bg1:#0B1230;
-      --bg2:#101a3d;
-      --glass: rgba(255,255,255,.08);
-      --glass2: rgba(255,255,255,.12);
-      --stroke: rgba(255,255,255,.14);
-
-      --text:#F2F5FF;
-      --muted:#B8C0D9;
-      --muted2:#8C96B6;
-
-      --acc:#7C5CFF;
-      --acc2:#20E3B2;
-      --warn:#FFB020;
-
-      --shadow: 0 18px 70px rgba(0,0,0,.55);
-      --r18: 18px;
-      --r24: 24px;
-
-      --max: 1200px;
-      --pad: clamp(18px, 3vw, 42px);
-    }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text);
-      background:
-        radial-gradient(1200px 700px at 15% 10%, rgba(124,92,255,.28), transparent 60%),
-        radial-gradient(1000px 650px at 85% 15%, rgba(32,227,178,.18), transparent 55%),
-        radial-gradient(900px 600px at 50% 90%, rgba(255,176,32,.10), transparent 55%),
-        linear-gradient(180deg, var(--bg0), var(--bg1) 40%, var(--bg2));
-      overflow:hidden;
-    }
-
-    /* Top bar */
-    .topbar{
-      position:fixed;
-      top:0; left:0; right:0;
-      height:56px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      z-index:50;
-      pointer-events:none;
-    }
-    .topbar .inner{
-      width:min(var(--max), calc(100% - var(--pad)*2));
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      pointer-events:auto;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:10px 12px;
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border-radius:999px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
-      backdrop-filter: blur(10px);
-    }
-    .dot{
-      width:10px;height:10px;border-radius:50%;
-      background: linear-gradient(180deg, var(--acc), var(--acc2));
-      box-shadow: 0 0 0 4px rgba(124,92,255,.15);
-    }
-    .brand b{font-size:13px; letter-spacing:.2px}
-    .brand span{font-size:12px; color:var(--muted)}
-    .tools{
-      display:flex;
-      align-items:center;
-      gap:10px;
-    }
-    .pill{
-      border:1px solid var(--stroke);
-      background: rgba(255,255,255,.06);
-      border-radius:999px;
-      padding:9px 12px;
-      color:var(--muted);
-      font-size:12px;
-      display:flex;
-      align-items:center;
-      gap:10px;
-      backdrop-filter: blur(10px);
-    }
-    .kbd{
-      border:1px solid rgba(255,255,255,.18);
-      background: rgba(0,0,0,.22);
-      padding:2px 6px;
-      border-radius:8px;
-      font-size:11px;
-      color:var(--text);
-    }
-    .btn{
-      cursor:pointer;
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      color:var(--text);
-      border-radius:999px;
-      padding:10px 12px;
-      font-size:12px;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      box-shadow: 0 10px 30px rgba(0,0,0,.25);
-      transition: transform .12s ease, filter .12s ease;
-      user-select:none;
-    }
-    .btn:hover{transform: translateY(-1px); filter: brightness(1.05)}
-    .btn:active{transform: translateY(0px); filter: brightness(.98)}
-    .btn.secondary{
-      background: rgba(255,255,255,.06);
-      box-shadow:none;
-    }
-
-    /* Progress */
-    .progress{
-      position:fixed;
-      top:56px; left:0; right:0;
-      height:4px;
-      z-index:49;
-      background: rgba(255,255,255,.06);
-    }
-    .progress > div{
-      height:100%;
-      width:0%;
-      background: linear-gradient(90deg, var(--acc), var(--acc2));
-      box-shadow: 0 0 18px rgba(124,92,255,.35);
-      transition: width .25s ease;
-    }
-
-    /* Deck + slides */
-    .deck{
-      height:100%;
-      width:100%;
-      display:flex;
-      align-items:stretch;
-      justify-content:flex-start;
-      transform: translateX(0);
-      transition: transform .35s cubic-bezier(.2,.85,.2,1);
-      will-change: transform;
-    }
-    .slide{
-      min-width:100%;
-      height:100vh;
-      padding: calc(var(--pad) + 56px) var(--pad) var(--pad);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      position:relative;
-    }
-    .wrap{
-      width:min(var(--max), 100%);
-      display:grid;
-      gap:18px;
-    }
-
-    .grid-2{
-      display:grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap:18px;
-      align-items:stretch;
-    }
-    @media (max-width: 900px){
-      .grid-2{grid-template-columns: 1fr}
-      .topbar{height:auto}
-      .topbar .inner{flex-wrap:wrap; justify-content:center}
-      .progress{top:92px}
-      .slide{padding-top: calc(var(--pad) + 92px)}
-    }
-
-    .card{
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
-      border-radius: var(--r24);
-      box-shadow: var(--shadow);
-      padding: 22px;
-      backdrop-filter: blur(12px);
-      position:relative;
-      overflow:hidden;
-    }
-    .card:before{
-      content:"";
-      position:absolute;
-      inset:-2px;
-      background: radial-gradient(900px 240px at 20% 0%, rgba(124,92,255,.18), transparent 60%),
-                  radial-gradient(700px 220px at 80% 10%, rgba(32,227,178,.12), transparent 60%);
-      pointer-events:none;
-      opacity:.9;
-    }
-    .card > *{position:relative}
-
-    .kicker{
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      font-size:12px;
-      color:var(--muted);
-      letter-spacing:.16em;
-      text-transform:uppercase;
-      margin-bottom:10px;
-    }
-    .kline{
-      width:44px;height:1px;background: rgba(255,255,255,.18);
-    }
-
-    h1{
-      margin:0;
-      font-size: clamp(30px, 4vw, 54px);
-      line-height:1.04;
-      letter-spacing:-.02em;
-    }
-    h2{
-      margin:0;
-      font-size: clamp(22px, 3vw, 34px);
-      line-height:1.14;
-      letter-spacing:-.02em;
-    }
-    p{
-      margin:0;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.6;
-    }
-    .lead{
-      font-size: 16px;
-      color: var(--muted);
-      line-height: 1.65;
-      margin-top:12px;
-      max-width: 72ch;
-    }
-
-    .bullets{
-      margin:14px 0 0;
-      padding:0;
-      list-style:none;
-      display:grid;
-      gap:10px;
-    }
-    .bullets li{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      color: var(--muted);
-      line-height:1.55;
-      font-size: 14px;
-    }
-    .check{
-      width:22px; height:22px;
-      border-radius:8px;
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.22);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex:0 0 auto;
-      margin-top:1px;
-      color: var(--acc2);
-      font-weight:800;
-      font-size:12px;
-    }
-
-    .metric{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:12px;
-      margin-top: 14px;
-    }
-    .tile{
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.20);
-      border-radius: 16px;
-      padding:14px;
-    }
-    .tile b{
-      display:block;
-      font-size: 16px;
-      letter-spacing:-.01em;
-    }
-    .tile span{
-      display:block;
-      margin-top:6px;
-      color: var(--muted2);
-      font-size: 12px;
-      line-height: 1.35;
-    }
-
-    .tagrow{
-      display:flex; flex-wrap:wrap; gap:10px;
-      margin-top: 14px;
-    }
-    .tag{
-      font-size: 12px;
-      color: var(--text);
-      border:1px solid rgba(255,255,255,.16);
-      background: rgba(0,0,0,.20);
-      padding: 8px 10px;
-      border-radius: 999px;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-    }
-    .tag i{
-      width:8px;height:8px;border-radius:50%;
-      background: var(--acc2);
-      display:inline-block;
-      box-shadow: 0 0 0 4px rgba(32,227,178,.10);
-    }
-    .tag.warn i{background: var(--warn); box-shadow: 0 0 0 4px rgba(255,176,32,.12);}
-    .tag.purple i{background: var(--acc); box-shadow: 0 0 0 4px rgba(124,92,255,.14);}
-
-    .foot{
-      position:absolute;
-      left: var(--pad);
-      right: var(--pad);
-      bottom: calc(var(--pad) - 6px);
-      display:flex;
-      align-items:flex-end;
-      justify-content:space-between;
-      gap:12px;
-      pointer-events:none;
-    }
-    .sources{
-      pointer-events:auto;
-      max-width: min(900px, 100%);
-      font-size: 11px;
-      color: rgba(255,255,255,.70);
-      line-height: 1.35;
-      opacity:.95;
-    }
-    .sources a{color: rgba(255,255,255,.85); text-decoration:none; border-bottom:1px dashed rgba(255,255,255,.25)}
-    .sources a:hover{border-bottom-color: rgba(255,255,255,.55)}
-    .pager{
-      pointer-events:auto;
-      font-size: 12px;
-      color: rgba(255,255,255,.75);
-      padding: 8px 10px;
-      border-radius: 12px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.20);
-      backdrop-filter: blur(10px);
-      white-space:nowrap;
-    }
-
-    /* Presenter notes */
-    .notes{
-      position:fixed;
-      left: var(--pad);
-      bottom: calc(var(--pad) + 18px);
-      width: min(520px, calc(100% - var(--pad)*2));
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.42);
-      border-radius: 18px;
-      padding: 14px 14px 12px;
-      box-shadow: 0 18px 70px rgba(0,0,0,.55);
-      backdrop-filter: blur(12px);
-      z-index:60;
-      display:none;
-    }
-    .notes.show{display:block}
-    .notes b{display:block; font-size:12px; color: rgba(255,255,255,.85); letter-spacing:.12em; text-transform:uppercase}
-    .notes p{margin-top:8px; font-size:13px; color: rgba(255,255,255,.78); line-height:1.5}
-    .notes .hint{margin-top:10px; font-size:12px; color: rgba(255,255,255,.62)}
-
-    /* Small helpers */
-    .hr{
-      height:1px;
-      background: rgba(255,255,255,.14);
-      margin: 14px 0;
-    }
-    .quote{
-      border-left: 3px solid rgba(32,227,178,.6);
-      padding-left: 12px;
-      color: rgba(255,255,255,.82);
-      font-size: 14px;
-      line-height:1.55;
-    }
-    .mini{
-      font-size: 12px;
-      color: var(--muted2);
-      line-height: 1.45;
-    }
-    .strong{color: rgba(255,255,255,.92); font-weight:700}
-  </style>
+  <!-- Styles -->
+  <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
-  <div class="topbar">
-    <div class="inner">
-      <div class="brand" title="Deck técnico em HTML — fullscreen">
-        <div class="dot"></div>
-        <div>
-          <b>TESE TÉCNICA</b>
-          <span>Crédito • Aquisição • Escala</span>
-        </div>
-      </div>
+  <!-- Animated background layer -->
+  <div class="fx" aria-hidden="true">
+    <div class="aurora"></div>
+    <div class="aurora a2"></div>
+    <div class="grain"></div>
+  </div>
 
-      <div class="tools">
-        <div class="pill" title="Atalhos">
-          <span class="kbd">←</span><span class="kbd">→</span> navegar
-          <span class="kbd">N</span> notas
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="wrap">
+      <div class="nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2l8 4v6c0 5-3.4 9.6-8 10-4.6-.4-8-5-8-10V6l8-4Z" stroke="rgba(243,214,127,.95)" stroke-width="1.8"/>
+              <path d="M8.5 12.2l2.2 2.3 4.8-5" stroke="rgba(243,214,127,.95)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <h1>Método Vendas de Alto Ticket</h1>
+            <p>Intermediação Automotiva • Operação de comissão</p>
+          </div>
         </div>
-        <button class="btn secondary" id="btnNotes" aria-label="Alternar notas do apresentador">
-          🗒️ Notas
-        </button>
-        <button class="btn" id="btnPrev" aria-label="Voltar">
-          ← Voltar
-        </button>
-        <button class="btn" id="btnNext" aria-label="Próximo">
-          Próximo →
-        </button>
+
+        <div class="menu">
+          <a href="#metodo">O Método</a>
+          <a href="#alto-ticket">Alto Ticket</a>
+          <a href="#autoridade">Autoridade</a>
+          <a href="#modulos">Módulos</a>
+          <a href="#planilha">Planilha</a>
+          <a href="#manual">Manual</a>
+          <a href="#bonus">Bônus</a>
+          <a href="#mentor">Mentoria</a>
+          <a href="#faq">FAQ</a>
+          <a class="btn primary small" href="#comprar">Acessar por R$94,00</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="progress"><div id="bar"></div></div>
-
-  <div class="notes" id="notes">
-    <b>Notas do apresentador</b>
-    <p id="notesText"></p>
-    <div class="hint">Dica: fale em “evolução controlada”, não em “substituir o telemarketing”.</div>
-  </div>
-
-  <div class="deck" id="deck">
-
-    <!-- SLIDE 1 -->
-    <section class="slide" data-notes="Abrir com uma pergunta de dono: previsibilidade, margem e controle. Não critique a operação atual — posicione como evolução.">
-      <div class="wrap">
-        <div class="card">
-          <div class="kicker"><span class="kline"></span>Objetivo</div>
-          <h1>De “discagem” para <span style="color:var(--acc2)">aquisição previsível</span> — sem perder controle.</h1>
-          <p class="lead">
-            A discussão não é “telemarketing vs internet”. É: <span class="strong">qual modelo entrega previsibilidade, menor custo por venda e menor desgaste</span>
-            para crédito, dentro de regras (LGPD/ANPD/Anatel) e com escala.
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="heroGrid">
+        <div class="card heroMain">
+          <span class="pill">Aplicação Inicial: <strong style="color:rgba(243,214,127,.95)">Intermediação Automotiva</strong></span>
+          <h2 class="hTitle">
+            Construa sua primeira renda de <span class="gold">alto ticket</span> usando
+            <span class="gold">estratégia</span>, <span class="gold">parceria</span> e <span class="gold">execução</span>.
+          </h2>
+          <p class="sub">
+            Um método objetivo, com mentalidade de gestor e execução guiada, para você estruturar parcerias com lojas,
+            captar clientes pela internet e receber comissão por venda fechada — com controle e previsibilidade.
           </p>
 
-          <div class="tagrow">
-            <span class="tag purple"><i></i> Evolução controlada (híbrido)</span>
-            <span class="tag"><i></i> Escala sem inflar headcount</span>
-            <span class="tag warn"><i></i> Risco regulatório e bloqueios</span>
+          <div class="kv">
+            <div class="tag">✅ Sem estoque</div>
+            <div class="tag">✅ Sem loja física</div>
+            <div class="tag">✅ Comissão definida</div>
+            <div class="tag">✅ Operação replicável</div>
           </div>
 
-          <div class="hr"></div>
+          <div class="divider"></div>
 
-          <div class="grid-2">
-            <div>
-              <h2>O que vamos provar</h2>
-              <ul class="bullets">
-                <li><span class="check">✓</span> O “frio por telefone” sofre <span class="strong">headwinds estruturais</span> (regulação, bloqueios, reputação do canal).</li>
-                <li><span class="check">✓</span> O Brasil virou um país de <span class="strong">finanças digitais</span> (transações via celular).</li>
-                <li><span class="check">✓</span> Em crédito, o melhor modelo atual é: <span class="strong">tráfego (intenção) → WhatsApp → closer → compliance</span>.</li>
-              </ul>
+          <div class="heroActions">
+            <a class="btn primary" href="#comprar">Entrar agora (R$94,00)</a>
+            <a class="btn" href="#manual">Ver o Manual</a>
+            <span class="mini"><strong style="color:rgba(243,214,127,.95)">Quem pensa como dono, lucra como dono.</strong></span>
+          </div>
+        </div>
+
+        <aside class="card heroSide">
+          <div class="sideBox" id="metodo">
+            <h3>O que você vai construir</h3>
+            <p>Uma operação simples e organizada para gerar comissão com alto valor por venda, usando parcerias e execução diária.</p>
+            <div class="divider"></div>
+            <p class="mini">Meta prática: validar a primeira comissão e criar previsibilidade.</p>
+          </div>
+
+          <div class="sideBox">
+            <h3>Nível 1 (fundamento)</h3>
+            <p>Curso + material operacional (modelo, rotina, scripts e controle).</p>
+            <div class="price">
+              <div>
+                <strong>R$94,00</strong>
+                <div class="mini">acesso digital imediato</div>
+              </div>
+              <a class="btn primary small" href="#comprar">Quero entrar</a>
             </div>
-            <div class="card" style="box-shadow:none; background: rgba(0,0,0,.18);">
-              <h2>Decisão que interessa</h2>
-              <p class="lead" style="margin-top:8px">
-                Continuar investindo a maior parte da energia em “interrupção” (ligação fria)
-                ou migrar parte do orçamento para “intenção” (pessoas buscando crédito agora)?
-              </p>
-              <div class="metric">
-                <div class="tile">
-                  <b>Resultado</b>
-                  <span>Mais previsibilidade de volume e CAC/CPA controlável</span>
+          </div>
+
+          <div class="sideBox">
+            <h3>Para quem é</h3>
+            <p>Homens 25–45 buscando renda extra, vendedores que querem escalar e quem precisa de virada com execução real.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- DIFERENCIAL -->
+    <section>
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>O que torna esse método diferente</h2>
+            <p>Não é “curso de informação”. É plano operacional com rotina, postura, scripts e controle — sem promessas milagrosas.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="feat">
+            <h3>Postura de gestor</h3>
+            <p>Você não pede favor. Você oferece fluxo e estrutura. A loja entende você como parceiro.</p>
+            <ul class="list">
+              <li>Abordagem profissional</li>
+              <li>Negociação com clareza</li>
+              <li>Controle de operação</li>
+            </ul>
+          </div>
+          <div class="feat">
+            <h3>Parceria com blindagem</h3>
+            <p>Você aprende a reduzir risco com registros simples e rotina de acompanhamento.</p>
+            <ul class="list">
+              <li>Registro do lead</li>
+              <li>Confirmação do encaminhamento</li>
+              <li>Proteção de comissão</li>
+            </ul>
+          </div>
+          <div class="feat">
+            <h3>Execução sem enrolação</h3>
+            <p>Plano prático e checklists para sair do “vou fazer” e entrar no “fiz e recebi”.</p>
+            <ul class="list">
+              <li>Mapa de lojas</li>
+              <li>Rotina de captação</li>
+              <li>Follow-up até fechar</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top:14px" class="note">
+          Importante: “rápido” porque a comissão pode ser alta. “fácil” porque é direto. Mas exige trabalho e execução.
+        </div>
+      </div>
+    </section>
+
+    <!-- ALTO TICKET -->
+    <section id="alto-ticket">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>O que é Venda de Alto Ticket (de verdade)</h2>
+            <p>Sem glamour. Alto ticket não é “preço alto”: é margem + comissão + processo + posicionamento.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="feat">
+            <h3>Baixo Ticket</h3>
+            <p>Produto barato. Volume grande. Muito atendimento e pouca margem por venda.</p>
+            <ul class="list">
+              <li>Ganha pouco por venda</li>
+              <li>Depende de escala e tráfego</li>
+              <li>Erros comem lucro rápido</li>
+            </ul>
+          </div>
+          <div class="feat">
+            <h3>High Ticket (Alto Ticket)</h3>
+            <p>Ticket maior. Menos vendas para fazer resultado. Exige posicionamento e processo.</p>
+            <ul class="list">
+              <li>Ganha mais por venda</li>
+              <li>Follow-up vira obrigação</li>
+              <li>Controle protege comissão</li>
+            </ul>
+          </div>
+          <div class="feat">
+            <h3>Por que surgiu esse método</h3>
+            <p>Porque muita gente até gera oportunidade… mas perde comissão por falta de estrutura.</p>
+            <ul class="list">
+              <li>Parceria sem registro</li>
+              <li>Lead sem controle</li>
+              <li>Venda “some” no caminho</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top:14px" class="cta">
+          <div>
+            <h3>Alto ticket não é motivação. É processo.</h3>
+            <p>O método existe pra transformar indicação em operação rastreável.</p>
+          </div>
+          <a class="btn primary" href="#comprar">Acessar por R$94,00</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUTORIDADE -->
+    <section id="autoridade">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>Quem está por trás do Método</h2>
+            <p>Posicionamento de gestor + vivência real no campo: da operação à gestão estratégica.</p>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="feat">
+            <h3>Da operação à gestão estratégica</h3>
+            <p>
+              Iniciei no telemarketing em 2009, aos 17 anos, vendendo cartão de crédito.
+              Em poucas semanas fui reconhecido por vendas longas, bem argumentadas e com qualidade.
+            </p>
+            <p>
+              Trabalhei por anos atendendo público diariamente — call center, entregas, gás e água, estacionamento e operação comercial.
+              Até que deixei de ser funcionário e comprei minha própria empresa, assumindo duas unidades.
+            </p>
+            <p>
+              Entrei no mercado automotivo como vendedor e, em pouco tempo, assumi gerência e depois a gestão de duas lojas simultaneamente.
+            </p>
+            <p>
+              Mais tarde, voltei ao call center e fui promovido em 15 dias. Em 11 meses já coordenava uma operação.
+              Hoje atuo como gestor empresarial e desenvolvimento pessoal/profissional, liderando treinamento interno e capacitação de parceiros,
+              com foco em alavancar resultados.
+            </p>
+            <div class="divider"></div>
+            <p class="mini">
+              <strong style="color:rgba(243,214,127,.95)">Quem pensa como dono, lucra como dono.</strong>
+            </p>
+          </div>
+
+          <div class="feat">
+            <h3></h3>
+            <div class="photoGrid" style="margin-top:10px">
+              <div class="photo">
+                <div>
+                  <strong>FOTO INSTITUCIONAL SUA AQUI</strong>
+                  <span></span>
                 </div>
-                <div class="tile">
-                  <b>Risco</b>
-                  <span>Controlado por piloto de 90 dias (sem desmontar operação)</span>
+              </div>
+              <div class="photo">
+                <div>
+                  <strong>FOTO “NA OPERAÇÃO” AQUI</strong>
+                  <span></span>
                 </div>
               </div>
             </div>
           </div>
+        </div>
 
-          <div class="foot">
-            <div class="sources">
-              Fontes serão exibidas slide a slide (rodapé).
-            </div>
-            <div class="pager">1 / 12</div>
+        <div style="margin-top:14px" class="cta">
+          <div>
+            <h3>Eu não ensino teoria. Eu ensino estrutura.</h3>
+            <p>Resultado não é acaso. É método, posicionamento e execução disciplinada.</p>
           </div>
+          <a class="btn primary" href="#comprar">Acessar o método</a>
         </div>
       </div>
     </section>
 
-    <!-- SLIDE 2 -->
-    <section class="slide" data-notes="Contexto histórico: telemarketing nasceu quando era o canal de contato mais eficiente. Hoje ele compete com canais de intenção.">
+    <!-- PARA QUEM É / NÃO É -->
+    <section>
       <div class="wrap">
-        <div class="grid-2">
-          <div class="card">
-            <div class="kicker"><span class="kline"></span>Linha do tempo</div>
-            <h2>Telemarketing nasceu como <span style="color:var(--acc2)">vantagem tecnológica</span>.</h2>
-            <p class="lead">
-              O telefone viabilizou vendas e pesquisa por voz; depois veio a operação em massa (discagem, script, produtividade).
-              Isso foi racional <span class="strong">na era pré-internet</span>.
-            </p>
-            <ul class="bullets">
-              <li><span class="check">✓</span> Base do modelo: <span class="strong">volume</span> + <span class="strong">contato</span> + <span class="strong">conversão</span>.</li>
-              <li><span class="check">✓</span> O ponto fraco sempre foi o mesmo: se o <span class="strong">contato</span> cai, o custo explode.</li>
-              <li><span class="check">✓</span> Quando surgem canais de intenção, a “interrupção” perde eficiência marginal.</li>
+        <div class="secHead">
+          <div>
+            <h2>Para quem é (e para quem não é)</h2>
+            <p></p>
+          </div>
+        </div>
+
+        <div class="twoCol">
+          <div class="feat ok">
+            <h3>✅ É para você se...</h3>
+            <ul class="list">
+              <li>Quer renda extra com comissão maior por venda</li>
+              <li>Tem disposição para trabalhar e executar diariamente</li>
+              <li>Quer aprender parceria, atendimento e acompanhamento</li>
+              <li>Prefere estrutura e rotina ao invés de “achismo”</li>
             </ul>
-
-            <div class="quote" style="margin-top:14px">
-              “O canal era o diferencial. Hoje o diferencial é <span class="strong">aquisição</span> + <span class="strong">dados</span> + <span class="strong">processo</span>.”
-            </div>
-
-            <div class="foot">
-              <div class="sources">
-                Referência regulatória e ambiente de telemarketing no Brasil:
-                <a href="https://www.gov.br/anatel/pt-br/regulado/numeracao/telemarketing-ativo-prefixo-0303" target="_blank" rel="noopener">Anatel (prefixo 0303)</a>.
-              </div>
-              <div class="pager">2 / 12</div>
-            </div>
           </div>
 
-          <div class="card">
-            <div class="kicker"><span class="kline"></span>O que mudou</div>
-            <h2>O telefone virou canal <span style="color:var(--warn)">defensivo</span>.</h2>
-            <p class="lead">
-              Regulação e medidas anti-abuso surgem justamente porque o volume “ruim” contaminou a confiança do canal.
-              Isso afeta quem faz operação séria.
-            </p>
-            <div class="metric">
-              <div class="tile">
-                <b>Medidas anti-telemarketing</b>
-                <span>Ex.: regras e iniciativas para reduzir chamadas abusivas e identificação de chamadas.</span>
-              </div>
-              <div class="tile">
-                <b>LGPD / ANPD</b>
-                <span>Exige base legal e governança de dados — risco operacional para abordagem fria.</span>
-              </div>
-            </div>
-            <div class="hr"></div>
-            <p class="mini">
-              Nota: A obrigatoriedade do 0303 sofreu mudanças ao longo do tempo; houve notícia de revogação em 2025.
-              Isso reforça o ponto: o tema é <span class="strong">altamente regulado e instável</span>.
-            </p>
-
-            <div class="foot">
-              <div class="sources">
-                0303 (Anatel/Gov.br):
-                <a href="https://www.gov.br/anatel/pt-br/regulado/numeracao/telemarketing-ativo-prefixo-0303" target="_blank" rel="noopener">Gov.br</a>.
-                Notícia sobre mudança em 2025:
-                <a href="https://agenciabrasil.ebc.com.br/geral/noticia/2025-08/anatel-revoga-obrigatoriedade-do-uso-do-prefixo-0303-em-ligacoes" target="_blank" rel="noopener">Agência Brasil</a>.
-                Regras adicionais (contexto):
-                <a href="https://tozzinifreire.com.br/en/boletins/anatel-define-regras-adicionais-para-telemarketing" target="_blank" rel="noopener">TozziniFreire</a>.
-              </div>
-              <div class="pager">2 / 12</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 3 -->
-    <section class="slide" data-notes="Agora a virada: início das vendas online e a lógica de intenção. Mostre que o canal digital nasce com pagamento e criptografia (1994).">
-      <div class="wrap">
-        <div class="card">
-          <div class="kicker"><span class="kline"></span>Linha do tempo</div>
-          <h2>Vendas online (sem ligação) surgem com <span style="color:var(--acc2)">transação segura</span>.</h2>
-          <p class="lead">
-            Um marco clássico do e-commerce é a primeira compra online com cartão de crédito usando criptografia, em <span class="strong">11 de agosto de 1994</span>.
-            A partir daí: plataformas, meios de pagamento, busca, redes sociais e anúncios — formando o ecossistema de aquisição por intenção.
-          </p>
-
-          <div class="metric">
-            <div class="tile">
-              <b>1994: compra online segura</b>
-              <span>Pagamento + criptografia → nasce a confiança para comércio digital.</span>
-            </div>
-            <div class="tile">
-              <b>1998–2005: busca + redes</b>
-              <span>Distribuição e targeting → anúncios viram motor de aquisição.</span>
-            </div>
-          </div>
-
-          <div class="hr"></div>
-
-          <div class="grid-2">
-            <div>
-              <h2>O que isso muda na venda</h2>
-              <ul class="bullets">
-                <li><span class="check">✓</span> O cliente <span class="strong">se declara</span> (clique, formulário, WhatsApp) em vez de ser interrompido.</li>
-                <li><span class="check">✓</span> Você compra <span class="strong">intenção</span> (quem busca crédito) e não “números”.</li>
-                <li><span class="check">✓</span> Você mede CAC/CPA com precisão e escala com orçamento, não só com pessoas.</li>
-              </ul>
-            </div>
-            <div class="card" style="box-shadow:none; background: rgba(0,0,0,.18);">
-              <h2>Em 2026, isso é padrão</h2>
-              <p class="lead" style="margin-top:8px">
-                Bancos e fintechs já operam aquisição digital porque o Brasil é um dos países mais “mobile-first” em finanças.
-              </p>
-              <div class="tagrow">
-                <span class="tag"><i></i> Landing/LP</span>
-                <span class="tag"><i></i> WhatsApp</span>
-                <span class="tag"><i></i> CRM + esteira</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="foot">
-            <div class="sources">
-              Marco e-commerce 1994:
-              <a href="https://www.smithsonianmag.com/smart-news/what-was-first-thing-sold-internet-180957414/" target="_blank" rel="noopener">Smithsonian</a>.
-              Contexto/NetMarket:
-              <a href="https://en.wikipedia.org/wiki/NetMarket" target="_blank" rel="noopener">NetMarket (referência histórica)</a>.
-            </div>
-            <div class="pager">3 / 12</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 4 -->
-    <section class="slide" data-notes="Mostre o deslocamento macro de investimentos: digital já é a maior parte do orçamento. Isso é o 'dinheiro inteligente' indo pra lá.">
-      <div class="wrap">
-        <div class="grid-2">
-          <div class="card">
-            <div class="kicker"><span class="kline"></span>Tendência macro</div>
-            <h2>O dinheiro do mercado já escolheu: <span style="color:var(--acc2)">digital domina</span>.</h2>
-            <p class="lead">
-              Relatórios globais mostram que canais digitais já representam a maioria do investimento publicitário mundial.
-              Isso indica onde está a eficiência marginal e a capacidade de mensuração.
-            </p>
-
-            <div class="metric">
-              <div class="tile">
-                <b>72,7% do investimento global</b>
-                <span>Participação dos canais digitais no investimento publicitário (2024).</span>
-              </div>
-              <div class="tile">
-                <b>US$ 790 bi+ em online</b>
-                <span>Gasto global com publicidade online em 2024.</span>
-              </div>
-            </div>
-
-            <div class="hr"></div>
-
-            <p class="mini">
-              Interpretação prática: quando o mercado coloca a maior parte do orçamento em digital,
-              o modelo vencedor é o que <span class="strong">mede, otimiza e escala</span>.
-            </p>
-
-            <div class="foot">
-              <div class="sources">
-                Digital 72,7% e US$790bi (2024):
-                <a href="https://datareportal.com/reports/digital-2025-sub-section-global-advertising-trends" target="_blank" rel="noopener">DataReportal — Digital 2025</a>.
-              </div>
-              <div class="pager">4 / 12</div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="kicker"><span class="kline"></span>Forecast</div>
-            <h2>Ad spend global segue crescendo — com foco em <span style="color:var(--acc)">performance</span>.</h2>
-            <p class="lead">
-              Grandes holdings de mídia projetam crescimento do mercado global de publicidade e destacam a centralidade do digital.
-            </p>
-
-            <ul class="bullets">
-              <li><span class="check">✓</span> O bolo cresce, mas o crescimento é puxado por canais mensuráveis e automatizáveis.</li>
-              <li><span class="check">✓</span> Isso favorece operações que dominam aquisição por dados (não só “força bruta”).</li>
+          <div class="feat no">
+            <h3>❌ Não é para você se...</h3>
+            <ul class="list">
+              <li>Busca dinheiro fácil sem execução</li>
+              <li>Quer “atalho” sem criar parcerias</li>
+              <li>Não quer conversar com lojas e clientes</li>
+              <li>Desiste rápido quando precisa acompanhar</li>
             </ul>
-
-            <div class="hr"></div>
-
-            <div class="metric">
-              <div class="tile">
-                <b>$1T+ em publicidade</b>
-                <span>Previsões de ultrapassar 1 trilhão de dólares (mercado global).</span>
-              </div>
-              <div class="tile">
-                <b>2025/2026</b>
-                <span>Crescimento projetado e manutenção do momentum.</span>
-              </div>
-            </div>
-
-            <div class="foot">
-              <div class="sources">
-                Forecast global (WPP Media):
-                <a href="https://www.wppmedia.com/news/report-this-year-next-year-december-2025" target="_blank" rel="noopener">WPP Media</a>.
-                Forecast global (dentsu):
-                <a href="https://www.dentsu.com/news-releases/global-ad-spend-set-to-surpass-one-trillion-for-the-first-time-in-2026-as-the-algorithmic-era-redefines-growth" target="_blank" rel="noopener">dentsu</a>.
-              </div>
-              <div class="pager">4 / 12</div>
-            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SLIDE 5 -->
-    <section class="slide" data-notes="Agora você dá o 'xeque-mate Brasil': finanças digitais. Se 75% das transações já são pelo celular, aquisição e relacionamento também migram.">
+    <!-- COMO COMEÇAR -->
+    <section>
       <div class="wrap">
-        <div class="card">
-          <div class="kicker"><span class="kline"></span>Brasil real</div>
-          <h2>O Brasil virou um país de <span style="color:var(--acc2)">finanças no celular</span>.</h2>
-          <p class="lead">
-            Se a vida bancária acontece no digital, o caminho de aquisição de crédito naturalmente migra para o digital — inclusive para públicos tradicionais.
-          </p>
-
-          <div class="metric">
-            <div class="tile">
-              <b>82% das transações são digitais</b>
-              <span>Canais digitais (mobile + internet banking) como maioria do volume.</span>
-            </div>
-            <div class="tile">
-              <b>75% via celular (2024)</b>
-              <span>Mobile banking como canal dominante em volume de transações.</span>
-            </div>
-          </div>
-
-          <div class="hr"></div>
-
-          <div class="grid-2">
-            <div>
-              <h2>Implicação direta para crédito</h2>
-              <ul class="bullets">
-                <li><span class="check">✓</span> O cliente está <span class="strong">pronto para jornada digital</span> (cadastro, simulação, envio de docs).</li>
-                <li><span class="check">✓</span> O vendedor vira <span class="strong">closer</span> (qualificar e fechar), não “discador”.</li>
-                <li><span class="check">✓</span> O volume vem do orçamento de aquisição — e o time foca no que dá margem: conversão e compliance.</li>
-              </ul>
-            </div>
-
-            <div class="card" style="box-shadow:none; background: rgba(0,0,0,.18);">
-              <h2>O argumento que eles respeitam</h2>
-              <p class="lead" style="margin-top:8px">
-                “Não é tendência. É comportamento medido por bancos:
-                <span class="strong">o brasileiro já opera finanças pelo celular</span>.”
-              </p>
-              <div class="tagrow">
-                <span class="tag"><i></i> Dados Febraban/Deloitte</span>
-                <span class="tag purple"><i></i> Fato, não opinião</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="foot">
-            <div class="sources">
-              Febraban (2024 transações, 82% digital; 75% mobile):
-              <a href="https://portal.febraban.org.br/noticia/4310/pt-br/" target="_blank" rel="noopener">Portal Febraban</a>
-              •
-              <a href="https://febrabantech.febraban.org.br/temas/inovacao/mobile-banking-e-responsavel-por-75-das-transacoes-bancarias-no-brasil" target="_blank" rel="noopener">Febraban Tech</a>
-              • Pesquisa (PDF):
-              <a href="https://cmsarquivos.febraban.org.br/Arquivos/documentos/PDF/Pesquisa%20Febraban%20de%20Tecnologia%20Banca%CC%81ria%202025%20-%20Vol_2.pdf" target="_blank" rel="noopener">Vol.2</a>.
-            </div>
-            <div class="pager">5 / 12</div>
+        <div class="secHead">
+          <div>
+            <h2>Como você começa nos próximos 30 dias</h2>
+            <p>Um caminho simples e executável.</p>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- SLIDE 6 -->
-    <section class="slide" data-notes="Traga o ponto sensível: telemarketing sofre com regulações e necessidade de base legal. Isso cria custo invisível e risco operacional.">
-      <div class="wrap">
-        <div class="grid-2">
-          <div class="card">
-            <div class="kicker"><span class="kline"></span>Headwinds</div>
-            <h2>Telefonia: um canal com <span style="color:var(--warn)">atrito estrutural</span>.</h2>
-            <p class="lead">
-              Mesmo operações corretas pagam o preço do ecossistema:
-              reputação do canal + barreiras técnicas + regras e instabilidade regulatória.
-            </p>
-
-            <ul class="bullets">
-              <li><span class="check">✓</span> Medidas contra chamadas abusivas e identificação de chamadas (ex.: 0303).</li>
-              <li><span class="check">✓</span> LGPD/ANPD: exigência de base legal e governança de dados para telemarketing.</li>
-              <li><span class="check">✓</span> A eficiência do discador depende de contato — e contato é o ponto que o ambiente “ataca”.</li>
+        <div class="grid3">
+          <div class="feat">
+            <h3>Semana 1 — Mapeamento</h3>
+            <p>Liste 10 lojas potenciais e inicie abordagem com postura de parceiro.</p>
+            <ul class="list">
+              <li>10 lojas mapeadas</li>
+              <li>Modelo de abordagem pronto</li>
+              <li>Critérios de confiança</li>
             </ul>
-
-            <div class="foot">
-              <div class="sources">
-                Anatel (0303):
-                <a href="https://www.gov.br/anatel/pt-br/regulado/numeracao/telemarketing-ativo-prefixo-0303" target="_blank" rel="noopener">Gov.br</a>.
-                LGPD/ANPD e telemarketing (visão regulatória):
-                <a href="https://iclg.com/practice-areas/data-protection-laws-and-regulations/brazil" target="_blank" rel="noopener">ICLG — Brazil</a>.
-              </div>
-              <div class="pager">6 / 12</div>
-            </div>
           </div>
 
-          <div class="card">
-            <div class="kicker"><span class="kline"></span>Risco prático</div>
-            <h2>O risco não é “tomar multa”. É <span style="color:var(--acc2)">perder eficiência</span>.</h2>
-            <p class="lead">
-              Quando o canal fica mais regulado e mais bloqueado, você precisa de mais esforço para obter o mesmo resultado.
-              Isso é compressão de margem.
-            </p>
-
-            <div class="metric">
-              <div class="tile">
-                <b>Custo invisível</b>
-                <span>Mais tentativas, mais tempo improdutivo, mais retrabalho.</span>
-              </div>
-              <div class="tile">
-                <b>Risco de base fria</b>
-                <span>Governança/consentimento e rastreabilidade viram obrigação.</span>
-              </div>
-            </div>
-
-            <div class="hr"></div>
-
-            <p class="mini">
-              Repare na diferença: aquisição digital pode ser desenhada com
-              <span class="strong">consentimento explícito</span> (opt-in) desde o primeiro clique.
-            </p>
-
-            <div class="foot">
-              <div class="sources">
-                Regras adicionais contra telemarketing abusivo (contexto jurídico):
-                <a href="https://tozzinifreire.com.br/en/boletins/anatel-define-regras-adicionais-para-telemarketing" target="_blank" rel="noopener">TozziniFreire</a>.
-              </div>
-              <div class="pager">6 / 12</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 7 -->
-    <section class="slide" data-notes="Agora entra o coração da tese: intenção. Em crédito, intenção + confiança. Mostre o funil mental do cliente.">
-      <div class="wrap">
-        <div class="card">
-          <div class="kicker"><span class="kline"></span>Psicologia de conversão</div>
-          <h2>Crédito vende melhor quando nasce de <span style="color:var(--acc2)">intenção</span>, não de interrupção.</h2>
-          <p class="lead">
-            Em crédito, a conversão depende de <span class="strong">urgência</span>, <span class="strong">clareza</span> e <span class="strong">confiança</span>.
-            A aquisição por tráfego pago coloca sua oferta na frente de quem <span class="strong">já está procurando</span>.
-          </p>
-
-          <div class="grid-2">
-            <div class="card" style="box-shadow:none; background: rgba(0,0,0,.18);">
-              <h2>Ligação fria</h2>
-              <ul class="bullets">
-                <li><span class="check">✓</span> Cliente não pediu contato → defesa</li>
-                <li><span class="check">✓</span> Confiança baixa no canal</li>
-                <li><span class="check">✓</span> Tempo gasto para gerar “abertura”</li>
-              </ul>
-            </div>
-
-            <div class="card" style="box-shadow:none; background: rgba(0,0,0,.18);">
-              <h2>Lead por intenção</h2>
-              <ul class="bullets">
-                <li><span class="check">✓</span> Cliente clicou / pediu simulação</li>
-                <li><span class="check">✓</span> Você começa com “motivo”</li>
-                <li><span class="check">✓</span> Mais espaço para consultivo + compliance</li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="hr"></div>
-
-          <p class="mini">
-            A pergunta que decide: vocês querem que o vendedor gaste energia em <span class="strong">gerar intenção</span>,
-            ou em <span class="strong">converter intenção</span>?
-          </p>
-
-          <div class="foot">
-            <div class="sources">
-              Base comportamental do Brasil digital (internet 86%+): <a href="https://datareportal.com/reports/digital-2025-brazil" target="_blank" rel="noopener">DataReportal — Brazil</a>.
-            </div>
-            <div class="pager">7 / 12</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 8 -->
-    <section class="slide" data-notes="Proposta concreta: modelo híbrido. Nada de 'vamos virar marketing'. É esteira de aquisição + closer + controle.">
-      <div class="wrap">
-        <div class="card">
-          <div class="kicker"><span class="kline"></span>Proposta</div>
-          <h2>Modelo híbrido (o que funciona hoje em crédito):<br><span style="color:var(--acc2)">Tráfego → Qualificação → Fechamento → Retenção</span></h2>
-
-          <div class="metric">
-            <div class="tile">
-              <b>1) Tráfego pago (intenção)</b>
-              <span>Google/Meta para “simular crédito / consignado / refin” + segmentação.</span>
-            </div>
-            <div class="tile">
-              <b>2) WhatsApp (esteira)</b>
-              <span>Opt-in + triagem + prova + próximos passos (cadência).</span>
-            </div>
-            <div class="tile">
-              <b>3) Closer humano</b>
-              <span>Venda consultiva, coleta de docs, objeções, compliance.</span>
-            </div>
-            <div class="tile">
-              <b>4) Telemarketing reposicionado</b>
-              <span>Follow-up, reativação, carteira, recorrência — não base do funil.</span>
-            </div>
-          </div>
-
-          <div class="hr"></div>
-
-          <p class="lead">
-            A tese não é “parar de ligar”. É parar de depender da ligação fria como motor principal.
-            Ligações passam a ser <span class="strong">alavanca</span>, não <span class="strong">fundação</span>.
-          </p>
-
-          <div class="foot">
-            <div class="sources">
-              Contexto de digitalização financeira no Brasil (Pix/Open Finance):
-              <a href="https://www.mckinsey.com/br/~/media/mckinsey/locations/south%20america/brazil/our%20insights/brazil%20stack/brazil%20stack%20report_al_vf.pdf" target="_blank" rel="noopener">McKinsey/“Brazil Stack” (PDF)</a>.
-            </div>
-            <div class="pager">8 / 12</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- SLIDE 9 -->
-    <section class="slide" data-notes="Aqui é onde você ganha o respeito: matemática e controle. Não invente números da empresa: mostre o framework e peça os números depois.">
-      <div class="wrap">
-        <div class="grid-2">
-          <div class="card">
-            <div class="kicker"><span class="kline"></span>Unidade econômica</div>
-            <h2>O que importa é <span style="color:var(--acc2)">CAC/CPA</span> e previsibilidade.</h2>
-            <p class="lead">
-              Dono experiente não compra “canal”. Compra <span class="strong">margem</span> + <span class="strong">controle</span> + <span class="strong">escala</span>.
-            </p>
-
-            <div class="hr"></div>
-
-            <p class="mini">
-              <span class="strong">Framework (sem chute):</span><br>
-              <span class="strong">CPA (custo por venda)</span> = (custo aquisição + custo operação comercial) ÷ vendas<br>
-              <span class="strong">CAC</span> = custo aquisição ÷ clientes novos<br>
-              <span class="strong">Payback</span> = CAC ÷ margem por contrato
-            </p>
-
-            <ul class="bullets">
-              <li><span class="check">✓</span> Telemarketing: custo mais fixo (pessoas + estrutura) e eficiência depende de contato.</li>
-              <li><span class="check">✓</span> Tráfego: custo mais variável e <span class="strong">otimizável</span> por dados (criativo, público, palavra-chave).</li>
+          <div class="feat">
+            <h3>Semana 2 — Parcerias</h3>
+            <p>Feche pelo menos 3 parcerias e alinhe regras mínimas (comissão, registro e prazo).</p>
+            <ul class="list">
+              <li>3 parcerias fechadas</li>
+              <li>Regras claras</li>
+              <li>Operação blindada</li>
             </ul>
-
-            <div class="foot">
-              <div class="sources">
-                Tendência de investimento digital (participação global):
-                <a href="https://datareportal.com/reports/digital-2025-sub-section-global-advertising-trends" target="_blank" rel="noopener">DataReportal</a>.
-              </div>
-              <div class="pager">9 / 12</div>
-            </div>
           </div>
 
-          <div class="card">
-            <div class="kicker"><span class="kline"></span>Planilha em 10 min</div>
-            <h2>Modelo de comparação (preencha com dados internos)</h2>
+          <div class="feat">
+            <h3>Semanas 3–4 — Captação & Fechamento</h3>
+            <p>Capte leads, qualifique, encaminhe com contexto e acompanhe até fechar.</p>
+            <ul class="list">
+              <li>Captação simples</li>
+              <li>Qualificação objetiva</li>
+              <li>Follow-up até fechar</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <div class="metric">
-              <div class="tile">
-                <b>Telemarketing</b>
-                <span>
-                  (Salários+encargos + telefonia + supervisão + perdas) ÷ Vendas<br>
-                  <span class="strong">Ponto crítico:</span> taxa de contato.
-                </span>
-              </div>
-              <div class="tile">
-                <b>Tráfego + Closers</b>
-                <span>
-                  (Mídia + ferramentas + closers) ÷ Vendas<br>
-                  <span class="strong">Ponto crítico:</span> CPL e conversão.
-                </span>
-              </div>
-            </div>
+    <!-- MODULOS -->
+    <section id="modulos">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>Módulos do curso</h2>
+            <p>Conteúdo prático, linguagem simples e postura profissional — para operar e não só entender.</p>
+          </div>
+        </div>
 
-            <div class="hr"></div>
+        <div class="grid2">
+          <div class="module">
+            <div class="top"><span class="badge">Módulo 1</span><span class="mini">Base mental</span></div>
+            <h3>Mentalidade de Dono e Alto Ticket</h3>
+            <p class="muted">Como dono pensa, por que comissão pequena trava sua vida e como posicionar alto ticket com execução real.</p>
+          </div>
 
-            <p class="mini">
-              Regra simples para convencer sem briga: proponha um piloto em que
-              <span class="strong">o CPA do tráfego precisa ficar abaixo do CPA atual</span>.
-              Se não ficar, pausa. Se ficar, escala.
+          <div class="module">
+            <div class="top"><span class="badge">Módulo 2</span><span class="mini">Bastidores</span></div>
+            <h3>Entendendo o Mercado Automotivo</h3>
+            <p class="muted">Como loja pensa, o que o gerente quer e onde sua comissão existe dentro do lucro e do giro.</p>
+          </div>
+
+          <div class="module">
+            <div class="top"><span class="badge">Módulo 3</span><span class="mini">Parcerias</span></div>
+            <h3>Estratégia das 10 Lojas</h3>
+            <p class="muted">Como mapear 10 lojas e fechar pelo menos 3 parcerias para nunca ficar refém de uma só.</p>
+          </div>
+
+          <div class="module">
+            <div class="top"><span class="badge">Módulo 4</span><span class="mini">Acordo</span></div>
+            <h3>Estrutura da Parceria</h3>
+            <p class="muted">Como alinhar comissão, registro, prazo e regras mínimas para reduzir risco e proteger a operação.</p>
+          </div>
+
+          <div class="module">
+            <div class="top"><span class="badge">Módulo 5</span><span class="mini">Captação</span></div>
+            <h3>Captação Digital</h3>
+            <p class="muted">Marketplace e grupos regionais, copy simples e posicionamento para gerar leads sem parecer “desesperado”.</p>
+          </div>
+
+          <div class="module">
+            <div class="top"><span class="badge">Módulo 6</span><span class="mini">Atendimento</span></div>
+            <h3>Atendimento Estratégico</h3>
+            <p class="muted">Perguntas certas, qualificação, encaminhamento profissional e controle do cliente até o fechamento.</p>
+          </div>
+
+          <div class="module">
+            <div class="top"><span class="badge">Módulo 7</span><span class="mini">Blindagem</span></div>
+            <h3>Controle e Blindagem</h3>
+            <p class="muted">Rotina simples de registro e acompanhamento para reduzir “furo” e garantir rastreio de indicação.</p>
+          </div>
+
+          <div class="module">
+            <div class="top"><span class="badge">Módulo 8</span><span class="mini">Escala</span></div>
+            <h3>Primeiras Vendas e Escala</h3>
+            <p class="muted">Plano de execução e como crescer com mais lojas e região sem bagunçar a operação.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:14px" class="cta">
+          <div>
+            <h3>Você não vende carro. Você estrutura oportunidade.</h3>
+            <p>Estrutura + rotina + postura. A execução faz o resto.</p>
+          </div>
+          <a class="btn primary" href="#comprar">Entrar por R$94,00</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLANILHA -->
+    <section id="planilha">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>Modelo visual de planilha (editável)</h2>
+            <p>Use como controle mínimo para não perder comissão. Você pode copiar e adaptar como quiser.</p>
+          </div>
+        </div>
+
+        <div class="feat">
+          <h3>Controle de Leads & Comissão</h3>
+          <p class="muted">Campos essenciais para rastrear: de onde veio, para qual loja foi, qual status e quando confirmou.</p>
+          <div class="divider"></div>
+
+          <div class="tableWrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Nome do Lead</th>
+                  <th>WhatsApp</th>
+                  <th>Origem</th>
+                  <th>Modelo/Interesse</th>
+                  <th>Loja</th>
+                  <th>Comissão Acordada</th>
+                  <th>Status</th>
+                  <th>Confirmação</th>
+                  <th>Observações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>01/01</td>
+                  <td>Exemplo</td>
+                  <td>(48) 9xxxx-xxxx</td>
+                  <td>Marketplace</td>
+                  <td>Onix 1.0</td>
+                  <td>Loja A</td>
+                  <td>R$ 1.200</td>
+                  <td>Encaminhado</td>
+                  <td>OK (print)</td>
+                  <td>Preferência: automático / até 55k</td>
+                </tr>
+                <tr>
+                  <td>02/01</td>
+                  <td>Exemplo 2</td>
+                  <td>(48) 9xxxx-xxxx</td>
+                  <td>Grupo local</td>
+                  <td>HB20</td>
+                  <td>Loja B</td>
+                  <td>R$ 1.000</td>
+                  <td>Em negociação</td>
+                  <td>Pendente</td>
+                  <td>Agendado para sábado</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="rowBetween">
+            <button class="btn" type="button" data-copy-csv>Copiar modelo em CSV</button>
+            <span class="mini">Cole no Excel/Google Sheets e edite do seu jeito.</span>
+          </div>
+
+          <textarea id="csv" class="srOnly" aria-hidden="true">
+Data,Nome do Lead,WhatsApp,Origem,Modelo/Interesse,Loja,Comissão Acordada,Status,Confirmação,Observações
+01/01,Exemplo,(48) 9xxxx-xxxx,Marketplace,Onix 1.0,Loja A,R$ 1200,Encaminhado,OK (print),Preferência: automático / até 55k
+02/01,Exemplo 2,(48) 9xxxx-xxxx,Grupo local,HB20,Loja B,R$ 1000,Em negociação,Pendente,Agendado para sábado
+          </textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- MANUAL -->
+    <section id="manual">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>Manual (Material Operacional)</h2>
+            <p></p>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="feat">
+            <h3>O que tem dentro</h3>
+            <ul class="list">
+              <li>Filosofia do método</li>
+              <li>Estratégia das 10 lojas (checklist)</li>
+              <li>Modelo de abordagem e negociação</li>
+              <li>Captação digital (roteiro simples)</li>
+              <li>Rotina de acompanhamento</li>
+              <li>Controle e blindagem (modelo)</li>
+            </ul>
+            <div class="divider"></div>
+            <a class="btn" href="SEU-LINK-DO-PDF.pdf" target="_blank" rel="noopener">Abrir material</a>
+            <p class="mini"></p>
+          </div>
+
+          <div class="feat">
+            <h3>Mini compromisso de execução</h3>
+            <p class="muted">
+              Se você fizer o básico com disciplina (mapear lojas, fechar parcerias, captar e acompanhar),
+              você para de depender de sorte.
             </p>
-
-            <div class="tagrow">
-              <span class="tag purple"><i></i> Critério objetivo</span>
-              <span class="tag"><i></i> Sem “fé” em marketing</span>
-              <span class="tag"><i></i> Decisão por números</span>
+            <div class="note" style="margin-top:10px">
+              Não é sobre “saber”. É sobre executar.
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <div class="foot">
-              <div class="sources">
-                (Sem dados internos aqui — este slide é propositalmente “framework”.)
+    <!-- BONUS -->
+    <section id="bonus">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>Bônus operacionais</h2>
+            <p>Materiais prontos para copiar e usar. Você executa mais rápido.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="feat">
+            <h3>Modelo de abordagem da loja</h3>
+            <p class="muted">Mensagem direta para abrir conversa como parceiro (não como pedinte).</p>
+            <div class="divider"></div>
+            <p class="mini"><strong>Exemplo:</strong> “Trabalho com captação de clientes qualificados na região. Quero estruturar parceria com comissão fixa por venda fechada. Posso explicar?”</p>
+          </div>
+          <div class="feat">
+            <h3>Script de qualificação</h3>
+            <p class="muted">Perguntas simples que filtram lead ruim e aumentam chance de fechamento.</p>
+            <div class="divider"></div>
+            <ul class="list">
+              <li>Modelo desejado</li>
+              <li>Faixa de valor</li>
+              <li>Forma de pagamento</li>
+              <li>Urgência</li>
+            </ul>
+          </div>
+          <div class="feat">
+            <h3>Modelo de controle</h3>
+            <p class="muted">Campos essenciais para não perder comissão e acompanhar até o final.</p>
+            <div class="divider"></div>
+            <p class="mini">Nome • Telefone • Loja • Data • Status • Comissão acordada • Comissão recebida</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENTOR -->
+    <section id="mentor">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>Falar com o mentor.</h2>
+            <p>Área de contato para quem quer acelerar. Mentoria é à parte.</p>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="feat">
+            <h3>Quando vale pedir mentoria</h3>
+            <ul class="list">
+              <li>Quer acelerar parcerias e evitar erros</li>
+              <li>Quer validar lojas mais rápido</li>
+              <li>Quer ajuste de abordagem e script</li>
+              <li>Quer organizar rotina e execução</li>
+            </ul>
+            <div class="divider"></div>
+            <p class="mini">Obs.: mentoria é opcional e separada do curso.</p>
+          </div>
+
+          <div class="feat">
+            <h3>Enviar mensagem pronta</h3>
+            <form id="contactForm">
+              <div class="inputs">
+                <input id="nome" placeholder="Seu nome" required />
+                <input id="whats" placeholder="Seu WhatsApp (DDD + número)" required />
               </div>
-              <div class="pager">9 / 12</div>
-            </div>
+              <textarea id="msg" placeholder="Cidade/estado + onde travou (parceria, captação, atendimento...)" required></textarea>
+              <div class="formRow">
+                <button class="btn primary" type="submit">Enviar no WhatsApp</button>
+                <span class="hint"></span>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SLIDE 10 -->
-    <section class="slide" data-notes="Crédito exige confiança e conformidade. Mostre que o tráfego permite consentimento e rastreabilidade melhor do que ligação fria.">
+    <!-- FAQ -->
+    <section id="faq">
       <div class="wrap">
-        <div class="card">
-          <div class="kicker"><span class="kline"></span>Compliance</div>
-          <h2>Para crédito, o diferencial é <span style="color:var(--acc2)">confiança + rastreabilidade</span>.</h2>
-
-          <div class="grid-2">
-            <div>
-              <p class="lead">
-                Aquisição digital bem feita gera trilha:
-                anúncio → clique → consentimento → conversa → proposta.
-                Isso reduz risco e aumenta clareza do processo.
-              </p>
-
-              <ul class="bullets">
-                <li><span class="check">✓</span> <span class="strong">Opt-in</span> (cliente pede contato) reduz atrito e melhora qualidade do lead.</li>
-                <li><span class="check">✓</span> Registro e auditoria (CRM/WhatsApp/LP) facilitam governança.</li>
-                <li><span class="check">✓</span> Telemarketing vira etapa de follow-up com base “mais limpa”.</li>
-              </ul>
-            </div>
-
-            <div class="card" style="box-shadow:none; background: rgba(0,0,0,.18);">
-              <h2>Mensagem para dono</h2>
-              <p class="quote" style="margin-top:10px">
-                “Não é só vender mais. É vender com <span class="strong">menos risco</span> e com
-                <span class="strong">processo rastreável</span>.”
-              </p>
-              <div class="hr"></div>
-              <p class="mini">
-                Contexto: discussões sobre base legal e enforcement em atividades de telemarketing aparecem em guias jurídicos.
-              </p>
-            </div>
-          </div>
-
-          <div class="foot">
-            <div class="sources">
-              LGPD/ANPD e marketing/telemarketing (visão geral): <a href="https://iclg.com/practice-areas/data-protection-laws-and-regulations/brazil" target="_blank" rel="noopener">ICLG — Brazil</a>.
-              Regras/medidas Anatel: <a href="https://www.gov.br/anatel/pt-br/regulado/numeracao/telemarketing-ativo-prefixo-0303" target="_blank" rel="noopener">Gov.br</a>.
-            </div>
-            <div class="pager">10 / 12</div>
+        <div class="secHead">
+          <div>
+            <h2>Perguntas frequentes</h2>
+            <p>Respostas diretas, sem enrolação.</p>
           </div>
         </div>
+
+        <details>
+          <summary>Preciso ter loja ou estoque para começar? <span class="muted">+</span></summary>
+          <p class="muted">Não. Você opera como intermediador com parceria e estoque de terceiros.</p>
+        </details>
+        <details>
+          <summary>Isso é “dinheiro fácil”? <span class="muted">+</span></summary>
+          <p class="muted">Não. É simples e direto, mas exige execução: parcerias, captação e acompanhamento.</p>
+        </details>
+        <details>
+          <summary>Quanto dá para ganhar por venda? <span class="muted">+</span></summary>
+          <p class="muted">Depende da parceria e do veículo. O método ensina como negociar comissão definida e operar com controle.</p>
+        </details>
+        <details>
+          <summary>Em quanto tempo posso ver resultado? <span class="muted">+</span></summary>
+          <p class="muted">Existe um caminho prático de 30 dias. O resultado vem da execução consistente.</p>
+        </details>
       </div>
     </section>
 
-    <!-- SLIDE 11 -->
-    <section class="slide" data-notes="Piloto de 90 dias: estrutura com gates. Mostre que é teste científico, não aposta.">
+    <!-- COMPRAR -->
+    <section id="comprar">
       <div class="wrap">
-        <div class="card">
-          <div class="kicker"><span class="kline"></span>Piloto 90 dias</div>
-          <h2>Teste controlado (sem desmontar nada): <span style="color:var(--acc2)">provar CPA</span></h2>
-
-          <div class="metric">
-            <div class="tile">
-              <b>Semana 1–2: Setup</b>
-              <span>LP + WhatsApp + CRM + scripts + tracking + termos (opt-in).</span>
-            </div>
-            <div class="tile">
-              <b>Semana 3–6: Otimização</b>
-              <span>Criativos, públicos, palavras-chave, horários, cadência.</span>
-            </div>
-            <div class="tile">
-              <b>Semana 7–10: Escala</b>
-              <span>Dobrar o que dá CPA bom; cortar o que dá CPA ruim.</span>
-            </div>
-            <div class="tile">
-              <b>Semana 11–12: Decisão</b>
-              <span>Comparar CPA x modelo atual; definir orçamento fixo de aquisição.</span>
-            </div>
+        <div class="cta">
+          <div>
+            <h3>Entrar no Método Vendas de Alto Ticket (Nível 1)</h3>
+            <p>
+              <strong style="color:rgba(243,214,127,.95)">Podia ser R$499,00… mas não é.</strong><br>
+              Acesso por <strong style="color:rgba(243,214,127,.95)">R$94,00</strong> — curso + material operacional + bônus.
+            </p>
+            <p class="mini"></p>
           </div>
 
-          <div class="hr"></div>
+          <a class="btn primary" href="SEU-LINK-DE-CHECKOUT" target="_blank" rel="noopener">Comprar agora</a>
+        </div>
 
-          <h2>Gates (critérios de corte)</h2>
-          <ul class="bullets">
-            <li><span class="check">✓</span> Se CPA do tráfego ficar acima do CPA atual por X semanas → pausa/ajuste.</li>
-            <li><span class="check">✓</span> Se CPA do tráfego ficar abaixo do CPA atual com volume crescente → escala.</li>
-            <li><span class="check">✓</span> Qualidade: taxa de documentação completa, taxa de no-show, taxa de aprovação.</li>
-          </ul>
+        <div style="margin-top:14px" class="note">
+          R$94,00 não muda sua vida. <strong>Estrutura muda.</strong> Se você executar, uma comissão paga o investimento.
+        </div>
 
-          <div class="foot">
-            <div class="sources">
-              Base macro: investimento em digital (DataReportal) e Brasil mobile (Febraban) sustentam por que o piloto é racional.
-              <a href="https://datareportal.com/reports/digital-2025-sub-section-global-advertising-trends" target="_blank" rel="noopener">DataReportal</a> •
-              <a href="https://portal.febraban.org.br/noticia/4310/pt-br/" target="_blank" rel="noopener">Febraban</a>.
-            </div>
-            <div class="pager">11 / 12</div>
-          </div>
+        <div style="margin-top:14px; text-align:center" class="mini">
+          © <span id="year"></span> Método Vendas de Alto Ticket • Todos os direitos reservados
         </div>
       </div>
     </section>
+  </main>
 
-    <!-- SLIDE 12 -->
-    <section class="slide" data-notes="Feche com decisão binária e segura: não é fé; é teste. O dono inteligente vai aceitar um teste com critério objetivo.">
-      <div class="wrap">
-        <div class="card">
-          <div class="kicker"><span class="kline"></span>Conclusão</div>
-          <h1>Para crédito, <span style="color:var(--acc2)">vale mais</span> migrar parte do motor para aquisição digital.</h1>
-
-          <p class="lead">
-            Telemarketing continua útil — mas como <span class="strong">alavanca</span> (follow-up, carteira, recuperação).
-            O motor mais escalável e previsível hoje é <span class="strong">intenção (tráfego pago) + fechamento humano</span>.
-          </p>
-
-          <div class="grid-2" style="margin-top:16px">
-            <div class="card" style="box-shadow:none; background: rgba(0,0,0,.18);">
-              <h2>O que você ganha</h2>
-              <ul class="bullets">
-                <li><span class="check">✓</span> Leads mais quentes (menor atrito)</li>
-                <li><span class="check">✓</span> CPA mensurável e otimizável</li>
-                <li><span class="check">✓</span> Escala por orçamento, não por headcount</li>
-                <li><span class="check">✓</span> Mais compliance via opt-in e rastreabilidade</li>
-              </ul>
-            </div>
-
-            <div class="card" style="box-shadow:none; background: rgba(0,0,0,.18);">
-              <h2>A proposta que não dá “medo”</h2>
-              <p class="quote" style="margin-top:10px">
-                “Vamos testar 90 dias com critério objetivo.
-                Se o CPA do digital não bater o atual, paramos.
-                Se bater e escalar, incorporamos como motor.”
-              </p>
-              <div class="hr"></div>
-              <p class="mini">
-                Isso é uma decisão de dono: reduzir dependência de um canal com atrito estrutural e ganhar previsibilidade.
-              </p>
-            </div>
-          </div>
-
-          <div class="hr"></div>
-
-          <p class="mini">
-            Referências-chave utilizadas neste deck:
-            DataReportal (investimento digital global; Brasil digital),
-            Febraban (transações bancárias digitais),
-            Anatel (medidas e regras de telemarketing),
-            Smithsonian (marco e-commerce).
-          </p>
-
-          <div class="foot">
-            <div class="sources">
-              DataReportal (ad spend digital): <a href="https://datareportal.com/reports/digital-2025-sub-section-global-advertising-trends" target="_blank" rel="noopener">Digital 2025</a> •
-              Febraban (82% digital / 75% mobile): <a href="https://portal.febraban.org.br/noticia/4310/pt-br/" target="_blank" rel="noopener">Febraban</a> •
-              Anatel (0303): <a href="https://www.gov.br/anatel/pt-br/regulado/numeracao/telemarketing-ativo-prefixo-0303" target="_blank" rel="noopener">Gov.br</a> •
-              E-commerce 1994: <a href="https://www.smithsonianmag.com/smart-news/what-was-first-thing-sold-internet-180957414/" target="_blank" rel="noopener">Smithsonian</a>.
-            </div>
-            <div class="pager">12 / 12</div>
-          </div>
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footerRow">
+        <div>
+          <div><strong style="color:rgba(243,214,127,.95)">Quem pensa como dono, lucra como dono.</strong></div>
+          <div class="mini">Página estática leve, pronta para Fitgun.</div>
+        </div>
+        <div class="footerBtns">
+          <a class="btn small" href="#metodo">Voltar ao topo</a>
         </div>
       </div>
-    </section>
+    </div>
+  </footer>
 
-  </div>
-
-  <script>
-    (function(){
-      const deck = document.getElementById('deck');
-      const btnPrev = document.getElementById('btnPrev');
-      const btnNext = document.getElementById('btnNext');
-      const bar = document.getElementById('bar');
-      const notes = document.getElementById('notes');
-      const notesText = document.getElementById('notesText');
-      const btnNotes = document.getElementById('btnNotes');
-
-      const slides = Array.from(document.querySelectorAll('.slide'));
-      const total = slides.length;
-      let idx = 0;
-
-      function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
-
-      function setPager(){
-        slides.forEach((s, i) => {
-          const p = s.querySelector('.pager');
-          if (p) p.textContent = `${i+1} / ${total}`;
-        });
-      }
-
-      function render(){
-        idx = clamp(idx, 0, total-1);
-        deck.style.transform = `translateX(-${idx * 100}%)`;
-        bar.style.width = `${((idx+1)/total)*100}%`;
-
-        btnPrev.style.opacity = idx === 0 ? .55 : 1;
-        btnNext.style.opacity = idx === total-1 ? .55 : 1;
-
-        const t = slides[idx].getAttribute('data-notes') || "Sem notas para este slide.";
-        notesText.textContent = t;
-      }
-
-      function next(){ if (idx < total-1){ idx++; render(); } }
-      function prev(){ if (idx > 0){ idx--; render(); } }
-
-      btnNext.addEventListener('click', next);
-      btnPrev.addEventListener('click', prev);
-
-      btnNotes.addEventListener('click', () => {
-        notes.classList.toggle('show');
-      });
-
-      window.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight' || e.key === 'PageDown') next();
-        if (e.key === 'ArrowLeft'  || e.key === 'PageUp') prev();
-        if (e.key.toLowerCase() === 'n') notes.classList.toggle('show');
-        if (e.key === 'Home'){ idx = 0; render(); }
-        if (e.key === 'End'){ idx = total-1; render(); }
-      });
-
-      // Swipe (mobile)
-      let sx = 0, sy = 0, tracking = false;
-      window.addEventListener('touchstart', (e) => {
-        if (!e.touches || e.touches.length !== 1) return;
-        tracking = true;
-        sx = e.touches[0].clientX;
-        sy = e.touches[0].clientY;
-      }, {passive:true});
-
-      window.addEventListener('touchend', (e) => {
-        if (!tracking) return;
-        tracking = false;
-        const ex = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientX : sx;
-        const ey = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : sy;
-        const dx = ex - sx;
-        const dy = ey - sy;
-        if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.4){
-          if (dx < 0) next();
-          else prev();
-        }
-      }, {passive:true});
-
-      // Init
-      setPager();
-      render();
-    })();
-  </script>
+  <!-- Scripts -->
+  <script src="./script.js" defer></script>
 </body>
 </html>
