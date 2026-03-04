@@ -1,636 +1,238 @@
-:root{
-  --bg0:#07080b;
-  --bg1:#0a0c12;
-  --bg2:#0f1320;
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Área de Membros • Método Vendas de Alto Ticket</title>
+  <meta name="description" content="Área de membros — operação, rotina e execução." />
+  <meta name="theme-color" content="#0a0c12" />
 
-  --glass: rgba(255,255,255,.06);
-  --stroke: rgba(255,255,255,.12);
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  --text:#f3f6ff;
-  --muted:#b9c1d6;
-  --muted2:#8f98b2;
+  <link rel="stylesheet" href="./style.css" />
+</head>
 
-  --gold:#f7c948;
-  --gold2:#d7a62a;
-  --good:#5eead4;
+<body>
+  <!-- Fundo vivo -->
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="bg" aria-hidden="true">
+    <div class="aurora"></div>
+    <div class="vignette"></div>
+    <div class="noise"></div>
+  </div>
 
-  --shadow: 0 24px 90px rgba(0,0,0,.70);
-  --shadow2: 0 12px 44px rgba(0,0,0,.55);
+  <!-- Watermark -->
+  <div class="bg-watermark" aria-hidden="true"></div>
 
-  --r16:16px;
-  --r20:20px;
-  --r24:24px;
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="./index.html" aria-label="Voltar para a Área de Membros">
+        <span class="brand-mark" aria-hidden="true">
+          <img
+            src="../assets/logo.svg"
+            alt="Logo"
+            loading="lazy"
+            onerror="this.style.display='none'"
+          />
+        </span>
+        <span class="brand-col">
+          <strong class="brand-name">MÉTODO • ALTO TICKET</strong>
+          <span class="brand-sub">Área de Membros • Operação & Execução</span>
+        </span>
+      </a>
 
-  --max: 1440px;
-  --pad: clamp(14px, 2.2vw, 26px);
+      <div class="top-actions">
+        <div class="pill" title="Seu progresso fica salvo neste dispositivo">
+          <span class="dot" aria-hidden="true"></span>
+          <span>Progresso: <b id="progressText">0%</b></span>
+        </div>
 
-  --font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
-}
+        <div class="pill" title="Status da sua assinatura">
+          <span class="muted">Acesso</span>
+          <b>LIBERADO</b>
+        </div>
 
-*{ box-sizing:border-box; }
-html,body{ height:100%; }
-html{ scroll-behavior:smooth; }
-body{
-  margin:0;
-  font-family:var(--font);
-  color:var(--text);
-  background: linear-gradient(180deg, var(--bg0), var(--bg1));
-  overflow-x:hidden;
-}
+        <!-- Ajuste esse link se quiser apontar pro seu logout real -->
+        <a class="btn-ghost" href="../index.html" title="Sair">
+          Sair
+        </a>
+      </div>
+    </div>
+  </header>
 
-/* ===== Background layers ===== */
-#particles{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  opacity:.95;
-}
-.bg{
-  position:fixed;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-}
-.bg .aurora{
-  position:absolute;
-  inset:-20%;
-  background:
-    radial-gradient(900px 520px at 18% 12%, rgba(247,201,72,.18), transparent 55%),
-    radial-gradient(820px 520px at 85% 18%, rgba(94,234,212,.14), transparent 55%),
-    radial-gradient(820px 540px at 55% 92%, rgba(247,201,72,.12), transparent 55%),
-    radial-gradient(900px 700px at 55% 45%, rgba(120,149,255,.10), transparent 62%);
-  filter: blur(18px);
-  opacity:.95;
-  animation: aur 9s ease-in-out infinite alternate;
-}
-@keyframes aur{
-  from{ transform: translate3d(-1.2%, -0.8%,0) scale(1.02) rotate(-1deg); }
-  to{ transform: translate3d(1.3%, 0.9%,0) scale(1.06) rotate(1.2deg); }
-}
-.bg .vignette{
-  position:absolute; inset:0;
-  background:
-    radial-gradient(1100px 800px at 50% 30%, transparent 35%, rgba(0,0,0,.45) 75%, rgba(0,0,0,.70) 100%),
-    linear-gradient(180deg, rgba(255,255,255,.04), transparent 18%);
-}
-.bg .noise{
-  position:absolute; inset:0;
-  opacity:.10;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
-}
+  <main class="page">
+    <div class="wrap">
 
-/* watermark (opcional) */
-.bg-watermark{
-  position:fixed;
-  inset:auto -20% -22% -20%;
-  height:70vh;
-  z-index:2;
-  pointer-events:none;
-  opacity:.08;
-  filter: blur(.2px);
-  background:
-    radial-gradient(closest-side, rgba(255,255,255,.18), transparent 70%),
-    linear-gradient(90deg, rgba(255,255,255,.06), transparent 60%);
-  transform: rotate(-6deg);
-}
+      <!-- HERO -->
+      <section class="hero">
+        <div class="heroGrid">
+          <div class="heroMain">
+            <div class="heroBadge">
+              <span class="chip">Nível 1</span>
+              <span class="chip chipGold">Premium</span>
+            </div>
 
-/* ===== Layout wrappers ===== */
-.wrap{
-  position:relative;
-  z-index:3;
-  width: min(var(--max), calc(100% - (var(--pad) * 2)));
-  margin:0 auto;
-}
-.page{
-  position:relative;
-  z-index:3;
-  padding: 86px 0 42px;
-}
+            <h1>Bem-vindo ao Método Vendas de Alto Ticket</h1>
 
-/* ===== Topbar ===== */
-.topbar{
-  position:fixed;
-  top:0; left:0; right:0;
-  z-index:10;
-  padding: 14px 0;
-  backdrop-filter: blur(12px);
-  background: linear-gradient(180deg, rgba(7,8,11,.82), rgba(7,8,11,.40));
-  border-bottom: 1px solid rgba(255,255,255,.08);
-}
-.topbar-inner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px;
-}
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-width:0;
-  text-decoration:none;
-  color:inherit;
-}
-.brand-mark{
-  width:42px;
-  height:42px;
-  border-radius: 14px;
-  border:1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.05);
-  box-shadow: 0 12px 26px rgba(0,0,0,.35);
-  overflow:hidden;
-  flex:0 0 auto;
-  display:grid;
-  place-items:center;
-}
-.brand-mark img{ width:100%; height:100%; object-fit:cover; display:block; }
-.brand-col{ display:flex; flex-direction:column; min-width:0; }
-.brand-name{
-  font-weight:900;
-  font-size:12px;
-  letter-spacing:.16em;
-  text-transform:uppercase;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-.brand-sub{
-  margin-top:3px;
-  font-size:12px;
-  color: rgba(255,255,255,.68);
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
+            <p class="lead">
+              A partir deste ponto você não é mais alguém tentando ganhar dinheiro.
+              <b>Você está construindo uma operação.</b><br><br>
+              Este treinamento não é informativo. Ele é formativo.
+            </p>
 
-.top-actions{
-  display:flex;
-  gap:10px;
-  align-items:center;
-  justify-content:flex-end;
-  flex-wrap:wrap;
-}
-.pill{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:10px 12px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.22);
-  color: rgba(255,255,255,.84);
-  font-size:12px;
-  user-select:none;
-  white-space:nowrap;
-}
-.pill b{ color: var(--text); font-weight:900; }
-.pill .muted{ opacity:.75; }
-.dot{
-  width:8px; height:8px;
-  border-radius:999px;
-  background: var(--good);
-  box-shadow: 0 0 0 4px rgba(94,234,212,.12);
-}
-.btn-ghost{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:10px 12px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.04);
-  color: rgba(255,255,255,.86);
-  font-size:12px;
-  font-weight:800;
-  text-decoration:none;
-  cursor:pointer;
-  transition: transform .15s ease, background .2s ease, border-color .2s ease;
-}
-.btn-ghost:hover{
-  transform: translateY(-1px);
-  background: rgba(255,255,255,.06);
-  border-color: rgba(255,255,255,.20);
-}
-.btn-ghost:active{ transform: translateY(0px); }
+            <div class="heroTags">
+              <span class="tag">• <strong>Mentalidade</strong> de gestor</span>
+              <span class="tag">• <strong>Estrutura</strong> operacional</span>
+              <span class="tag">• <strong>Parcerias</strong> estratégicas</span>
+              <span class="tag">• <strong>Sistema</strong> de controle</span>
+              <span class="tag">• <strong>Acompanhamento</strong> estruturado</span>
+              <span class="tag">• <strong>Previsibilidade</strong> de comissão</span>
+            </div>
 
-/* ===== Hero ===== */
-.hero{
-  border:1px solid rgba(255,255,255,.12);
-  border-radius: var(--r24);
-  background: linear-gradient(180deg, rgba(16,22,38,.70), rgba(16,22,38,.28));
-  box-shadow: var(--shadow);
-  backdrop-filter: blur(12px);
-  overflow:hidden;
-  position:relative;
-  padding: clamp(18px, 2.4vw, 26px);
-}
-.hero:before{
-  content:"";
-  position:absolute;
-  inset:-30%;
-  background:
-    radial-gradient(closest-side, rgba(255,255,255,.08), transparent 65%),
-    radial-gradient(closest-side, rgba(247,201,72,.16), transparent 62%),
-    radial-gradient(closest-side, rgba(94,234,212,.12), transparent 62%);
-  transform: rotate(-8deg);
-  opacity:.55;
-  pointer-events:none;
-}
-.heroGrid{
-  position:relative;
-  z-index:1;
-  display:grid;
-  grid-template-columns: 1.25fr .75fr;
-  gap:18px;
-  align-items:start;
-}
-.heroBadge{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
-.chip{
-  display:inline-flex;
-  align-items:center;
-  padding:8px 10px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.22);
-  font-size:12px;
-  font-weight:900;
-  letter-spacing:.08em;
-  text-transform:uppercase;
-}
-.chipGold{
-  border-color: rgba(247,201,72,.22);
-  background: linear-gradient(180deg, rgba(247,201,72,.18), rgba(215,166,42,.08));
-}
-.hero h1{
-  margin:0 0 10px;
-  font-size: clamp(26px, 3.1vw, 46px);
-  line-height: 1.06;
-  letter-spacing: -0.02em;
-}
-.lead{
-  margin:0;
-  color: rgba(255,255,255,.82);
-  line-height:1.65;
-  font-size: 15px;
-  max-width: 78ch;
-}
-.heroTags, .heroRule{
-  margin-top:12px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:8px;
-}
-.tag{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  padding:8px 10px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.03);
-  color: rgba(255,255,255,.78);
-  font-size:12px;
-}
-.tag strong{ color: var(--text); }
+            <div class="heroRule">
+              <span class="tag"><strong>Regra:</strong> Você executa → você recebe.</span>
+              <span class="tag"><strong>Se só assiste:</strong> nada muda.</span>
+            </div>
+          </div>
 
-/* KPI card */
-.kpiCard{
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.03);
-  border-radius: var(--r20);
-  padding:14px;
-  box-shadow: var(--shadow2);
-}
-.kpiTop{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  margin-bottom:10px;
-}
-.kpiLabel{ font-size:12px; color: rgba(255,255,255,.60); }
-.kpiPct{ font-weight:900; color: var(--gold); letter-spacing:.2px; }
-.bar{
-  width:100%;
-  height:10px;
-  border-radius:999px;
-  background: rgba(255,255,255,.06);
-  border:1px solid rgba(255,255,255,.12);
-  overflow:hidden;
-}
-.bar i{
-  display:block;
-  height:100%;
-  width:0%;
-  border-radius:999px;
-  background: linear-gradient(90deg, rgba(247,201,72,.95), rgba(94,234,212,.65));
-  box-shadow: 0 10px 22px rgba(247,201,72,.15);
-  transition: width .35s ease;
-}
-.kpiMini{ margin-top:10px; display:flex; flex-wrap:wrap; gap:8px; }
-.kpiBtns{ margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; }
-.btn{
-  appearance:none;
-  border:1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.22);
-  color: rgba(255,255,255,.92);
-  border-radius:999px;
-  padding: 11px 14px;
-  font-weight:900;
-  font-size:12px;
-  cursor:pointer;
-  transition: transform .12s ease, background .2s ease, border-color .2s ease, filter .2s ease;
-  white-space:nowrap;
-}
-.btn:hover{
-  background: rgba(0,0,0,.28);
-  border-color: rgba(255,255,255,.22);
-  transform: translateY(-1px);
-}
-.btn:active{ transform: translateY(0px); }
-.btnPrimary{
-  border-color: rgba(247,201,72,.22);
-  background: linear-gradient(180deg, rgba(247,201,72,.18), rgba(215,166,42,.08));
-}
-.small{ margin:10px 0 0; font-size:12px; }
-.muted2{ color: rgba(255,255,255,.55); }
+          <aside class="heroSide">
+            <div class="kpiCard">
+              <div class="kpiTop">
+                <span class="kpiLabel">Seu progresso na área</span>
+                <span class="kpiPct" id="progressPct">0%</span>
+              </div>
 
-/* ===== Rows ===== */
-.rowSection{ margin-top: 18px; }
-.rowHead{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:14px;
-  margin: 8px 0 10px;
-}
-.rowHead h2{ margin:0; font-size:18px; letter-spacing:.2px; }
-.rowHead p{
-  margin:4px 0 0;
-  color: rgba(255,255,255,.62);
-  font-size:13px;
-  line-height:1.5;
-}
-.rowActions{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:flex-end;
-}
-.searchWrap{ min-width: min(520px, 70vw); }
-.search{
-  width:100%;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.22);
-  color: rgba(255,255,255,.92);
-  padding: 11px 14px;
-  outline:none;
-}
-.search::placeholder{ color: rgba(255,255,255,.45); }
-.search:focus{
-  border-color: rgba(247,201,72,.25);
-  box-shadow: 0 0 0 4px rgba(247,201,72,.10);
-}
-.arrow{
-  width:42px; height:42px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.04);
-  color: rgba(255,255,255,.90);
-  font-size:20px;
-  cursor:pointer;
-  transition: transform .12s ease, background .2s ease, border-color .2s ease;
-}
-.arrow:hover{ transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.20); }
-.arrow:active{ transform: translateY(0px); }
+              <div class="bar" aria-label="Barra de progresso">
+                <i id="progressBar"></i>
+              </div>
 
-/* ===== Rail (páginas) ===== */
-.rail{
-  position:relative;
-  border-radius: var(--r24);
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.02);
-  overflow:hidden;
-}
+              <div class="kpiMini">
+                <span class="tag"><strong>Foco:</strong> rotina + controle</span>
+                <span class="tag"><strong>Resultado:</strong> consequência</span>
+              </div>
 
-/* agora é um "pager" horizontal */
-.cardList{
-  display:flex;
-  gap:12px;
-  padding: 14px;
-  overflow:auto hidden;
-  scroll-snap-type: x mandatory;
-  scroll-behavior:smooth;
-  -webkit-overflow-scrolling: touch;
-}
-.cardList::-webkit-scrollbar{ height:10px; }
-.cardList::-webkit-scrollbar-thumb{
-  background: rgba(255,255,255,.10);
-  border-radius: 999px;
-}
+              <div class="kpiBtns">
+                <button class="btn btnPrimary" type="button" id="focusContinue">
+                  Continuar de onde parou
+                </button>
+                <button class="btn" type="button" id="resetBtn">
+                  Resetar progresso
+                </button>
+              </div>
 
-/* cada página ocupa 100% do rail */
-.pageSlide{
-  scroll-snap-align: start;
-  flex: 0 0 100%;
-  width: 100%;
-}
+              <p class="small muted2">
+                * O progresso salva neste navegador/dispositivo.
+              </p>
+            </div>
+          </aside>
+        </div>
+      </section>
 
-/* grid 4 por linha (desktop) */
-.grid4{
-  display:grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap:12px;
-}
+      <!-- LINHA: CONTINUAR (SÓ APARECE SE TIVER EM ANDAMENTO) -->
+      <section class="rowSection is-hidden" id="continueRow">
+        <div class="rowHead">
+          <div>
+            <h2>Continuar</h2>
+            <p>Somente itens iniciados e não concluídos.</p>
+          </div>
+          <div class="rowActions">
+            <button class="arrow" type="button" data-rail="continue" data-dir="left" aria-label="Voltar" title="Voltar">‹</button>
+            <button class="arrow" type="button" data-rail="continue" data-dir="right" aria-label="Avançar" title="Avançar">›</button>
+          </div>
+        </div>
 
-/* ===== Card ===== */
-.card{
-  border-radius: var(--r20);
-  border:1px solid rgba(255,255,255,.12);
-  background: linear-gradient(180deg, rgba(16,22,38,.62), rgba(16,22,38,.22));
-  box-shadow: var(--shadow2);
-  overflow:hidden;
-  position:relative;
-  cursor:pointer;
-  user-select:none;
-  transition: transform .18s ease, border-color .2s ease, filter .2s ease;
-  min-height: 206px;
-}
-.card:hover{
-  transform: translateY(-4px);
-  border-color: rgba(255,255,255,.18);
-  filter: brightness(1.06);
-}
-.card:active{ transform: translateY(-1px); }
+        <div class="rail" data-rail="continue">
+          <div class="cardList" id="railContinue" aria-label="Carrossel Continuar"></div>
+        </div>
+      </section>
 
-.cardTop{
-  padding:14px 14px 10px;
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:10px;
-}
-.badge{
-  display:inline-flex;
-  padding:8px 10px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.20);
-  font-size:12px;
-  font-weight:900;
-}
-.badgeGold{
-  border-color: rgba(247,201,72,.22);
-  background: linear-gradient(180deg, rgba(247,201,72,.16), rgba(215,166,42,.08));
-}
-.cardBody{ padding: 0 14px 14px; }
-.cardTag{ font-size:12px; color: rgba(255,255,255,.62); margin-bottom:8px; }
-.cardTitle{ margin:0 0 8px; font-size:16px; letter-spacing:.2px; }
-.cardDesc{
-  margin:0;
-  font-size:13px;
-  color: rgba(255,255,255,.70);
-  line-height:1.55;
-  min-height: 52px;
-}
-.cardFoot{
-  padding: 0 14px 14px;
-  display:flex;
-  gap:10px;
-  align-items:center;
-  justify-content:space-between;
-}
-.pillSoft{
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.03);
-  padding:8px 10px;
-  font-size:12px;
-  color: rgba(255,255,255,.72);
-}
-.pillOk{ border-color: rgba(94,234,212,.20); }
-.pillWarn{ border-color: rgba(247,201,72,.20); }
-.pillBad{ border-color: rgba(255,107,107,.20); }
+      <!-- LINHA: MÓDULOS (UMA LINHA SÓ) -->
+      <section class="rowSection" id="modulesRow">
+        <div class="rowHead">
+          <div>
+            <h2>Módulos (Nível 1)</h2>
+            <p>Uma linha. Arraste ou use as setas.</p>
+          </div>
+          <div class="rowActions">
+            <div class="searchWrap">
+              <input id="search" class="search" type="search" placeholder="Buscar (ex.: Parceria, Captação, Módulo 4)..." />
+            </div>
+            <button class="arrow" type="button" data-rail="modules" data-dir="left" aria-label="Voltar" title="Voltar">‹</button>
+            <button class="arrow" type="button" data-rail="modules" data-dir="right" aria-label="Avançar" title="Avançar">›</button>
+          </div>
+        </div>
 
-/* Footer */
-.footer{
-  margin-top:18px;
-  padding:16px 18px;
-  border-radius: var(--r20);
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.03);
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-  color: rgba(255,255,255,.70);
-  font-size:12px;
-}
+        <div class="rail" data-rail="modules">
+          <div class="cardList" id="railModules" aria-label="Carrossel Módulos"></div>
+        </div>
+      </section>
 
-/* ===== Modal ===== */
-.modal{
-  position:fixed;
-  inset:0;
-  z-index:50;
-  display:none;
-}
-.modal[aria-hidden="false"]{ display:block; }
-.modalBackdrop{
-  position:absolute;
-  inset:0;
-  background: rgba(0,0,0,.62);
-  backdrop-filter: blur(6px);
-}
-.modalCard{
-  position:absolute;
-  left:50%;
-  top:50%;
-  transform: translate(-50%, -50%);
-  width: min(720px, calc(100% - 26px));
-  border-radius: var(--r24);
-  border:1px solid rgba(255,255,255,.14);
-  background: linear-gradient(180deg, rgba(16,22,38,.86), rgba(16,22,38,.40));
-  box-shadow: var(--shadow);
-  overflow:hidden;
-}
-.modalClose{
-  position:absolute;
-  top:10px;
-  right:10px;
-  width:42px;
-  height:42px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.30);
-  color: rgba(255,255,255,.92);
-  font-size:22px;
-  cursor:pointer;
-}
-.modalTop{ padding:18px; }
-.modalMeta{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
-.modalBadge{
-  display:inline-flex;
-  padding:8px 10px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.22);
-  font-size:12px;
-  font-weight:900;
-}
-.modalTag{
-  display:inline-flex;
-  padding:8px 10px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.03);
-  font-size:12px;
-  color: rgba(255,255,255,.72);
-}
-.modalTitle{ margin:0 0 8px; font-size:22px; letter-spacing:.2px; }
-.modalDesc{ margin:0; color: rgba(255,255,255,.76); line-height:1.6; }
-.modalPills{ margin-top:12px; display:flex; gap:8px; flex-wrap:wrap; }
+      <!-- LINHA: MATERIAIS -->
+      <section class="rowSection" id="materialsRow">
+        <div class="rowHead">
+          <div>
+            <h2>Materiais</h2>
+            <p>Conteúdo operacional para copiar e aplicar.</p>
+          </div>
+          <div class="rowActions">
+            <button class="arrow" type="button" data-rail="materials" data-dir="left" aria-label="Voltar" title="Voltar">‹</button>
+            <button class="arrow" type="button" data-rail="materials" data-dir="right" aria-label="Avançar" title="Avançar">›</button>
+          </div>
+        </div>
 
-.modalBottom{
-  padding:16px 18px;
-  border-top:1px solid rgba(255,255,255,.10);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-}
-.check{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  font-size:13px;
-  color: rgba(255,255,255,.78);
-}
-.check input{
-  width:18px; height:18px;
-  accent-color: var(--gold);
-}
-.modalBtns{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-}
-.modalBtns a{ text-decoration:none; }
+        <div class="rail" data-rail="materials">
+          <div class="cardList" id="railMaterials" aria-label="Carrossel Materiais"></div>
+        </div>
+      </section>
 
-/* ===== Responsive ===== */
-@media (max-width: 1100px){
-  .grid4{ grid-template-columns: repeat(2, minmax(0,1fr)); }
-}
-@media (max-width: 980px){
-  .heroGrid{ grid-template-columns: 1fr; }
-  .searchWrap{ min-width: 100%; }
-}
-@media (max-width: 560px){
-  .grid4{ grid-template-columns: 1fr; }
-  .brand-sub{ display:none; }
-  .arrow{ width:40px; height:40px; }
-}
+      <!-- Footer -->
+      <footer class="footer">
+        <div>
+          <strong>Nota:</strong> o progresso é salvo neste navegador (neste dispositivo).
+          Se você usar outro celular/PC, o progresso começa do zero.
+        </div>
+        <div class="muted2">© <span id="year"></span> Método Vendas de Alto Ticket</div>
+      </footer>
+    </div>
+  </main>
+
+  <!-- MODAL (preview estilo Netflix) -->
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modalBackdrop" data-close></div>
+    <div class="modalCard" role="dialog" aria-modal="true" aria-label="Detalhes">
+      <button class="modalClose" type="button" data-close aria-label="Fechar">×</button>
+
+      <div class="modalTop">
+        <div class="modalMeta">
+          <span class="modalBadge" id="mBadge">Módulo</span>
+          <span class="modalTag" id="mTag">Tag</span>
+        </div>
+        <h3 class="modalTitle" id="mTitle">Título</h3>
+        <p class="modalDesc" id="mDesc">Descrição</p>
+
+        <div class="modalPills">
+          <span class="pill pillSoft" id="mStatus">Status</span>
+          <span class="pill pillSoft">Progresso local</span>
+        </div>
+      </div>
+
+      <div class="modalBottom">
+        <label class="check">
+          <input type="checkbox" id="mDone" />
+          <span>Marcar como concluído</span>
+        </label>
+
+        <div class="modalBtns">
+          <a class="btn btnPrimary" id="mGo" href="#" target="_self" rel="noopener">Acessar →</a>
+          <button class="btn" type="button" data-close>Voltar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
