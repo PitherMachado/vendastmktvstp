@@ -87,7 +87,7 @@
       status: "Bloqueado"
     },
 
-    // Materiais (opcional). Pode editar depois.
+    // Materiais (opcional)
     {
       id: "mat1",
       badge: "Material",
@@ -114,7 +114,6 @@
     try{ localStorage.setItem(key, JSON.stringify(value)); }catch(e){}
   }
 
-  // done state: { [id]: true/false }
   const doneState = load(STORAGE.done, {});
   const lastState = load(STORAGE.last, { id: null, ts: 0 });
 
@@ -156,7 +155,8 @@
     const pillCls = done ? "pillOk" : pillClass(statusText);
 
     return `
-      <article class="card" data-id="${item.id}" data-href="${item.href}" data-group="${item.group}">
+      <article class="card" tabindex="0" role="button"
+        data-id="${item.id}" data-href="${item.href}" data-group="${item.group}">
         <div class="cardTop">
           <span class="badge ${badgeGold}">${item.badge}</span>
           <span class="pillSoft ${pillCls}">${statusText}</span>
@@ -172,6 +172,26 @@
         </div>
       </article>
     `;
+  }
+
+  // === monta páginas (slides) com grid 4 por linha
+  function pagesTemplate(list){
+    // desktop: 4 por linha, 2 linhas = 8 itens por página
+    const PAGE_SIZE = 8;
+    const chunks = [];
+    for(let i=0;i<list.length;i+=PAGE_SIZE) chunks.push(list.slice(i, i+PAGE_SIZE));
+
+    if(chunks.length === 0){
+      return `<div class="pageSlide"><div style="padding:14px;color:rgba(255,255,255,.65)">Nada aqui ainda.</div></div>`;
+    }
+
+    return chunks.map(chunk => `
+      <div class="pageSlide">
+        <div class="grid4">
+          ${chunk.map(cardTemplate).join("")}
+        </div>
+      </div>
+    `).join("");
   }
 
   function renderRails(filterText=""){
@@ -191,30 +211,30 @@
     const materials = items.filter(i => i.group === "materials")
       .filter(i => !q || i.title.toLowerCase().includes(q) || i.tag.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q));
 
-    // Continue: last item + not done items
+    // Continue: último + não concluídos (máximo 8)
     const cont = [];
     if(lastState && lastState.id){
       const last = items.find(i => i.id === lastState.id);
       if(last) cont.push(last);
     }
-    // Add “in progress” modules: not done
     modules.forEach(m => { if(!doneState[m.id] && !cont.some(x => x.id === m.id)) cont.push(m); });
-    // limit continue row
     const contFinal = cont.slice(0, 8);
 
     const railModules = $("#railModules");
     const railMaterials = $("#railMaterials");
     const railContinue = $("#railContinue");
 
-    if(railModules) railModules.innerHTML = modules.map(cardTemplate).join("");
-    if(railMaterials) railMaterials.innerHTML = materials.map(cardTemplate).join("");
-    if(railContinue) railContinue.innerHTML = contFinal.length ? contFinal.map(cardTemplate).join("") : `<div style="padding:14px;color:rgba(255,255,255,.65)">Nada para continuar ainda.</div>`;
+    if(railModules) railModules.innerHTML = pagesTemplate(modules);
+    if(railMaterials) railMaterials.innerHTML = pagesTemplate(materials);
+    if(railContinue) railContinue.innerHTML = pagesTemplate(contFinal);
 
-    // hide continue row if empty
     const continueRow = $("#continueRow");
     if(continueRow){
       continueRow.style.display = contFinal.length ? "" : "none";
     }
+
+    // volta para o começo do rail ao filtrar
+    [railModules, railMaterials, railContinue].forEach(r => { if(r) r.scrollLeft = 0; });
   }
 
   // ===== Modal =====
@@ -253,7 +273,6 @@
       save(STORAGE.done, doneState);
       applyProgressUI();
       renderRails($("#search")?.value || "");
-      // update status pill inside modal
       mStatus.textContent = mDone.checked ? "Concluído" : (item.status || "Não iniciado");
     };
 
@@ -276,10 +295,10 @@
     });
   }
 
-  // ===== Rails arrows =====
+  // ===== Rails arrows (paginação por largura do rail) =====
   function scrollRail(railEl, dir){
     if(!railEl) return;
-    const step = Math.max(280, Math.floor(railEl.clientWidth * 0.85));
+    const step = Math.max(railEl.clientWidth, 320);
     railEl.scrollBy({ left: dir === "left" ? -step : step, behavior:"smooth" });
   }
 
@@ -308,10 +327,8 @@
     root.addEventListener("click", (e) => {
       const card = e.target.closest(".card");
       if(!card) return;
-
       const id = card.getAttribute("data-id");
       if(!id) return;
-
       openModal(id);
     });
 
@@ -337,7 +354,6 @@
         window.location.href = item.href;
         return;
       }
-      // fallback: first not done module
       const first = items.find(i => i.group === "modules" && !doneState[i.id]);
       window.location.href = (first ? first.href : "./modulo-1.html");
     });
@@ -366,7 +382,6 @@
 
   // ===== Boot =====
   function boot(){
-    // year
     const y = $("#year");
     if(y) y.textContent = new Date().getFullYear();
 
