@@ -21,9 +21,13 @@
 </head>
 
 <body>
-  <!-- FUNDO VIVO (estilo N1, mas paleta alto ticket) -->
+  <!-- Fundo vivo / partículas / luzes -->
   <canvas id="particles" aria-hidden="true"></canvas>
-  <div class="overlay" aria-hidden="true"></div>
+  <div class="bg" aria-hidden="true">
+    <div class="aurora"></div>
+    <div class="vignette"></div>
+    <div class="noise"></div>
+  </div>
 
   <!-- TOPBAR -->
   <div class="topbar">
@@ -36,13 +40,13 @@
               <path d="M8.5 12.2l2.2 2.3 4.8-5" stroke="rgba(243,214,127,.95)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <div>
+          <div class="brandTxt">
             <h1>Método Vendas de Alto Ticket</h1>
             <p>Intermediação Automotiva • Operação de comissão</p>
           </div>
         </div>
 
-        <div class="menu">
+        <div class="menu" role="navigation" aria-label="Menu">
           <a href="#metodo">O Método</a>
           <a href="#alto-ticket">Alto Ticket</a>
           <a href="#autoridade">Autoridade</a>
@@ -62,12 +66,14 @@
   <header class="hero">
     <div class="wrap">
       <div class="heroGrid">
-        <div class="card heroMain">
-          <span class="pill">Aplicação Inicial: <strong style="color:rgba(243,214,127,.95)">Intermediação Automotiva</strong></span>
+        <section class="card heroMain">
+          <span class="pill">Aplicação Inicial: <strong class="pillStrong">Intermediação Automotiva</strong></span>
+
           <h2 class="hTitle">
             Construa sua primeira renda de <span class="gold">alto ticket</span> usando
             <span class="gold">estratégia</span>, <span class="gold">parceria</span> e <span class="gold">execução</span>.
           </h2>
+
           <p class="sub">
             Um método objetivo, com mentalidade de gestor e execução guiada, para você estruturar parcerias com lojas,
             captar clientes pela internet e receber comissão por venda fechada — com controle e previsibilidade.
@@ -85,9 +91,11 @@
           <div class="heroCtas">
             <a class="btn primary" href="#comprar">Entrar agora (R$94,00)</a>
             <a class="btn" href="#manual">Ver o Manual</a>
-            <span class="mini"><strong style="color:rgba(243,214,127,.95)">Quem pensa como dono, lucra como dono.</strong></span>
+            <span class="mini"><strong class="goldText">Quem pensa como dono, lucra como dono.</strong></span>
           </div>
-        </div>
+
+          <div class="shine" aria-hidden="true"></div>
+        </section>
 
         <aside class="card heroSide">
           <div class="sideBox" id="metodo">
@@ -102,7 +110,7 @@
             <p>Curso + material operacional (modelo, rotina, scripts e controle).</p>
             <div class="price">
               <div>
-                <strong>R$94,00</strong>
+                <strong class="priceVal">R$94,00</strong>
                 <div class="mini">acesso digital imediato</div>
               </div>
               <a class="btn primary small" href="#comprar">Quero entrar</a>
@@ -130,7 +138,7 @@
         </div>
 
         <div class="grid3">
-          <div class="feat">
+          <article class="feat">
             <h3>Postura de gestor</h3>
             <p>Você não pede favor. Você oferece fluxo e estrutura. A loja entende você como parceiro.</p>
             <ul class="list">
@@ -138,8 +146,9 @@
               <li>Negociação com clareza</li>
               <li>Controle de operação</li>
             </ul>
-          </div>
-          <div class="feat">
+          </article>
+
+          <article class="feat">
             <h3>Parceria com blindagem</h3>
             <p>Você aprende a reduzir risco com registros simples e rotina de acompanhamento.</p>
             <ul class="list">
@@ -147,8 +156,9 @@
               <li>Confirmação do encaminhamento</li>
               <li>Proteção de comissão</li>
             </ul>
-          </div>
-          <div class="feat">
+          </article>
+
+          <article class="feat">
             <h3>Execução sem enrolação</h3>
             <p>Plano prático e checklists para sair do “vou fazer” e entrar no “fiz e recebi”.</p>
             <ul class="list">
@@ -156,7 +166,7 @@
               <li>Rotina de captação</li>
               <li>Follow-up até fechar</li>
             </ul>
-          </div>
+          </article>
         </div>
 
         <div style="margin-top:14px" class="note">
@@ -176,7 +186,7 @@
         </div>
 
         <div class="grid3">
-          <div class="feat">
+          <article class="feat">
             <h3>Baixo Ticket</h3>
             <p>Produto barato. Volume grande. Muito atendimento e pouca margem por venda.</p>
             <ul class="list">
@@ -184,8 +194,9 @@
               <li>Depende de escala e tráfego</li>
               <li>Erros comem lucro rápido</li>
             </ul>
-          </div>
-          <div class="feat">
+          </article>
+
+          <article class="feat">
             <h3>High Ticket (Alto Ticket)</h3>
             <p>Ticket maior. Menos vendas para fazer resultado. Exige posicionamento e processo.</p>
             <ul class="list">
@@ -193,8 +204,9 @@
               <li>Follow-up vira obrigação</li>
               <li>Controle protege comissão</li>
             </ul>
-          </div>
-          <div class="feat">
+          </article>
+
+          <article class="feat">
             <h3>Por que surgiu esse método</h3>
             <p>Porque muita gente até gera oportunidade… mas perde comissão por falta de estrutura.</p>
             <ul class="list">
@@ -202,7 +214,7 @@
               <li>Lead sem controle</li>
               <li>Venda “some” no caminho</li>
             </ul>
-          </div>
+          </article>
         </div>
 
         <div style="margin-top:14px" class="cta">
@@ -226,7 +238,7 @@
         </div>
 
         <div class="grid2">
-          <div class="feat">
+          <article class="feat">
             <h3>Da operação à gestão estratégica</h3>
             <p>
               Iniciei no telemarketing em 2009, aos 17 anos, vendendo cartão de crédito.
@@ -245,12 +257,11 @@
               com foco em alavancar resultados.
             </p>
             <div class="divider"></div>
-            <p class="mini"><strong style="color:rgba(243,214,127,.95)">Quem pensa como dono, lucra como dono.</strong></p>
-          </div>
+            <p class="mini"><strong class="goldText">Quem pensa como dono, lucra como dono.</strong></p>
+          </article>
 
-          <div class="feat">
-            <h3></h3>
-            <div class="photoGrid" style="margin-top:10px">
+          <article class="feat">
+            <div class="photoGrid">
               <div class="photo">
                 <div>
                   <strong>FOTO INSTITUCIONAL SUA AQUI</strong>
@@ -264,7 +275,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </article>
         </div>
 
         <div style="margin-top:14px" class="cta">
@@ -288,7 +299,7 @@
         </div>
 
         <div class="twoCol">
-          <div class="feat ok">
+          <article class="feat ok">
             <h3>✅ É para você se...</h3>
             <ul class="list">
               <li>Quer renda extra com comissão maior por venda</li>
@@ -296,9 +307,9 @@
               <li>Quer aprender parceria, atendimento e acompanhamento</li>
               <li>Prefere estrutura e rotina ao invés de “achismo”</li>
             </ul>
-          </div>
+          </article>
 
-          <div class="feat no">
+          <article class="feat no">
             <h3>❌ Não é para você se...</h3>
             <ul class="list">
               <li>Busca dinheiro fácil sem execução</li>
@@ -306,7 +317,7 @@
               <li>Não quer conversar com lojas e clientes</li>
               <li>Desiste rápido quando precisa acompanhar</li>
             </ul>
-          </div>
+          </article>
         </div>
       </div>
     </section>
@@ -322,7 +333,7 @@
         </div>
 
         <div class="grid3">
-          <div class="feat">
+          <article class="feat">
             <h3>Semana 1 — Mapeamento</h3>
             <p>Liste 10 lojas potenciais e inicie abordagem com postura de parceiro.</p>
             <ul class="list">
@@ -330,9 +341,9 @@
               <li>Modelo de abordagem pronto</li>
               <li>Critérios de confiança</li>
             </ul>
-          </div>
+          </article>
 
-          <div class="feat">
+          <article class="feat">
             <h3>Semana 2 — Parcerias</h3>
             <p>Feche pelo menos 3 parcerias e alinhe regras mínimas (comissão, registro e prazo).</p>
             <ul class="list">
@@ -340,9 +351,9 @@
               <li>Regras claras</li>
               <li>Operação blindada</li>
             </ul>
-          </div>
+          </article>
 
-          <div class="feat">
+          <article class="feat">
             <h3>Semanas 3–4 — Captação & Fechamento</h3>
             <p>Capte leads, qualifique, encaminhe com contexto e acompanhe até fechar.</p>
             <ul class="list">
@@ -350,7 +361,7 @@
               <li>Qualificação objetiva</li>
               <li>Follow-up até fechar</li>
             </ul>
-          </div>
+          </article>
         </div>
       </div>
     </section>
@@ -524,7 +535,6 @@ Data,Nome do Lead,WhatsApp,Origem,Modelo/Interesse,Loja,Comissão Acordada,Statu
             </ul>
             <div class="divider"></div>
             <a class="btn" href="SEU-LINK-DO-PDF.pdf" target="_blank" rel="noopener">Abrir material</a>
-            <p class="mini"></p>
           </div>
 
           <div class="feat">
@@ -533,9 +543,7 @@ Data,Nome do Lead,WhatsApp,Origem,Modelo/Interesse,Loja,Comissão Acordada,Statu
               Se você fizer o básico com disciplina (mapear lojas, fechar parcerias, captar e acompanhar),
               você para de depender de sorte.
             </p>
-            <div class="note" style="margin-top:10px">
-              Não é sobre “saber”. É sobre executar.
-            </div>
+            <div class="note" style="margin-top:10px">Não é sobre “saber”. É sobre executar.</div>
           </div>
         </div>
       </div>
@@ -558,6 +566,7 @@ Data,Nome do Lead,WhatsApp,Origem,Modelo/Interesse,Loja,Comissão Acordada,Statu
             <div class="divider"></div>
             <p class="mini"><strong>Exemplo:</strong> “Trabalho com captação de clientes qualificados na região. Quero estruturar parceria com comissão fixa por venda fechada. Posso explicar?”</p>
           </div>
+
           <div class="feat">
             <h3>Script de qualificação</h3>
             <p class="muted">Perguntas simples que filtram lead ruim e aumentam chance de fechamento.</p>
@@ -569,6 +578,7 @@ Data,Nome do Lead,WhatsApp,Origem,Modelo/Interesse,Loja,Comissão Acordada,Statu
               <li>Urgência</li>
             </ul>
           </div>
+
           <div class="feat">
             <h3>Modelo de controle</h3>
             <p class="muted">Campos essenciais para não perder comissão e acompanhar até o final.</p>
@@ -656,10 +666,9 @@ Data,Nome do Lead,WhatsApp,Origem,Modelo/Interesse,Loja,Comissão Acordada,Statu
           <div>
             <h3>Entrar no Método Vendas de Alto Ticket (Nível 1)</h3>
             <p>
-              <strong style="color:rgba(243,214,127,.95)">Podia ser R$499,00… mas não é.</strong><br>
-              Acesso por <strong style="color:rgba(243,214,127,.95)">R$94,00</strong> — curso + material operacional + bônus.
+              <strong class="goldText">Podia ser R$499,00… mas não é.</strong><br>
+              Acesso por <strong class="goldText">R$94,00</strong> — curso + material operacional + bônus.
             </p>
-            <p class="mini"></p>
           </div>
 
           <a class="btn primary" href="SEU-LINK-DE-CHECKOUT" target="_blank" rel="noopener">Comprar agora</a>
@@ -680,8 +689,8 @@ Data,Nome do Lead,WhatsApp,Origem,Modelo/Interesse,Loja,Comissão Acordada,Statu
     <div class="wrap">
       <div class="footerRow">
         <div>
-          <div><strong style="color:rgba(243,214,127,.95)">Quem pensa como dono, lucra como dono.</strong></div>
-          <div class="mini">Página estática leve, pronta para GitHub Pages / Fitgun.</div>
+          <div><strong class="goldText">Quem pensa como dono, lucra como dono.</strong></div>
+          <div class="mini">Página estática leve, pronta para Fitgun / GitHub Pages.</div>
         </div>
         <div class="footerBtns">
           <a class="btn small" href="#metodo">Voltar ao topo</a>
