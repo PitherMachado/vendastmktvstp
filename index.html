@@ -2,263 +2,34 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Dashboard • Método Alto Ticket</title>
-  <meta name="description" content="Painel de módulos — Método Vendas de Alto Ticket." />
-  <meta name="theme-color" content="#0a0c12" />
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Método Vendas de Alto Ticket</title>
+  <meta name="description" content="Área de Membros — Método Vendas de Alto Ticket." />
+  <meta http-equiv="refresh" content="0; url=./members/index.html">
+  <style>
+    html,body{height:100%;margin:0}
+    body{
+      display:grid;place-items:center;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background:#0a0c12;color:#fff;
+    }
+    a{color:#fff}
+    .box{max-width:720px;padding:22px 18px;text-align:center}
+    .muted{opacity:.7;font-size:14px}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:12px 14px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      text-decoration:none;margin-top:10px;
+    }
+  </style>
 </head>
-
 <body>
-  <!-- Fundo vivo / partículas / luzes -->
-  <canvas id="particles" aria-hidden="true"></canvas>
-  <div class="bg" aria-hidden="true">
-    <div class="aurora"></div>
-    <div class="vignette"></div>
-    <div class="noise"></div>
+  <div class="box">
+    <h1 style="margin:0 0 6px">Carregando Área de Membros…</h1>
+    <div class="muted">Se não redirecionar automaticamente, clique abaixo.</div>
+    <a class="btn" href="./members/index.html">Entrar na Área de Membros →</a>
   </div>
-
-  <!-- Watermark (logo gigante no fundo) -->
-  <div class="bg-watermark" aria-hidden="true"></div>
-
-  <!-- TOPBAR APP -->
-  <header class="app-header">
-    <div class="container app-header-inner">
-
-      <a class="brand" href="./index.html" aria-label="Voltar para o dashboard">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <div class="brand-col">
-          <strong class="brand-name">MÉTODO • ALTO TICKET</strong>
-          <span class="brand-sub">Painel de Módulos</span>
-        </div>
-      </a>
-
-      <div class="app-actions">
-        <div class="searchWrap">
-          <svg class="searchIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M10.8 18.2a7.4 7.4 0 1 1 0-14.8 7.4 7.4 0 0 1 0 14.8Z" stroke="rgba(245,247,251,.85)" stroke-width="1.8"/>
-            <path d="M16.9 16.9 21 21" stroke="rgba(245,247,251,.85)" stroke-width="1.8" stroke-linecap="round"/>
-          </svg>
-          <input id="search" class="app-search" type="search" placeholder="Buscar módulo..." aria-label="Buscar módulo" />
-        </div>
-
-        <button class="btn btn-ghost" type="button" id="btnLogout">Sair</button>
-      </div>
-
-    </div>
-  </header>
-
-  <main class="app">
-    <div class="container">
-
-      <!-- HERO APP (mini) -->
-      <section class="app-hero">
-        <div class="heroLeft">
-          <h1 class="app-title">Seu painel</h1>
-          <p class="app-subtitle">Escolha um módulo para iniciar ou continuar.</p>
-
-          <div class="heroStats">
-            <div class="stat">
-              <div class="statLabel">Acesso</div>
-              <div class="statValue">Nível 1</div>
-            </div>
-            <div class="stat">
-              <div class="statLabel">Formato</div>
-              <div class="statValue">Operação guiada</div>
-            </div>
-            <div class="stat">
-              <div class="statLabel">Foco</div>
-              <div class="statValue">Comissão</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="heroRight">
-          <div class="heroCard">
-            <div class="heroCardTop">
-              <span class="pill">Atalho</span>
-              <span class="badgeGold">Premium</span>
-            </div>
-            <h3>Continue de onde parou</h3>
-            <p>O painel destaca módulos em andamento e recomenda o próximo passo.</p>
-            <div class="heroCardBtns">
-              <a class="btn btn-primary" href="#modules">Ver módulos</a>
-              <button class="btn" type="button" id="btnFocus">Destacar “Em andamento”</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- GRID DE MÓDULOS -->
-      <section class="section section-modules" id="modules">
-        <header class="section-header">
-          <h2 class="section-title">Módulos</h2>
-          <p class="section-subtitle">Filtre pelo nome, tag ou status. (Ex.: “Captação”, “Em andamento”, “Parcerias”)</p>
-        </header>
-
-        <div class="grid modules-grid" id="grid">
-
-          <!-- 01 -->
-          <article class="card module-card" data-title="Mentalidade de Dono e Alto Ticket" data-tag="Base mental" data-status="Não iniciado">
-            <div class="module-meta">
-              <span class="module-number">01</span>
-              <span class="module-tag">Base mental</span>
-            </div>
-            <h3 class="module-title">Mentalidade de Dono e Alto Ticket</h3>
-            <p class="module-desc">
-              Como dono pensa, por que comissão pequena trava sua vida e como posicionar alto ticket com execução real.
-            </p>
-            <div class="module-footer">
-              <span class="pill pill-muted">Não iniciado</span>
-              <a class="btn btn-primary" href="./modulo-01.html">Abrir</a>
-            </div>
-          </article>
-
-          <!-- 02 -->
-          <article class="card module-card" data-title="Entendendo o Mercado Automotivo" data-tag="Bastidores" data-status="Em andamento">
-            <div class="module-meta">
-              <span class="module-number">02</span>
-              <span class="module-tag">Bastidores</span>
-            </div>
-            <h3 class="module-title">Entendendo o Mercado Automotivo</h3>
-            <p class="module-desc">
-              Como loja pensa, o que o gerente quer e onde sua comissão existe dentro do lucro e do giro.
-            </p>
-            <div class="module-footer">
-              <span class="pill pill-warn">Em andamento</span>
-              <a class="btn btn-primary" href="./modulo-02.html">Abrir</a>
-            </div>
-          </article>
-
-          <!-- 03 -->
-          <article class="card module-card" data-title="Estratégia das 10 Lojas" data-tag="Parcerias" data-status="Não iniciado">
-            <div class="module-meta">
-              <span class="module-number">03</span>
-              <span class="module-tag">Parcerias</span>
-            </div>
-            <h3 class="module-title">Estratégia das 10 Lojas</h3>
-            <p class="module-desc">
-              Como mapear 10 lojas e fechar pelo menos 3 parcerias para nunca ficar refém de uma só.
-            </p>
-            <div class="module-footer">
-              <span class="pill pill-muted">Não iniciado</span>
-              <a class="btn btn-primary" href="./modulo-03.html">Abrir</a>
-            </div>
-          </article>
-
-          <!-- 04 Featured -->
-          <article class="card module-card module-card-featured" data-title="Estrutura da Parceria" data-tag="Acordo" data-status="Alta prioridade">
-            <div class="module-meta">
-              <span class="module-number">04</span>
-              <span class="module-tag">Acordo</span>
-            </div>
-            <h3 class="module-title">Estrutura da Parceria</h3>
-            <p class="module-desc">
-              Como alinhar comissão, registro, prazo e regras mínimas para reduzir risco e proteger a operação.
-            </p>
-            <ul class="module-points">
-              <li>Comissão definida e registrável</li>
-              <li>Regra de encaminhamento</li>
-              <li>Confirmação e proteção</li>
-            </ul>
-            <div class="module-footer">
-              <span class="pill pill-good">Alta prioridade</span>
-              <a class="btn btn-primary" href="./modulo-04.html">Abrir →</a>
-            </div>
-          </article>
-
-          <!-- 05 -->
-          <article class="card module-card" data-title="Captação Digital" data-tag="Captação" data-status="Não iniciado">
-            <div class="module-meta">
-              <span class="module-number">05</span>
-              <span class="module-tag">Captação</span>
-            </div>
-            <h3 class="module-title">Captação Digital</h3>
-            <p class="module-desc">
-              Marketplace e grupos regionais, copy simples e posicionamento para gerar leads sem parecer “desesperado”.
-            </p>
-            <ul class="module-points">
-              <li>Oferta curta e direta</li>
-              <li>Filtro de lead ruim</li>
-              <li>Rotina de postagem</li>
-            </ul>
-            <div class="module-footer">
-              <span class="pill pill-muted">Não iniciado</span>
-              <a class="btn btn-primary" href="./modulo-05.html">Abrir →</a>
-            </div>
-          </article>
-
-          <!-- 06 -->
-          <article class="card module-card" data-title="Atendimento Estratégico" data-tag="Atendimento" data-status="Bloqueado">
-            <div class="module-meta">
-              <span class="module-number">06</span>
-              <span class="module-tag">Atendimento</span>
-            </div>
-            <h3 class="module-title">Atendimento Estratégico</h3>
-            <p class="module-desc">
-              Perguntas certas, qualificação, encaminhamento profissional e controle do cliente até o fechamento.
-            </p>
-            <div class="module-footer">
-              <span class="pill pill-lock">Bloqueado</span>
-              <a class="btn btn-primary" href="./modulo-06.html">Abrir</a>
-            </div>
-          </article>
-
-          <!-- 07 -->
-          <article class="card module-card" data-title="Controle e Blindagem" data-tag="Blindagem" data-status="Não iniciado">
-            <div class="module-meta">
-              <span class="module-number">07</span>
-              <span class="module-tag">Blindagem</span>
-            </div>
-            <h3 class="module-title">Controle e Blindagem</h3>
-            <p class="module-desc">
-              Rotina simples de registro e acompanhamento para reduzir “furo” e garantir rastreio de indicação.
-            </p>
-            <div class="module-footer">
-              <span class="pill pill-muted">Não iniciado</span>
-              <a class="btn btn-primary" href="./modulo-07.html">Abrir</a>
-            </div>
-          </article>
-
-          <!-- 08 -->
-          <article class="card module-card" data-title="Primeiras Vendas e Escala" data-tag="Escala" data-status="Não iniciado">
-            <div class="module-meta">
-              <span class="module-number">08</span>
-              <span class="module-tag">Escala</span>
-            </div>
-            <h3 class="module-title">Primeiras Vendas e Escala</h3>
-            <p class="module-desc">
-              Plano de execução e como crescer com mais lojas e região sem bagunçar a operação.
-            </p>
-            <div class="module-footer">
-              <span class="pill pill-muted">Não iniciado</span>
-              <a class="btn btn-primary" href="./modulo-08.html">Abrir</a>
-            </div>
-          </article>
-
-        </div>
-
-        <div class="hintRow">
-          <span class="hint">Dica: use a busca para filtrar. Clique em um card para abrir.</span>
-          <span class="mini">© <span id="year"></span> Método Vendas de Alto Ticket</span>
-        </div>
-      </section>
-
-    </div>
-  </main>
-
-  <footer class="site-footer">
-    <div class="container footer-inner">
-      <p class="footer-text">© <span id="year2"></span> Método Vendas de Alto Ticket</p>
-      <p class="footer-text footer-muted">Dashboard • Nível 1</p>
-    </div>
-  </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>
