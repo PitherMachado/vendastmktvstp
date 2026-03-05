@@ -1,399 +1,528 @@
 (() => {
-  const STORAGE = {
-    done: "mvat_done_v1",
-    last: "mvat_last_v1"
-  };
+  /* =========================
+     CONFIG / DATA
+  ========================== */
 
-  // ===== DATA (módulos 1..8) =====
+  const STORAGE_KEY = "mvat_members_progress_v2";
+
+  // Ajuste se quiser outro logo (se o ../assets/logo.svg não existir, ele só some)
+  // Módulos apontando para /members/modulo-1/index.html etc.
   const items = [
     {
       id: "m1",
+      type: "module",
       badge: "Módulo 1",
       tag: "Base mental",
       title: "Mentalidade de Dono e Alto Ticket",
       desc: "Como dono pensa, por que comissão pequena trava sua vida e como posicionar alto ticket com execução real.",
-      href: "./modulo-1.html",
-      group: "modules",
-      status: "Não iniciado"
+      href: "./modulo-1/index.html",
+      locked: false,
     },
     {
       id: "m2",
+      type: "module",
       badge: "Módulo 2",
       tag: "Bastidores",
       title: "Entendendo o Mercado Automotivo",
       desc: "Como a loja pensa, onde existe margem e como operar comissão dentro do lucro e do giro.",
-      href: "./modulo-2.html",
-      group: "modules",
-      status: "Bloqueado"
+      href: "./modulo-2/index.html",
+      locked: false,
     },
     {
       id: "m3",
+      type: "module",
       badge: "Módulo 3",
       tag: "Parcerias",
       title: "Estratégia das 10 Lojas",
-      desc: "Como mapear lojas e fechar parcerias para nunca ficar refém de um único ponto de venda.",
-      href: "./modulo-3.html",
-      group: "modules",
-      status: "Bloqueado"
+      desc: "Como mapear 10 lojas e fechar parcerias para nunca ficar refém de um único ponto de venda.",
+      href: "./modulo-3/index.html",
+      locked: false,
     },
     {
       id: "m4",
+      type: "module",
       badge: "Módulo 4",
       tag: "Estrutura",
       title: "Estrutura da Parceria",
-      desc: "Checklist de alinhamento, combinados, como proteger comissão e como conduzir negociação sem ruído.",
-      href: "./modulo-4.html",
-      group: "modules",
-      status: "Bloqueado"
+      desc: "Checklist de alinhamento, combinados, como proteger comissão e conduzir negociação sem ruído.",
+      href: "./modulo-4/index.html",
+      locked: false,
     },
     {
       id: "m5",
+      type: "module",
       badge: "Módulo 5",
       tag: "Captação",
       title: "Captação Digital",
       desc: "Leads, canais, abordagem e consistência para gerar oportunidade sem depender de indicação aleatória.",
-      href: "./modulo-5.html",
-      group: "modules",
-      status: "Bloqueado"
+      href: "./modulo-5/index.html",
+      locked: false,
     },
     {
       id: "m6",
+      type: "module",
       badge: "Módulo 6",
       tag: "Atendimento",
       title: "Atendimento Estratégico",
       desc: "Como conduzir conversa, proteger valor e manter o cliente no trilho até o fechamento.",
-      href: "./modulo-6.html",
-      group: "modules",
-      status: "Bloqueado"
+      href: "./modulo-6/index.html",
+      locked: false,
     },
     {
       id: "m7",
+      type: "module",
       badge: "Módulo 7",
       tag: "Controle",
       title: "Controle e Blindagem",
       desc: "Registros, rotinas e acompanhamento para previsibilidade de comissão e proteção do pipeline.",
-      href: "./modulo-7.html",
-      group: "modules",
-      status: "Bloqueado"
+      href: "./modulo-7/index.html",
+      locked: false,
     },
     {
       id: "m8",
+      type: "module",
       badge: "Módulo 8",
       tag: "Escala",
       title: "Primeiras Vendas e Escala",
       desc: "Como consolidar operação, corrigir gargalos e repetir o processo para aumentar consistência.",
-      href: "./modulo-8.html",
-      group: "modules",
-      status: "Bloqueado"
+      href: "./modulo-8/index.html",
+      locked: false,
     },
 
-    // Materiais (opcional)
+    // Materiais (exemplo; ajuste conforme você criar)
     {
-      id: "mat1",
+      id: "manual",
+      type: "material",
       badge: "Material",
       tag: "Operação",
-      title: "Checklist Operacional",
-      desc: "Lista rápida para organizar rotina e execução semanal (copiar e aplicar).",
-      href: "./modulo-1.html#parte-4",
-      group: "materials",
-      status: "Disponível"
-    }
+      title: "Manual Operacional",
+      desc: "Do primeiro contato à primeira comissão. Checklist e execução na prática.",
+      href: "./manual/index.html",
+      locked: false,
+    },
   ];
 
-  // ===== Helpers =====
-  const $ = (q, el=document) => el.querySelector(q);
-  const $$ = (q, el=document) => Array.from(el.querySelectorAll(q));
+  /* =========================
+     STATE
+     done: concluído (true/false)
+     startedAt: timestamp (quando clicou em abrir)
+     lastOpenedId: último item aberto
+  ========================== */
 
-  function load(key, fallback){
-    try{
-      const raw = localStorage.getItem(key);
-      return raw ? JSON.parse(raw) : fallback;
-    }catch(e){ return fallback; }
-  }
-  function save(key, value){
-    try{ localStorage.setItem(key, JSON.stringify(value)); }catch(e){}
-  }
-
-  const doneState = load(STORAGE.done, {});
-  const lastState = load(STORAGE.last, { id: null, ts: 0 });
-
-  function setLast(id){
-    save(STORAGE.last, { id, ts: Date.now() });
+  function loadState() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch {
+      return {};
+    }
   }
 
-  function computeProgress(){
-    const moduleItems = items.filter(i => i.group === "modules");
-    const total = moduleItems.length;
-    const done = moduleItems.filter(i => doneState[i.id]).length;
-    const pct = total ? Math.round((done/total) * 100) : 0;
-    return { total, done, pct };
+  function saveState(state) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch {}
   }
 
-  function applyProgressUI(){
+  function getItemState(state, id) {
+    return state[id] || { done: false, startedAt: null };
+  }
+
+  function setItemState(state, id, patch) {
+    state[id] = { ...(state[id] || { done: false, startedAt: null }), ...patch };
+  }
+
+  function isInProgress(s) {
+    return !!s.startedAt && !s.done;
+  }
+
+  function computeProgress() {
+    const state = loadState();
+    const track = items.filter(x => x.type === "module" || x.type === "material");
+    const total = track.length;
+    const done = track.filter(x => (state[x.id]?.done === true)).length;
+    const pct = total ? Math.round((done / total) * 100) : 0;
+    return { pct, done, total };
+  }
+
+  /* =========================
+     UI HELPERS
+  ========================== */
+
+  const $ = (q) => document.querySelector(q);
+
+  function setProgressUI() {
     const { pct } = computeProgress();
     const bar = $("#progressBar");
     const pctEl = $("#progressPct");
     const txt = $("#progressText");
-    if(bar) bar.style.width = pct + "%";
-    if(pctEl) pctEl.textContent = pct + "%";
-    if(txt) txt.textContent = pct + "%";
+
+    if (bar) bar.style.width = pct + "%";
+    if (pctEl) pctEl.textContent = pct + "%";
+    if (txt) txt.textContent = pct + "%";
   }
 
-  function pillClass(status){
-    const s = (status || "").toLowerCase();
-    if(s.includes("conclu")) return "pillOk";
-    if(s.includes("andamento")) return "pillWarn";
-    if(s.includes("bloq")) return "pillBad";
-    if(s.includes("dispon")) return "pillOk";
-    return "";
+  function statusLabel(item, state) {
+    if (item.locked) return { text: "Bloqueado", cls: "blocked" };
+    if (state.done) return { text: "Concluído", cls: "done" };
+    if (isInProgress(state)) return { text: "Em andamento", cls: "progress" };
+    return { text: "Não iniciado", cls: "" };
   }
 
-  function cardTemplate(item){
-    const done = !!doneState[item.id];
-    const statusText = done ? "Concluído" : (item.status || "Não iniciado");
-    const badgeGold = item.badge.toLowerCase().includes("módulo") ? "badgeGold" : "";
-    const pillCls = done ? "pillOk" : pillClass(statusText);
+  function createCard(item, mode = "rail") {
+    const state = loadState();
+    const s = getItemState(state, item.id);
+    const st = statusLabel(item, s);
 
-    return `
-      <article class="card" tabindex="0" role="button"
-        data-id="${item.id}" data-href="${item.href}" data-group="${item.group}">
-        <div class="cardTop">
-          <span class="badge ${badgeGold}">${item.badge}</span>
-          <span class="pillSoft ${pillCls}">${statusText}</span>
-        </div>
-        <div class="cardBody">
-          <div class="cardTag">${item.tag}</div>
-          <h3 class="cardTitle">${item.title}</h3>
-          <p class="cardDesc">${item.desc}</p>
-        </div>
-        <div class="cardFoot">
-          <span class="pillSoft">Abrir →</span>
-          <span class="pillSoft">${done ? "✓" : "•"}</span>
-        </div>
-      </article>
-    `;
-  }
+    const card = document.createElement("article");
+    card.className = "card";
+    card.dataset.id = item.id;
 
-  // === monta páginas (slides) com grid 4 por linha
-  function pagesTemplate(list){
-    // desktop: 4 por linha, 2 linhas = 8 itens por página
-    const PAGE_SIZE = 8;
-    const chunks = [];
-    for(let i=0;i<list.length;i+=PAGE_SIZE) chunks.push(list.slice(i, i+PAGE_SIZE));
+    const isGold = item.type === "module";
 
-    if(chunks.length === 0){
-      return `<div class="pageSlide"><div style="padding:14px;color:rgba(255,255,255,.65)">Nada aqui ainda.</div></div>`;
-    }
-
-    return chunks.map(chunk => `
-      <div class="pageSlide">
-        <div class="grid4">
-          ${chunk.map(cardTemplate).join("")}
-        </div>
+    card.innerHTML = `
+      <div class="cardTop">
+        <span class="badge ${isGold ? "badgeGold" : ""}">${escapeHtml(item.badge)}</span>
+        <span class="status ${st.cls}">${escapeHtml(st.text)}</span>
       </div>
-    `).join("");
+
+      <div class="cardTag">${escapeHtml(item.tag)}</div>
+      <h3 class="cardTitle">${escapeHtml(item.title)}</h3>
+      <p class="cardDesc">${escapeHtml(item.desc)}</p>
+
+      <div class="cardBottom">
+        <button class="cardBtn ${isGold ? "cardBtnPrimary" : ""}" type="button" data-open>
+          Abrir →
+        </button>
+        <button class="moreBtn" type="button" title="Detalhes" aria-label="Detalhes" data-more>⋯</button>
+      </div>
+    `;
+
+    // Abrir: marca como iniciado (se ainda não iniciou) e salva lastOpened
+    card.querySelector("[data-open]").addEventListener("click", () => {
+      const stt = loadState();
+      const cur = getItemState(stt, item.id);
+      if (!cur.startedAt) setItemState(stt, item.id, { startedAt: Date.now() });
+      stt.lastOpenedId = item.id;
+      saveState(stt);
+      setProgressUI();
+      window.location.href = item.href;
+    });
+
+    // Modal
+    card.querySelector("[data-more]").addEventListener("click", () => openModal(item.id));
+
+    return card;
   }
 
-  function renderRails(filterText=""){
-    const q = filterText.trim().toLowerCase();
+  function renderRails() {
+    const state = loadState();
 
-    const modules = items.filter(i => i.group === "modules")
-      .filter(i => {
-        if(!q) return true;
-        return (
-          i.badge.toLowerCase().includes(q) ||
-          i.tag.toLowerCase().includes(q) ||
-          i.title.toLowerCase().includes(q) ||
-          i.desc.toLowerCase().includes(q)
-        );
-      });
-
-    const materials = items.filter(i => i.group === "materials")
-      .filter(i => !q || i.title.toLowerCase().includes(q) || i.tag.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q));
-
-    // Continue: último + não concluídos (máximo 8)
-    const cont = [];
-    if(lastState && lastState.id){
-      const last = items.find(i => i.id === lastState.id);
-      if(last) cont.push(last);
-    }
-    modules.forEach(m => { if(!doneState[m.id] && !cont.some(x => x.id === m.id)) cont.push(m); });
-    const contFinal = cont.slice(0, 8);
-
+    // Modules row (sempre)
+    const modules = items.filter(x => x.type === "module");
     const railModules = $("#railModules");
-    const railMaterials = $("#railMaterials");
-    const railContinue = $("#railContinue");
+    railModules.innerHTML = "";
+    modules.forEach(m => railModules.appendChild(createCard(m)));
 
-    if(railModules) railModules.innerHTML = pagesTemplate(modules);
-    if(railMaterials) railMaterials.innerHTML = pagesTemplate(materials);
-    if(railContinue) railContinue.innerHTML = pagesTemplate(contFinal);
+    // Materials row
+    const materials = items.filter(x => x.type === "material");
+    const railMaterials = $("#railMaterials");
+    railMaterials.innerHTML = "";
+    materials.forEach(m => railMaterials.appendChild(createCard(m)));
+
+    // Continue row (somente em andamento)
+    const cont = items.filter(x => {
+      const s = getItemState(state, x.id);
+      return !x.locked && isInProgress(s);
+    });
 
     const continueRow = $("#continueRow");
-    if(continueRow){
-      continueRow.style.display = contFinal.length ? "" : "none";
-    }
+    const railContinue = $("#railContinue");
+    railContinue.innerHTML = "";
 
-    // volta para o começo do rail ao filtrar
-    [railModules, railMaterials, railContinue].forEach(r => { if(r) r.scrollLeft = 0; });
+    if (cont.length > 0) {
+      continueRow.classList.remove("is-hidden");
+      cont.forEach(m => railContinue.appendChild(createCard(m)));
+    } else {
+      continueRow.classList.add("is-hidden");
+    }
   }
 
-  // ===== Modal =====
+  function setupArrows() {
+    document.querySelectorAll(".arrow").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const railName = btn.getAttribute("data-rail");
+        const dir = btn.getAttribute("data-dir");
+        const rail = document.querySelector(`.rail[data-rail="${railName}"] .cardList`);
+        if (!rail) return;
+
+        // passo de scroll = “um card” + gap aproximado
+        const card = rail.querySelector(".card");
+        const step = card ? (card.getBoundingClientRect().width + 14) : 320;
+        rail.scrollBy({ left: dir === "left" ? -step : step, behavior: "smooth" });
+      });
+    });
+  }
+
+  /* =========================
+     MODAL
+  ========================== */
+
   const modal = $("#modal");
   const mBadge = $("#mBadge");
   const mTag = $("#mTag");
   const mTitle = $("#mTitle");
   const mDesc = $("#mDesc");
   const mStatus = $("#mStatus");
-  const mGo = $("#mGo");
   const mDone = $("#mDone");
+  const mGo = $("#mGo");
 
   let currentModalId = null;
 
-  function openModal(itemId){
-    const item = items.find(i => i.id === itemId);
-    if(!item || !modal) return;
+  function openModal(id) {
+    const item = items.find(x => x.id === id);
+    if (!item) return;
 
-    currentModalId = item.id;
+    const state = loadState();
+    const s = getItemState(state, id);
+    const st = statusLabel(item, s);
 
-    const done = !!doneState[item.id];
-    const statusText = done ? "Concluído" : (item.status || "Não iniciado");
+    currentModalId = id;
 
     mBadge.textContent = item.badge;
     mTag.textContent = item.tag;
     mTitle.textContent = item.title;
     mDesc.textContent = item.desc;
-    mStatus.textContent = statusText;
+    mStatus.textContent = st.text;
 
+    mDone.checked = !!s.done;
     mGo.href = item.href;
-    mGo.onclick = () => { setLast(item.id); return true; };
 
-    mDone.checked = done;
-    mDone.onchange = () => {
-      doneState[item.id] = !!mDone.checked;
-      save(STORAGE.done, doneState);
-      applyProgressUI();
-      renderRails($("#search")?.value || "");
-      mStatus.textContent = mDone.checked ? "Concluído" : (item.status || "Não iniciado");
+    // Ao clicar em “Acessar” também marca como iniciado (se ainda não iniciou)
+    mGo.onclick = () => {
+      const stt = loadState();
+      const cur = getItemState(stt, id);
+      if (!cur.startedAt) setItemState(stt, id, { startedAt: Date.now() });
+      stt.lastOpenedId = id;
+      saveState(stt);
+      setProgressUI();
+      // deixa seguir pro href normal
+      return true;
     };
 
-    modal.setAttribute("aria-hidden","false");
-    document.body.style.overflow = "hidden";
+    modal.setAttribute("aria-hidden", "false");
   }
 
-  function closeModal(){
-    if(!modal) return;
-    modal.setAttribute("aria-hidden","true");
-    document.body.style.overflow = "";
+  function closeModal() {
+    modal.setAttribute("aria-hidden", "true");
     currentModalId = null;
   }
 
-  function bindModalClose(){
-    if(!modal) return;
-    $$("[data-close]", modal).forEach(el => el.addEventListener("click", closeModal));
-    window.addEventListener("keydown", (e) => {
-      if(e.key === "Escape" && modal.getAttribute("aria-hidden") === "false") closeModal();
-    });
-  }
+  // close handlers
+  modal.addEventListener("click", (e) => {
+    const t = e.target;
+    if (t && t.hasAttribute("data-close")) closeModal();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.getAttribute("aria-hidden") === "false") closeModal();
+  });
 
-  // ===== Rails arrows (paginação por largura do rail) =====
-  function scrollRail(railEl, dir){
-    if(!railEl) return;
-    const step = Math.max(railEl.clientWidth, 320);
-    railEl.scrollBy({ left: dir === "left" ? -step : step, behavior:"smooth" });
-  }
+  // done toggle
+  mDone.addEventListener("change", () => {
+    if (!currentModalId) return;
+    const state = loadState();
+    setItemState(state, currentModalId, { done: mDone.checked });
+    saveState(state);
 
-  function bindArrows(){
-    $$(".rowSection").forEach(section => {
-      const railName = section.querySelector(".rail")?.getAttribute("data-rail");
-      const list =
-        railName === "modules" ? $("#railModules") :
-        railName === "materials" ? $("#railMaterials") :
-        railName === "continue" ? $("#railContinue") : null;
+    setProgressUI();
+    renderRails(); // atualiza “Continuar” e status nos cards
+    // atualiza texto de status no modal
+    const item = items.find(x => x.id === currentModalId);
+    const s = getItemState(state, currentModalId);
+    const st = statusLabel(item, s);
+    mStatus.textContent = st.text;
+  });
 
-      $$(".arrow", section).forEach(btn => {
-        btn.addEventListener("click", () => {
-          const dir = btn.getAttribute("data-dir");
-          scrollRail(list, dir);
-        });
+  /* =========================
+     SEARCH (filtra módulos)
+  ========================== */
+
+  function setupSearch() {
+    const search = $("#search");
+    if (!search) return;
+
+    search.addEventListener("input", () => {
+      const q = (search.value || "").trim().toLowerCase();
+      const rail = $("#railModules");
+      rail.innerHTML = "";
+
+      const state = loadState();
+      const modules = items.filter(x => x.type === "module");
+      const filtered = !q ? modules : modules.filter(m => {
+        const hay = `${m.badge} ${m.tag} ${m.title} ${m.desc}`.toLowerCase();
+        return hay.includes(q);
       });
+
+      filtered.forEach(m => rail.appendChild(createCard(m)));
+
+      // Se o filtro esvaziar, mantém UX ok (não mostra nada estranho)
+      // (não precisa criar mensagem, porque já fica limpo)
+      setProgressUI();
     });
   }
 
-  // ===== Click cards -> modal =====
-  function bindCardClicks(){
-    const root = $(".page");
-    if(!root) return;
+  /* =========================
+     Buttons: continue + reset
+  ========================== */
 
-    root.addEventListener("click", (e) => {
-      const card = e.target.closest(".card");
-      if(!card) return;
-      const id = card.getAttribute("data-id");
-      if(!id) return;
-      openModal(id);
+  function setupButtons() {
+    const year = $("#year");
+    if (year) year.textContent = new Date().getFullYear();
+
+    $("#resetBtn").addEventListener("click", () => {
+      if (!confirm("Tem certeza que deseja resetar o progresso neste dispositivo?")) return;
+      localStorage.removeItem(STORAGE_KEY);
+      setProgressUI();
+      renderRails();
     });
 
-    root.addEventListener("keydown", (e) => {
-      if(e.key !== "Enter") return;
-      const card = e.target.closest(".card");
-      if(!card) return;
-      const id = card.getAttribute("data-id");
-      if(!id) return;
-      openModal(id);
-    });
-  }
+    $("#focusContinue").addEventListener("click", () => {
+      const state = loadState();
 
-  // ===== Continue button =====
-  function bindContinue(){
-    const btn = $("#focusContinue");
-    if(!btn) return;
-    btn.addEventListener("click", () => {
-      const id = load(STORAGE.last, { id:null }).id;
-      const item = id ? items.find(i => i.id === id) : null;
-      if(item){
-        setLast(item.id);
-        window.location.href = item.href;
+      // prioridade: último aberto que NÃO está concluído
+      const last = state.lastOpenedId ? items.find(x => x.id === state.lastOpenedId) : null;
+      if (last) {
+        const s = getItemState(state, last.id);
+        if (!s.done) {
+          window.location.href = last.href;
+          return;
+        }
+      }
+
+      // fallback: primeiro em andamento
+      const inProg = items.find(x => {
+        const s = getItemState(state, x.id);
+        return isInProgress(s);
+      });
+      if (inProg) {
+        window.location.href = inProg.href;
         return;
       }
-      const first = items.find(i => i.group === "modules" && !doneState[i.id]);
-      window.location.href = (first ? first.href : "./modulo-1.html");
+
+      // fallback: módulo 1
+      const m1 = items.find(x => x.id === "m1");
+      if (m1) window.location.href = m1.href;
     });
   }
 
-  // ===== Reset =====
-  function bindReset(){
-    const btn = $("#resetBtn");
-    if(!btn) return;
-    btn.addEventListener("click", () => {
-      if(!confirm("Tem certeza que deseja resetar seu progresso neste dispositivo?")) return;
-      localStorage.removeItem(STORAGE.done);
-      localStorage.removeItem(STORAGE.last);
-      Object.keys(doneState).forEach(k => delete doneState[k]);
-      applyProgressUI();
-      renderRails($("#search")?.value || "");
-    });
+  /* =========================
+     PARTICLES BG
+  ========================== */
+
+  function setupParticles() {
+    const canvas = document.getElementById("particles");
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d", { alpha: true });
+    let w = 0, h = 0, dpr = 1;
+    let P = [];
+
+    function resize() {
+      dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      w = window.innerWidth;
+      h = window.innerHeight;
+
+      canvas.width = Math.floor(w * dpr);
+      canvas.height = Math.floor(h * dpr);
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      init();
+    }
+
+    function rand(a, b) { return a + Math.random() * (b - a); }
+
+    function init() {
+      const count = Math.round(Math.sqrt(w * h) / 1.25); // densidade equilibrada
+      P = Array.from({ length: count }, () => ({
+        x: rand(0, w),
+        y: rand(0, h),
+        r: rand(0.8, 2.2),
+        vx: rand(-0.40, 0.40),
+        vy: rand(-0.30, 0.30),
+        a: rand(0.10, 0.36)
+      }));
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, w, h);
+
+      // pontos
+      for (const p of P) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < -20) p.x = w + 20;
+        if (p.x > w + 20) p.x = -20;
+        if (p.y < -20) p.y = h + 20;
+        if (p.y > h + 20) p.y = -20;
+
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(94,234,212,${p.a})`;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // linhas
+      for (let i = 0; i < P.length; i++) {
+        for (let j = i + 1; j < P.length; j++) {
+          const a = P[i], b = P[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const d = Math.sqrt(dx * dx + dy * dy);
+          if (d < 170) {
+            const alpha = (1 - d / 170) * 0.18;
+            ctx.strokeStyle = `rgba(230,195,92,${alpha})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
+        }
+      }
+
+      requestAnimationFrame(draw);
+    }
+
+    window.addEventListener("resize", resize);
+    resize();
+    draw();
   }
 
-  // ===== Search =====
-  function bindSearch(){
-    const input = $("#search");
-    if(!input) return;
-    input.addEventListener("input", () => renderRails(input.value));
+  /* =========================
+     Utils
+  ========================== */
+
+  function escapeHtml(str) {
+    return String(str)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
   }
 
-  // ===== Boot =====
-  function boot(){
-    const y = $("#year");
-    if(y) y.textContent = new Date().getFullYear();
+  /* =========================
+     INIT
+  ========================== */
 
-    applyProgressUI();
-    renderRails("");
-    bindArrows();
-    bindCardClicks();
-    bindModalClose();
-    bindContinue();
-    bindReset();
-    bindSearch();
+  function init() {
+    setupParticles();
+    setupArrows();
+    setupSearch();
+    setupButtons();
+    setProgressUI();
+    renderRails();
   }
 
-  boot();
+  init();
 })();
