@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+  <title>Módulo 1 • Método Vendas de Alto Ticket</title>
+  <meta name="description" content="Módulo 1 — Mentalidade de Dono e Estrutura de Alto Ticket." />
+  <meta name="theme-color" content="#0a0c12" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Está correto: modulo-1/ -> volta 1 nível para members/ -->
+  <link rel="stylesheet" href="../style.css" />
+</head>
+
+<body>
+  <!-- Fundo vivo -->
+  <canvas id="particles" aria-hidden="true"></canvas>
+
+  <div class="bg" aria-hidden="true">
+    <div class="aurora"></div>
+    <div class="vignette"></div>
+    <div class="noise"></div>
+
+    <!-- 3I ATLAS (vagando no fundo) -->
+    <div class="atlas" aria-hidden="true">
+      <div class="atlas-orb"></div>
+      <div class="atlas-mark">3I ATLAS</div>
+    </div>
+  </div>
+
+  <div class="bg-watermark" aria-hidden="true"></div>
+
+  <!-- TOPBAR -->
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a class="brand" href="../index.html" aria-label="Voltar para a Área de Membros">
+        <span class="brand-mark" aria-hidden="true">
+          <img
+            src="https://mercadopublicoonline.com/wp-content/uploads/2026/02/6b0d19db-eff6-49fc-8899-be1d37cdfc49.png"
+            alt="Logo"
+            loading="lazy"
+          />
+        </span>
+
+        <span class="brand-col">
+          <strong class="brand-name">MÓDULO 1 • ALTO TICKET</strong>
+          <span class="brand-sub">Mentalidade de Dono e Estrutura de Alto Ticket</span>
+        </span>
+      </a>
+
+      <div class="top-actions">
+        <div class="pill" title="Status da sua assinatura">
+          <span class="dot" aria-hidden="true"></span>
+          <span>Acesso <b>LIBERADO</b></span>
+        </div>
+
+        <div class="pill" title="Progresso do módulo (salvo neste dispositivo)">
+          <span class="muted">Módulo</span>
+          <b id="mPct">0%</b>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="moduleWrap">
+    <div class="wrap">
+
+      <!-- TOP INFO -->
+      <section class="moduleTop glass">
+        <div class="moduleTopMain">
+          <div class="badge badgeGold">Módulo 1</div>
+
+          <h1 class="moduleTitle">Mentalidade de Dono</h1>
+
+          <p class="moduleLead">
+            Comissão alta não é sorte: é consequência de <b>margem</b>, <b>processo</b> e <b>posicionamento</b>.
+            A partir daqui, você não executa como “vendedor”. Você executa como <b>operador de oportunidade</b>.
+          </p>
+        </div>
+
+        <div class="moduleMeta">
+          <div class="pill" title="Checklist do módulo">
+            <span class="muted">Checklist</span>
+            <b id="mPct2">0%</b>
+          </div>
+
+          <a class="btn-ghost" href="../index.html">← Área de Membros</a>
+        </div>
+      </section>
+
+      <!-- CONTENT -->
+      <section class="sectionCard glass">
+
+        <header class="sectionHead">
+          <div>
+            <h2>Sumário e execução</h2>
+            <p>Clique para ir direto. Marque quando concluir (salva neste dispositivo).</p>
+          </div>
+
+          <a class="btn btnSoft" href="#checklist">Ver checklist</a>
+        </header>
+
+        <div class="divider"></div>
+
+        <nav class="toc" aria-label="Sumário do módulo">
+          <a href="#parte-1">
+            <div>
+              <b>Parte 1 — A verdade sobre comissão alta</b>
+              <span>Margem, processo e posicionamento</span>
+            </div>
+            <i class="chev" aria-hidden="true"></i>
+          </a>
+
+          <a href="#parte-2">
+            <div>
+              <b>Parte 2 — Transição de identidade</b>
+              <span>Vendedor x Operador</span>
+            </div>
+            <i class="chev" aria-hidden="true"></i>
+          </a>
+
+          <a href="#parte-3">
+            <div>
+              <b>Parte 3 — Responsabilidade total</b>
+              <span>Você controla o que mede</span>
+            </div>
+            <i class="chev" aria-hidden="true"></i>
+          </a>
+
+          <a href="#parte-4">
+            <div>
+              <b>Parte 4 — Disciplina operacional</b>
+              <span>Rotina mínima obrigatória</span>
+            </div>
+            <i class="chev" aria-hidden="true"></i>
+          </a>
+        </nav>
+
+        <div class="divider"></div>
+
+        <!-- CHECKLIST -->
+        <section class="anchor" id="checklist">
+          <h3>Checklist do módulo</h3>
+          <p class="mutedLine">
+            Marque conforme executar. Isso atualiza seu progresso do módulo.
+          </p>
+
+          <div class="checkGrid" id="mChecklist">
+            <label class="check">
+              <input type="checkbox" data-key="c1" />
+              <span><b>Concluí a Parte 1</b> — Fixei os 3 fatores da comissão alta.</span>
+            </label>
+
+            <label class="check">
+              <input type="checkbox" data-key="c2" />
+              <span><b>Concluí a Parte 2</b> — Assumi a identidade de operador.</span>
+            </label>
+
+            <label class="check">
+              <input type="checkbox" data-key="c3" />
+              <span><b>Concluí a Parte 3</b> — Entendi o que analisar quando não vende.</span>
+            </label>
+
+            <label class="check">
+              <input type="checkbox" data-key="c4" />
+              <span><b>Concluí a Parte 4</b> — Defini minha rotina mínima semanal.</span>
+            </label>
+          </div>
+
+          <div class="callout">
+            <b>Regra de ouro:</b> alto ticket exige processo. Processo exige disciplina.
+          </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- PARTES -->
+        <section class="anchor" id="parte-1">
+          <h3>1.1 — A Verdade Sobre Comissão Alta</h3>
+          <p><b>Comissão alta não é sorte.</b> É consequência de três fatores:</p>
+          <ul>
+            <li>Margem suficiente</li>
+            <li>Processo estruturado</li>
+            <li>Posicionamento correto</li>
+          </ul>
+
+          <p>
+            A maioria tenta vender. Poucas pessoas estruturam.
+            Você não está aqui para ser vendedor auxiliar de loja.
+            Você está aqui para estruturar fluxo de oportunidade.
+            Isso muda postura, negociação, autoridade e resultado.
+          </p>
+
+          <div class="callout">
+            <b>Resumo:</b> pare de “pedir venda”. Comece a operar com margem, processo e posicionamento.
+          </div>
+        </section>
+
+        <section class="anchor" id="parte-2">
+          <h3>1.2 — A Transição de Identidade</h3>
+          <p>
+            Enquanto você pensar como vendedor, vai agir como subordinado.
+            Quando você pensar como operador, vai agir como parceiro.
+          </p>
+
+          <div class="divider"></div>
+
+          <p><b>Operador:</b></p>
+          <ul>
+            <li>Cria oportunidade</li>
+            <li>Registra tudo</li>
+            <li>Controla fluxo</li>
+            <li>Acompanha até o final</li>
+            <li>Ajusta estratégia</li>
+          </ul>
+
+          <p><b>Subordinado:</b></p>
+          <ul>
+            <li>Espera resposta</li>
+            <li>Depende da loja</li>
+            <li>Não controla indicação</li>
+            <li>Não acompanha</li>
+            <li>Reclama quando perde comissão</li>
+          </ul>
+
+          <div class="callout">
+            <b>Decisão:</b> a escolha aparece no seu dia a dia, não na sua intenção.
+          </div>
+        </section>
+
+        <section class="anchor" id="parte-3">
+          <h3>1.3 — Responsabilidade Total</h3>
+          <p>Se não houve venda, você analisa:</p>
+          <ul>
+            <li>Lead mal qualificado?</li>
+            <li>Loja errada?</li>
+            <li>Falha de acompanhamento?</li>
+            <li>Comunicação fraca?</li>
+            <li>Registro inexistente?</li>
+          </ul>
+
+          <p>
+            Se a variável está sob seu controle, ela está sob sua responsabilidade.
+            <b>Responsabilidade gera poder de ajuste.</b>
+          </p>
+
+          <div class="callout">
+            <b>Regra de gestor:</b> quando você para de “culpar a loja”, você começa a controlar o resultado.
+          </div>
+        </section>
+
+        <section class="anchor" id="parte-4">
+          <h3>1.4 — Disciplina Operacional</h3>
+          <p><b>Sem rotina, não existe previsibilidade.</b></p>
+          <p>Agenda mínima obrigatória:</p>
+          <ul>
+            <li><b>Segunda:</b> Prospecção</li>
+            <li><b>Terça:</b> Organização</li>
+            <li><b>Quarta:</b> Follow-up</li>
+            <li><b>Quinta:</b> Geração de oportunidade</li>
+            <li><b>Sexta:</b> Controle</li>
+          </ul>
+
+          <div class="callout">
+            <b>Fechamento:</b> disciplina vence empolgação. Quem executa com constância vira previsível — e previsibilidade vira comissão.
+          </div>
+        </section>
+
+        <div class="callout">
+          <b>Conclusão do Módulo 1:</b> Alto ticket não começa na venda. Começa na postura, no processo e no controle.
+          Só avance quando você tiver clareza e rotina mínima definida.
+        </div>
+
+        <div class="navRow">
+          <a class="btn-ghost" href="../index.html">← Voltar para Área</a>
+
+          <div class="navBtns">
+            <a class="btn-ghost" href="#" onclick="return false;" title="Primeiro módulo: não tem anterior">Módulo anterior</a>
+            <a class="btn btnPrimary" href="../modulo-2/index.html">Próximo módulo →</a>
+          </div>
+        </div>
+
+        <p class="small muted2 center">
+          Progresso do checklist do módulo fica salvo neste dispositivo.
+        </p>
+
+      </section>
+    </div>
+  </main>
+
+  <!-- Está correto: modulo-1/ -> volta 1 nível para members/ -->
+  <script src="../particles.js"></script>
+
+  <script>
+    // Marca "último visitado" para o botão Continuar (na Área)
+    // IMPORTANTE: como este arquivo está em /members/modulo-1/index.html,
+    // o href correto "dentro do módulo" é ./index.html (não ./modulo-1/index.html)
+    (function(){
+      try{
+        localStorage.setItem("mvat_last_v1", JSON.stringify({
+          id: "m1",
+          title: "Módulo 1 — Mentalidade de Dono",
+          href: "./index.html",
+          ts: Date.now()
+        }));
+      }catch(e){}
+    })();
+  </script>
+
+  <script>
+    (function(){
+      const STORAGE_KEY = "mvat_modulo_1_checklist_v2";
+      const boxes = Array.from(document.querySelectorAll('#mChecklist input[type="checkbox"]'));
+      const pct = document.getElementById("mPct");
+      const pct2 = document.getElementById("mPct2");
+
+      function loadState(){
+        try{
+          const raw = localStorage.getItem(STORAGE_KEY);
+          return raw ? JSON.parse(raw) : {};
+        }catch(e){ return {}; }
+      }
+      function saveState(state){
+        try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }catch(e){}
+      }
+      function compute(){
+        const total = boxes.length;
+        const done = boxes.filter(b => b.checked).length;
+        const percent = total ? Math.round((done/total)*100) : 0;
+        pct.textContent = percent + "%";
+        pct2.textContent = percent + "%";
+      }
+
+      const state = loadState();
+      boxes.forEach(b => {
+        const key = b.getAttribute("data-key");
+        if(state && typeof state[key] === "boolean") b.checked = state[key];
+
+        b.addEventListener("change", () => {
+          const s = loadState();
+          s[key] = b.checked;
+          saveState(s);
+          compute();
+        });
+      });
+
+      compute();
+    })();
+  </script>
+
+  <script>
+    // 3I ATLAS — movimento suave no fundo (não atrapalha a leitura)
+    (function(){
+      const atlas = document.querySelector(".atlas");
+      if(!atlas) return;
+
+      let t0 = performance.now();
+
+      function loop(now){
+        const t = (now - t0) / 1000;
+
+        // Movimento lento (leve drift)
+        const x = 50 + Math.sin(t * 0.10) * 18 + Math.sin(t * 0.23) * 8;  // %
+        const y = 40 + Math.cos(t * 0.12) * 16 + Math.sin(t * 0.19) * 6;  // %
+        const s = 1 + Math.sin(t * 0.15) * 0.03;
+
+        atlas.style.transform = `translate(-50%, -50%) translate(${x}vw, ${y}vh) scale(${s})`;
+        requestAnimationFrame(loop);
+      }
+
+      requestAnimationFrame(loop);
+    })();
+  </script>
+</body>
+</html>
