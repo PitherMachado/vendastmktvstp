@@ -2,35 +2,1187 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Método Vendas de Alto Ticket</title>
-  <meta name="description" content="Área de Membros — Método Vendas de Alto Ticket." />
-  <meta http-equiv="refresh" content="0; url=./members/index.html">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Método Vendas de Alto Ticket — Intermediação Automotiva</title>
+  <meta name="description" content="Construa sua primeira renda de alto ticket usando apenas estratégia, parceria e execução. Aplicação inicial: Intermediação Automotiva. Quem pensa como dono, lucra como dono." />
+  <meta name="theme-color" content="#0a0c12" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Método Vendas de Alto Ticket" />
+  <meta property="og:description" content="Intermediação Automotiva • Estratégia • Parceria • Execução. Quem pensa como dono, lucra como dono." />
+  <meta property="og:type" content="website" />
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <style>
-    html,body{height:100%;margin:0}
-    body{
-      display:grid;place-items:center;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background:#0a0c12;color:#fff;
+    :root{
+      --bg:#0a0c12;
+      --bg2:#0f1320;
+
+      /* MAIS ESCURO (melhor leitura) */
+      --card:#0f1424;
+      --card2:#0b1020;
+      --card3:#10182b;
+
+      --text:#f5f7fb;
+      --muted:#c7cfde;
+      --line:rgba(255,255,255,.12);
+      --gold:#e6c35c;
+      --gold2:#f3d67f;
+      --shadow: 0 16px 50px rgba(0,0,0,.72);
+      --radius: 18px;
+      --radius2: 24px;
+      --max: 1120px;
     }
-    a{color:#fff}
-    .box{max-width:720px;padding:22px 18px;text-align:center}
-    .muted{opacity:.7;font-size:14px}
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html, body{overflow-x:hidden;}
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 20% 0%, rgba(230,195,92,.10), transparent 60%),
+        radial-gradient(900px 500px at 80% 10%, rgba(243,214,127,.08), transparent 60%),
+        linear-gradient(180deg, var(--bg), #070910 70%);
+      line-height:1.6;
+    }
+
+    p, h1, h2, h3, h4, a, li, span, strong{
+      overflow-wrap:anywhere;
+      word-break:break-word;
+    }
+
+    a{color:inherit; text-decoration:none}
+    .wrap{max-width:var(--max); margin:0 auto; padding:0 18px}
+
+    /* Topbar */
+    .topbar{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter: blur(10px);
+      background: rgba(10,12,18,.74);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:12px;
+      min-width:0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      min-width:0;
+    }
+    .logo{
+      width:40px; height:40px; border-radius:14px;
+      background: radial-gradient(circle at 30% 30%, rgba(243,214,127,.45), rgba(230,195,92,.10) 55%, rgba(0,0,0,.0) 70%),
+                  linear-gradient(135deg, rgba(230,195,92,.20), rgba(243,214,127,.08));
+      border: 1px solid rgba(230,195,92,.28);
+      box-shadow: 0 10px 30px rgba(230,195,92,.10);
+      display:grid; place-items:center;
+      position:relative;
+      overflow:hidden;
+      flex:0 0 auto;
+    }
+    .logo:before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: conic-gradient(from 120deg, rgba(230,195,92,.0), rgba(230,195,92,.35), rgba(243,214,127,.0));
+      filter: blur(12px);
+      opacity:.55;
+    }
+    .logo svg{position:relative; z-index:2}
+    .brand h1{
+      font-size:14px; margin:0; font-weight:900; letter-spacing:.2px;
+    }
+    .brand p{
+      margin:0; font-size:12px; color:var(--muted);
+    }
+
+    .menu{
+      display:flex; gap:14px; align-items:center;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      min-width:0;
+    }
+    .menu a{
+      font-size:13px; color: rgba(245,247,251,.75);
+      padding:8px 10px; border-radius:12px;
+      border: 1px solid transparent;
+      white-space:nowrap;
+    }
+    .menu a:hover{
+      color: rgba(245,247,251,1);
+      border-color: var(--line);
+      background: rgba(255,255,255,.03);
+    }
+
     .btn{
-      display:inline-flex;align-items:center;justify-content:center;
-      padding:12px 14px;border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.06);
-      text-decoration:none;margin-top:10px;
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:12px 14px;
+      border-radius: 14px;
+      font-weight: 800;
+      font-size: 14px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.05);
+      gap:10px;
+      transition: transform .12s ease, background .12s ease, border-color .12s ease, opacity .12s ease;
+      cursor:pointer;
+      user-select:none;
+      white-space:nowrap;
+      color: var(--text);
+      max-width:100%;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.16)}
+    .btn.primary{
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color:#111;
+      border:none;
+      box-shadow: 0 14px 40px rgba(230,195,92,.18);
+    }
+    .btn.primary:hover{opacity:.95}
+    .btn.small{padding:10px 12px; font-size:13px; border-radius:12px}
+
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(230,195,92,.22);
+      background: rgba(230,195,92,.08);
+      color: rgba(243,214,127,.95);
+      font-weight:800;
+      font-size: 12px;
+      letter-spacing:.2px;
+    }
+
+    .hero{ padding: 42px 0 10px; }
+    .heroGrid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:18px;
+      align-items:stretch;
+      min-width:0;
+    }
+    @media (max-width: 980px){
+      .heroGrid{grid-template-columns: 1fr; }
+      .menu{justify-content:flex-start}
+    }
+
+    /* CARD MAIS ESCURO (legibilidade) */
+    .card{
+      background: linear-gradient(180deg, rgba(15,20,36,.96), rgba(10,14,26,.90));
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+    }
+
+    .heroMain{
+      padding: 24px;
+      position:relative;
+      overflow:hidden;
+    }
+    .heroMain:before{
+      content:"";
+      position:absolute; inset:-1px;
+      background: radial-gradient(800px 260px at 30% 0%, rgba(230,195,92,.16), transparent 70%),
+                  radial-gradient(700px 260px at 90% 25%, rgba(99,102,241,.10), transparent 65%);
+      opacity:.95;
+      pointer-events:none;
+    }
+    .heroMain > *{position:relative; z-index:2}
+
+    .hTitle{
+      margin:14px 0 10px;
+      font-size: 36px;
+      line-height:1.12;
+      letter-spacing: -0.5px;
+      font-weight: 900;
+    }
+    .hTitle .gold{
+      background: linear-gradient(135deg, var(--gold2), var(--gold));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+    .sub{
+      margin:0 0 18px;
+      color: var(--muted);
+      font-size: 15px;
+      max-width: 62ch;
+    }
+    .kv{display:flex; gap:10px; flex-wrap:wrap; margin: 14px 0 0;}
+    .kv .tag{
+      padding:10px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.025);
+      color: var(--text);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .divider{ height:1px; background: var(--line); margin: 14px 0; }
+    .mini{ font-size:12px; color:var(--muted) }
+
+    .heroSide{
+      padding: 18px;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      min-width:0;
+    }
+    .sideBox{
+      padding:16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.13);
+      background: linear-gradient(180deg, rgba(15,20,36,.96), rgba(10,14,26,.90));
+    }
+    .sideBox h3{margin:0 0 6px; font-size:14px; letter-spacing:.2px}
+    .sideBox p{margin:0; color:var(--muted); font-size:13px}
+    .price{
+      display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+      margin-top:12px;
+      padding-top:12px;
+      border-top:1px solid var(--line);
+      min-width:0;
+    }
+    .price strong{
+      font-size: 26px;
+      letter-spacing:-.3px;
+      background: linear-gradient(135deg, var(--gold2), var(--gold));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color:transparent;
+    }
+
+    section{ padding: 26px 0; }
+    .secHead{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
+      margin-bottom: 14px;
+      min-width:0;
+    }
+    .secHead h2{ margin:0; font-size: 20px; letter-spacing:-.2px; }
+    .secHead p{ margin:0; color: var(--muted); font-size: 13px; max-width: 70ch; }
+
+    .grid3{display:grid; grid-template-columns: repeat(3,1fr); gap:12px}
+    .grid2{display:grid; grid-template-columns: repeat(2,1fr); gap:12px}
+    @media (max-width: 980px){
+      .grid3{grid-template-columns: 1fr}
+      .grid2{grid-template-columns: 1fr}
+    }
+
+    /* CONTAINER MAIS ESCURO (leitura) */
+    .feat{
+      padding:16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.13);
+      background: linear-gradient(180deg, rgba(15,20,36,.96), rgba(10,14,26,.90));
+      box-shadow: var(--shadow);
+    }
+    .feat h3{margin:0 0 6px; font-size:14px}
+    .feat p{margin:10px 0 0; color:var(--muted); font-size:13px}
+    .feat p:first-of-type{margin-top:0}
+
+    .list{
+      margin:10px 0 0; padding-left: 18px;
+      color: var(--muted);
+      font-size:13px;
+    }
+    .list li{margin:6px 0}
+
+    .note{
+      border-left: 3px solid rgba(230,195,92,.80);
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(230,195,92,.08);
+      color: rgba(243,214,127,.95);
+      font-weight:700;
+      font-size: 13px;
+    }
+
+    .cta{
+      padding: 22px;
+      border-radius: var(--radius2);
+      border: 1px solid rgba(230,195,92,.22);
+      background: radial-gradient(900px 260px at 15% 10%, rgba(230,195,92,.18), transparent 70%),
+                  linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.10));
+      display:flex; align-items:center; justify-content:space-between; gap:14px;
+      box-shadow: 0 18px 60px rgba(230,195,92,.10);
+      min-width:0;
+    }
+    .cta h3{margin:0; font-size:16px}
+    .cta p{margin:6px 0 0; color:var(--muted); font-size:13px}
+    @media (max-width: 980px){
+      .cta{flex-direction:column; align-items:flex-start}
+    }
+
+    .photoGrid{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+    @media (max-width: 980px){ .photoGrid{grid-template-columns:1fr} }
+    .photo{
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.13);
+      background:
+        radial-gradient(600px 240px at 20% 0%, rgba(230,195,92,.16), transparent 60%),
+        rgba(255,255,255,.02);
+      overflow:hidden;
+      min-height: 320px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:18px;
+      box-shadow: var(--shadow);
+    }
+    .photo strong{
+      display:block;
+      font-size: 13px;
+      color: rgba(243,214,127,.95);
+      letter-spacing:.2px;
+    }
+    .photo span{
+      display:block;
+      margin-top:8px;
+      font-size:12px;
+      color: var(--muted);
+    }
+
+    .twoCol{display:grid; grid-template-columns: 1fr 1fr; gap:12px;}
+    @media (max-width: 980px){ .twoCol{grid-template-columns:1fr} }
+    .ok{border-color: rgba(16,185,129,.25); background: rgba(16,185,129,.06);}
+    .no{border-color: rgba(239,68,68,.22); background: rgba(239,68,68,.05);}
+
+    .module{
+      padding:16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.12);
+      background: linear-gradient(180deg, rgba(15,20,36,.88), rgba(10,14,26,.80));
+      box-shadow: var(--shadow);
+    }
+    .module .top{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      margin-bottom: 8px;
+      min-width:0;
+    }
+    .badge{
+      font-size:12px; font-weight:900;
+      color: rgba(243,214,127,.95);
+      background: rgba(230,195,92,.10);
+      border: 1px solid rgba(230,195,92,.20);
+      padding:6px 10px;
+      border-radius:999px;
+    }
+
+    details{
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.02);
+      padding: 14px;
+    }
+    details + details{margin-top:10px}
+    summary{
+      cursor:pointer;
+      font-weight:900;
+      list-style:none;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    summary::-webkit-details-marker{display:none}
+    .muted{color:var(--muted)}
+
+    .inputs{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:10px;
+    }
+    @media (max-width: 980px){ .inputs{grid-template-columns:1fr} }
+    input, textarea{
+      width:100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.13);
+      background: rgba(0,0,0,.28);
+      color: var(--text);
+      outline:none;
+      font-family: inherit;
+      font-size: 14px;
+    }
+    textarea{min-height: 120px; resize: vertical}
+    .formRow{display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between; margin-top:10px}
+    .hint{font-size:12px; color:var(--muted)}
+
+    .tableWrap{
+      overflow:auto;
+      border-radius: 16px;
+      border:1px solid rgba(255,255,255,.13);
+      max-width:100%;
+      background: rgba(0,0,0,.16);
+    }
+    table{
+      width:100%;
+      border-collapse: collapse;
+      min-width: 820px;
+      background: rgba(0,0,0,.14);
+    }
+    th, td{
+      padding: 12px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      font-size: 13px;
+      color: var(--muted);
+      vertical-align: top;
+    }
+    th{
+      text-align:left;
+      color: var(--text);
+      font-weight: 900;
+      background: rgba(255,255,255,.04);
+    }
+    tr:hover td{background: rgba(255,255,255,.02); color: var(--text)}
+
+    .footer{
+      padding: 26px 0 34px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* Mobile */
+    @media (max-width: 720px){
+      .wrap{padding:0 14px}
+      .nav{padding:10px 0; flex-wrap:wrap; gap:10px}
+
+      .logo{width:34px; height:34px; border-radius:12px}
+      .brand h1{font-size:13px}
+      .brand p{font-size:11px}
+
+      .menu{
+        width:100%;
+        flex-wrap:nowrap;
+        overflow-x:auto;
+        overflow-y:hidden;
+        -webkit-overflow-scrolling: touch;
+        justify-content:flex-start;
+        padding-bottom:6px;
+      }
+      .menu::-webkit-scrollbar{height:0}
+      .menu a{font-size:12px; padding:7px 9px}
+
+      .btn.small{padding:9px 11px; font-size:12px}
+
+      .hero{padding:26px 0 8px}
+      .hTitle{font-size:28px}
+    }
+
+    @media (max-width: 420px){
+      .brand p{display:none}
+      .hTitle{font-size:26px}
     }
   </style>
 </head>
+
 <body>
-  <div class="box">
-    <h1 style="margin:0 0 6px">Carregando Área de Membros…</h1>
-    <div class="muted">Se não redirecionar automaticamente, clique abaixo.</div>
-    <a class="btn" href="./members/index.html">Entrar na Área de Membros →</a>
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="wrap">
+      <div class="nav">
+        <div class="brand">
+          <div class="logo" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2l8 4v6c0 5-3.4 9.6-8 10-4.6-.4-8-5-8-10V6l8-4Z" stroke="rgba(243,214,127,.95)" stroke-width="1.8"/>
+              <path d="M8.5 12.2l2.2 2.3 4.8-5" stroke="rgba(243,214,127,.95)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div>
+            <h1>Método Vendas de Alto Ticket</h1>
+            <p>Intermediação Automotiva • Operação de comissão</p>
+          </div>
+        </div>
+
+        <div class="menu">
+          <a href="#metodo">O Método</a>
+          <a href="#alto-ticket">Alto Ticket</a>
+          <a href="#autoridade">Autoridade</a>
+          <a href="#modulos">Módulos</a>
+          <a href="#planilha">Planilha</a>
+          <a href="#manual">Manual</a>
+          <a href="#bonus">Bônus</a>
+          <a href="#mentor">Mentoria</a>
+          <a href="#faq">FAQ</a>
+          <a class="btn primary small" href="#comprar">Acessar por R$94,00</a>
+        </div>
+      </div>
+    </div>
   </div>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="wrap">
+      <div class="heroGrid">
+        <div class="card heroMain">
+          <span class="pill">Aplicação Inicial: <strong style="color:rgba(243,214,127,.95)">Intermediação Automotiva</strong></span>
+          <h2 class="hTitle">
+            Construa sua primeira renda de <span class="gold">alto ticket</span> usando
+            <span class="gold">estratégia</span>, <span class="gold">parceria</span> e <span class="gold">execução</span>.
+          </h2>
+          <p class="sub">
+            Um método objetivo, com mentalidade de gestor e execução guiada, para você estruturar parcerias com lojas,
+            captar clientes pela internet e receber comissão por venda fechada — com controle e previsibilidade.
+          </p>
+
+          <div class="kv">
+            <div class="tag">✅ Sem estoque</div>
+            <div class="tag">✅ Sem loja física</div>
+            <div class="tag">✅ Comissão definida</div>
+            <div class="tag">✅ Operação replicável</div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center">
+            <a class="btn primary" href="#comprar">Entrar agora (R$94,00)</a>
+            <a class="btn" href="#manual">Ver o Manual</a>
+            <span class="mini"><strong style="color:rgba(243,214,127,.95)">Quem pensa como dono, lucra como dono.</strong></span>
+          </div>
+        </div>
+
+        <aside class="card heroSide">
+          <div class="sideBox" id="metodo">
+            <h3>O que você vai construir</h3>
+            <p>Uma operação simples e organizada para gerar comissão com alto valor por venda, usando parcerias e execução diária.</p>
+            <div class="divider"></div>
+            <p class="mini">Meta prática: validar a primeira comissão e criar previsibilidade.</p>
+          </div>
+
+          <div class="sideBox">
+            <h3>Nível 1 (fundamento)</h3>
+            <p>Curso + material operacional (modelo, rotina, scripts e controle).</p>
+            <div class="price">
+              <div>
+                <strong>R$94,00</strong>
+                <div class="mini">acesso digital imediato</div>
+              </div>
+              <a class="btn primary small" href="#comprar">Quero entrar</a>
+            </div>
+          </div>
+
+          <div class="sideBox">
+            <h3>Para quem é</h3>
+            <p>Homens 25–45 buscando renda extra, vendedores que querem escalar e quem precisa de virada com execução real.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- DIFERENCIAL -->
+    <section>
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>O que torna esse método diferente</h2>
+            <p>Não é “curso de informação”. É plano operacional com rotina, postura, scripts e controle — sem promessas milagrosas.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="feat">
+            <h3>Postura de gestor</h3>
+            <p>Você não pede favor. Você oferece fluxo e estrutura. A loja entende você como parceiro.</p>
+            <ul class="list">
+              <li>Abordagem profissional</li>
+              <li>Negociação com clareza</li>
+              <li>Controle de operação</li>
+            </ul>
+          </div>
+          <div class="feat">
+            <h3>Parceria com blindagem</h3>
+            <p>Você aprende a reduzir risco com registros simples e rotina de acompanhamento.</p>
+            <ul class="list">
+              <li>Registro do lead</li>
+              <li>Confirmação do encaminhamento</li>
+              <li>Proteção de comissão</li>
+            </ul>
+          </div>
+          <div class="feat">
+            <h3>Execução sem enrolação</h3>
+            <p>Plano prático e checklists para sair do “vou fazer” e entrar no “fiz e recebi”.</p>
+            <ul class="list">
+              <li>Mapa de lojas</li>
+              <li>Rotina de captação</li>
+              <li>Follow-up até fechar</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top:14px" class="note">
+          Importante: “rápido” porque a comissão pode ser alta. “fácil” porque é direto. Mas exige trabalho e execução.
+        </div>
+      </div>
+    </section>
+
+    <!-- ALTO TICKET -->
+    <section id="alto-ticket">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>O que é Venda de Alto Ticket (de verdade)</h2>
+            <p>Sem glamour. Alto ticket não é “preço alto”: é margem + comissão + processo + posicionamento.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="feat">
+            <h3>Baixo Ticket</h3>
+            <p>Produto barato. Volume grande. Muito atendimento e pouca margem por venda.</p>
+            <ul class="list">
+              <li>Ganha pouco por venda</li>
+              <li>Depende de escala e tráfego</li>
+              <li>Erros comem lucro rápido</li>
+            </ul>
+          </div>
+          <div class="feat">
+            <h3>High Ticket (Alto Ticket)</h3>
+            <p>Ticket maior. Menos vendas para fazer resultado. Exige posicionamento e processo.</p>
+            <ul class="list">
+              <li>Ganha mais por venda</li>
+              <li>Follow-up vira obrigação</li>
+              <li>Controle protege comissão</li>
+            </ul>
+          </div>
+          <div class="feat">
+            <h3>Por que surgiu esse método</h3>
+            <p>Porque muita gente até gera oportunidade… mas perde comissão por falta de estrutura.</p>
+            <ul class="list">
+              <li>Parceria sem registro</li>
+              <li>Lead sem controle</li>
+              <li>Venda “some” no caminho</li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="margin-top:14px" class="cta">
+          <div>
+            <h3>Alto ticket não é motivação. É processo.</h3>
+            <p>O método existe pra transformar indicação em operação rastreável.</p>
+          </div>
+          <a class="btn primary" href="#comprar">Acessar por R$94,00</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUTORIDADE -->
+    <section id="autoridade">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>Quem está por trás do Método</h2>
+            <p>Posicionamento de gestor + vivência real no campo: da operação à gestão estratégica.</p>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="feat">
+            <h3>Da operação à gestão estratégica</h3>
+            <p>
+              Iniciei no telemarketing em 2009, aos 17 anos, vendendo cartão de crédito.
+              Em poucas semanas fui reconhecido por vendas longas, bem argumentadas e com qualidade.
+            </p>
+            <p>
+              Trabalhei por anos atendendo público diariamente — call center, entregas, gás e água, estacionamento e operação comercial.
+              Até que deixei de ser funcionário e comprei minha própria empresa, assumindo duas unidades.
+            </p>
+            <p>
+              Entrei no mercado automotivo como vendedor e, em pouco tempo, assumi gerência e depois a gestão de duas lojas simultaneamente.
+            </p>
+            <p>
+              Mais tarde, voltei ao call center e fui promovido em 15 dias. Em 11 meses já coordenava uma operação.
+              Hoje atuo como gestor empresarial e desenvolvimento pessoal/profissional, liderando treinamento interno e capacitação de parceiros,
+              com foco em alavancar resultados.
+            </p>
+            <div class="divider"></div>
+            <p class="mini"><strong style="color:rgba(243,214,127,.95)">Quem pensa como dono, lucra como dono.</strong></p>
+          </div>
+
+          <div class="feat">
+            <div class="photoGrid" style="margin-top:6px">
+              <div class="photo">
+                <div>
+                  <strong>FOTO INSTITUCIONAL SUA AQUI</strong>
+                  <span>(substitua por uma imagem depois)</span>
+                </div>
+              </div>
+              <div class="photo">
+                <div>
+                  <strong>FOTO “NA OPERAÇÃO” AQUI</strong>
+                  <span>(substitua por uma imagem depois)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:14px" class="cta">
+          <div>
+            <h3>Eu não ensino teoria. Eu ensino estrutura.</h3>
+            <p>Resultado não é acaso. É método, posicionamento e execução disciplinada.</p>
+          </div>
+          <a class="btn primary" href="#comprar">Acessar o método</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PARA QUEM É / NÃO É -->
+    <section>
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>Para quem é (e para quem não é)</h2>
+            <p></p>
+          </div>
+        </div>
+
+        <div class="twoCol">
+          <div class="feat ok">
+            <h3>✅ É para você se...</h3>
+            <ul class="list">
+              <li>Quer renda extra com comissão maior por venda</li>
+              <li>Tem disposição para trabalhar e executar diariamente</li>
+              <li>Quer aprender parceria, atendimento e acompanhamento</li>
+              <li>Prefere estrutura e rotina ao invés de “achismo”</li>
+            </ul>
+          </div>
+
+          <div class="feat no">
+            <h3>❌ Não é para você se...</h3>
+            <ul class="list">
+              <li>Busca dinheiro fácil sem execução</li>
+              <li>Quer “atalho” sem criar parcerias</li>
+              <li>Não quer conversar com lojas e clientes</li>
+              <li>Desiste rápido quando precisa acompanhar</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMO COMEÇAR -->
+    <section>
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>Como você começa nos próximos 30 dias</h2>
+            <p>Um caminho simples e executável.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="feat">
+            <h3>Semana 1 — Mapeamento</h3>
+            <p>Liste 10 lojas potenciais e inicie abordagem com postura de parceiro.</p>
+            <ul class="list">
+              <li>10 lojas mapeadas</li>
+              <li>Modelo de abordagem pronto</li>
+              <li>Critérios de confiança</li>
+            </ul>
+          </div>
+
+          <div class="feat">
+            <h3>Semana 2 — Parcerias</h3>
+            <p>Feche pelo menos 3 parcerias e alinhe regras mínimas (comissão, registro e prazo).</p>
+            <ul class="list">
+              <li>3 parcerias fechadas</li>
+              <li>Regras claras</li>
+              <li>Operação blindada</li>
+            </ul>
+          </div>
+
+          <div class="feat">
+            <h3>Semanas 3–4 — Captação & Fechamento</h3>
+            <p>Capte leads, qualifique, encaminhe com contexto e acompanhe até fechar.</p>
+            <ul class="list">
+              <li>Captação simples</li>
+              <li>Qualificação objetiva</li>
+              <li>Follow-up até fechar</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODULOS -->
+    <section id="modulos">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>Módulos do curso</h2>
+            <p>Conteúdo prático, linguagem simples e postura profissional — para operar e não só entender.</p>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="module">
+            <div class="top"><span class="badge">Módulo 1</span><span class="mini">Base mental</span></div>
+            <h3>Mentalidade de Dono e Alto Ticket</h3>
+            <p class="muted">Como dono pensa, por que comissão pequena trava sua vida e como posicionar alto ticket com execução real.</p>
+          </div>
+
+          <div class="module">
+            <div class="top"><span class="badge">Módulo 2</span><span class="mini">Bastidores</span></div>
+            <h3>Entendendo o Mercado Automotivo</h3>
+            <p class="muted">Como loja pensa, o que o gerente quer e onde sua comissão existe dentro do lucro e do giro.</p>
+          </div>
+
+          <div class="module">
+            <div class="top"><span class="badge">Módulo 3</span><span class="mini">Parcerias</span></div>
+            <h3>Estratégia das 10 Lojas</h3>
+            <p class="muted">Como mapear 10 lojas e fechar pelo menos 3 parcerias para nunca ficar refém de uma só.</p>
+          </div>
+
+          <div class="module">
+            <div class="top"><span class="badge">Módulo 4</span><span class="mini">Acordo</span></div>
+            <h3>Estrutura da Parceria</h3>
+            <p class="muted">Como alinhar comissão, registro, prazo e regras mínimas para reduzir risco e proteger a operação.</p>
+          </div>
+
+          <div class="module">
+            <div class="top"><span class="badge">Módulo 5</span><span class="mini">Captação</span></div>
+            <h3>Captação Digital</h3>
+            <p class="muted">Marketplace e grupos regionais, copy simples e posicionamento para gerar leads sem parecer “desesperado”.</p>
+          </div>
+
+          <div class="module">
+            <div class="top"><span class="badge">Módulo 6</span><span class="mini">Atendimento</span></div>
+            <h3>Atendimento Estratégico</h3>
+            <p class="muted">Perguntas certas, qualificação, encaminhamento profissional e controle do cliente até o fechamento.</p>
+          </div>
+
+          <div class="module">
+            <div class="top"><span class="badge">Módulo 7</span><span class="mini">Blindagem</span></div>
+            <h3>Controle e Blindagem</h3>
+            <p class="muted">Rotina simples de registro e acompanhamento para reduzir “furo” e garantir rastreio de indicação.</p>
+          </div>
+
+          <div class="module">
+            <div class="top"><span class="badge">Módulo 8</span><span class="mini">Escala</span></div>
+            <h3>Primeiras Vendas e Escala</h3>
+            <p class="muted">Plano de execução e como crescer com mais lojas e região sem bagunçar a operação.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:14px" class="cta">
+          <div>
+            <h3>Você não vende carro. Você estrutura oportunidade.</h3>
+            <p>Estrutura + rotina + postura. A execução faz o resto.</p>
+          </div>
+          <a class="btn primary" href="#comprar">Entrar por R$94,00</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLANILHA -->
+    <section id="planilha">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>Modelo visual de planilha (editável)</h2>
+            <p>Use como controle mínimo para não perder comissão. Você pode copiar e adaptar como quiser.</p>
+          </div>
+        </div>
+
+        <div class="feat">
+          <h3>Controle de Leads & Comissão</h3>
+          <p class="muted">Campos essenciais para rastrear: de onde veio, para qual loja foi, qual status e quando confirmou.</p>
+          <div class="divider"></div>
+
+          <div class="tableWrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Data</th>
+                  <th>Nome do Lead</th>
+                  <th>WhatsApp</th>
+                  <th>Origem</th>
+                  <th>Modelo/Interesse</th>
+                  <th>Loja</th>
+                  <th>Comissão Acordada</th>
+                  <th>Status</th>
+                  <th>Confirmação</th>
+                  <th>Observações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>01/01</td>
+                  <td>Exemplo</td>
+                  <td>(48) 9xxxx-xxxx</td>
+                  <td>Marketplace</td>
+                  <td>Onix 1.0</td>
+                  <td>Loja A</td>
+                  <td>R$ 1.200</td>
+                  <td>Encaminhado</td>
+                  <td>OK (print)</td>
+                  <td>Preferência: automático / até 55k</td>
+                </tr>
+                <tr>
+                  <td>02/01</td>
+                  <td>Exemplo 2</td>
+                  <td>(48) 9xxxx-xxxx</td>
+                  <td>Grupo local</td>
+                  <td>HB20</td>
+                  <td>Loja B</td>
+                  <td>R$ 1.000</td>
+                  <td>Em negociação</td>
+                  <td>Pendente</td>
+                  <td>Agendado para sábado</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="divider"></div>
+
+          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between">
+            <button class="btn" onclick="copyCSV()">Copiar modelo em CSV</button>
+            <span class="mini">Cole no Excel/Google Sheets e edite do seu jeito.</span>
+          </div>
+
+          <textarea id="csv" style="position:absolute; left:-9999px; top:-9999px;">
+Data,Nome do Lead,WhatsApp,Origem,Modelo/Interesse,Loja,Comissão Acordada,Status,Confirmação,Observações
+01/01,Exemplo,(48) 9xxxx-xxxx,Marketplace,Onix 1.0,Loja A,R$ 1200,Encaminhado,OK (print),Preferência: automático / até 55k
+02/01,Exemplo 2,(48) 9xxxx-xxxx,Grupo local,HB20,Loja B,R$ 1000,Em negociação,Pendente,Agendado para sábado
+          </textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- MANUAL -->
+    <section id="manual">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>Manual (Material Operacional)</h2>
+            <p></p>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="feat">
+            <h3>O que tem dentro</h3>
+            <ul class="list">
+              <li>Filosofia do método</li>
+              <li>Estratégia das 10 lojas (checklist)</li>
+              <li>Modelo de abordagem e negociação</li>
+              <li>Captação digital (roteiro simples)</li>
+              <li>Rotina de acompanhamento</li>
+              <li>Controle e blindagem (modelo)</li>
+            </ul>
+            <div class="divider"></div>
+            <a class="btn" href="SEU-LINK-DO-PDF.pdf" target="_blank" rel="noopener">Abrir material</a>
+          </div>
+
+          <div class="feat">
+            <h3>Mini compromisso de execução</h3>
+            <p class="muted">
+              Se você fizer o básico com disciplina (mapear lojas, fechar parcerias, captar e acompanhar),
+              você para de depender de sorte.
+            </p>
+            <div class="note" style="margin-top:10px">Não é sobre “saber”. É sobre executar.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BONUS -->
+    <section id="bonus">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>Bônus operacionais</h2>
+            <p>Materiais prontos para copiar e usar. Você executa mais rápido.</p>
+          </div>
+        </div>
+
+        <div class="grid3">
+          <div class="feat">
+            <h3>Modelo de abordagem da loja</h3>
+            <p class="muted">Mensagem direta para abrir conversa como parceiro (não como pedinte).</p>
+            <div class="divider"></div>
+            <p class="mini"><strong>Exemplo:</strong> “Trabalho com captação de clientes qualificados na região. Quero estruturar parceria com comissão fixa por venda fechada. Posso explicar?”</p>
+          </div>
+          <div class="feat">
+            <h3>Script de qualificação</h3>
+            <p class="muted">Perguntas simples que filtram lead ruim e aumentam chance de fechamento.</p>
+            <div class="divider"></div>
+            <ul class="list">
+              <li>Modelo desejado</li>
+              <li>Faixa de valor</li>
+              <li>Forma de pagamento</li>
+              <li>Urgência</li>
+            </ul>
+          </div>
+          <div class="feat">
+            <h3>Modelo de controle</h3>
+            <p class="muted">Campos essenciais para não perder comissão e acompanhar até o final.</p>
+            <div class="divider"></div>
+            <p class="mini">Nome • Telefone • Loja • Data • Status • Comissão acordada • Comissão recebida</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENTOR -->
+    <section id="mentor">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>Falar com o mentor.</h2>
+            <p>Área de contato para quem quer acelerar. Mentoria é à parte.</p>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="feat">
+            <h3>Quando vale pedir mentoria</h3>
+            <ul class="list">
+              <li>Quer acelerar parcerias e evitar erros</li>
+              <li>Quer validar lojas mais rápido</li>
+              <li>Quer ajuste de abordagem e script</li>
+              <li>Quer organizar rotina e execução</li>
+            </ul>
+            <div class="divider"></div>
+            <p class="mini">Obs.: mentoria é opcional e separada do curso.</p>
+          </div>
+
+          <div class="feat">
+            <h3>Enviar mensagem pronta</h3>
+            <form onsubmit="return handleContact(event)">
+              <div class="inputs">
+                <input id="nome" placeholder="Seu nome" required />
+                <input id="whats" placeholder="Seu WhatsApp (DDD + número)" required />
+              </div>
+              <textarea id="msg" placeholder="Cidade/estado + onde travou (parceria, captação, atendimento...)" required></textarea>
+              <div class="formRow">
+                <button class="btn primary" type="submit">Enviar no WhatsApp</button>
+                <span class="hint"></span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="wrap">
+        <div class="secHead">
+          <div>
+            <h2>Perguntas frequentes</h2>
+            <p>Respostas diretas, sem enrolação.</p>
+          </div>
+        </div>
+
+        <details>
+          <summary>Preciso ter loja ou estoque para começar? <span class="muted">+</span></summary>
+          <p class="muted">Não. Você opera como intermediador com parceria e estoque de terceiros.</p>
+        </details>
+        <details>
+          <summary>Isso é “dinheiro fácil”? <span class="muted">+</span></summary>
+          <p class="muted">Não. É simples e direto, mas exige execução: parcerias, captação e acompanhamento.</p>
+        </details>
+        <details>
+          <summary>Quanto dá para ganhar por venda? <span class="muted">+</span></summary>
+          <p class="muted">Depende da parceria e do veículo. O método ensina como negociar comissão definida e operar com controle.</p>
+        </details>
+        <details>
+          <summary>Em quanto tempo posso ver resultado? <span class="muted">+</span></summary>
+          <p class="muted">Existe um caminho prático de 30 dias. O resultado vem da execução consistente.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- COMPRAR -->
+    <section id="comprar">
+      <div class="wrap">
+        <div class="cta">
+          <div>
+            <h3>Entrar no Método Vendas de Alto Ticket (Nível 1)</h3>
+            <p>
+              <strong style="color:rgba(243,214,127,.95)">Podia ser R$499,00… mas não é.</strong><br>
+              Acesso por <strong style="color:rgba(243,214,127,.95)">R$94,00</strong> — curso + material operacional + bônus.
+            </p>
+          </div>
+
+          <!-- PAGAMENTO -->
+          <a class="btn primary" href="#" onclick="alert('PAGAMENTO AQUI'); return false;">
+            PAGAMENTO AQUI
+          </a>
+        </div>
+
+        <div style="margin-top:14px" class="note">
+          R$94,00 não muda sua vida. <strong>Estrutura muda.</strong> Se você executar, uma comissão paga o investimento.
+        </div>
+
+        <div style="margin-top:14px; text-align:center" class="mini">
+          © <span id="year"></span> Método Vendas de Alto Ticket • Todos os direitos reservados
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:space-between">
+        <div>
+          <div><strong style="color:rgba(243,214,127,.95)">Quem pensa como dono, lucra como dono.</strong></div>
+          <div class="mini">Página estática leve, pronta para GitHub Pages.</div>
+        </div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap">
+          <a class="btn small" href="#metodo">Voltar ao topo</a>
+          <a class="btn small" href="./members/index.html">Área de Membros</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Ajuste o WhatsApp aqui (DDD + número, só números). Ex: 5548999999999
+    const WHATS_NUMBER = "5548988640496";
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    function handleContact(e){
+      e.preventDefault();
+      const nome = document.getElementById("nome").value.trim();
+      const whats = document.getElementById("whats").value.trim();
+      const msg = document.getElementById("msg").value.trim();
+
+      const text =
+`Olá! Quero falar sobre a mentoria do Método Vendas de Alto Ticket.
+
+Nome: ${nome}
+WhatsApp: ${whats}
+
+Contexto:
+${msg}
+
+(Enviado pela página do método)`;
+
+      const url = `https://wa.me/${WHATS_NUMBER}?text=${encodeURIComponent(text)}`;
+      window.open(url, "_blank", "noopener");
+      return false;
+    }
+
+    function copyCSV(){
+      const el = document.getElementById("csv");
+      el.select();
+      el.setSelectionRange(0, 999999);
+      document.execCommand("copy");
+      alert("Modelo CSV copiado! Agora cole no Excel/Google Sheets.");
+    }
+  </script>
 </body>
 </html>
-
