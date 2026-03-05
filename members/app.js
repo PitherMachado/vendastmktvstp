@@ -15,7 +15,7 @@
       tag: "Base mental",
       title: "Mentalidade de Dono e Alto Ticket",
       desc: "Como dono pensa, por que comissão pequena trava sua vida e como posicionar alto ticket com execução real.",
-      href: "./modulo-1",
+      href: "./modulo-1/index.html",
       locked: false,
     },
     {
