@@ -1,238 +1,749 @@
-<!doctype html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Área de Membros • Método Vendas de Alto Ticket</title>
-  <meta name="description" content="Área de membros — operação, rotina e execução." />
-  <meta name="theme-color" content="#0a0c12" />
+:root{
+  --bg0:#07080b;
+  --bg1:#0a0c12;
+  --bg2:#0f1320;
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  --glass: rgba(255,255,255,.06);
+  --stroke: rgba(255,255,255,.12);
 
-  <link rel="stylesheet" href="./style.css" />
-</head>
+  --text:#f3f6ff;
+  --muted:#c7cfde;
+  --muted2:#8f98b2;
 
-<body>
-  <!-- Fundo vivo -->
-  <canvas id="particles" aria-hidden="true"></canvas>
-  <div class="bg" aria-hidden="true">
-    <div class="aurora"></div>
-    <div class="vignette"></div>
-    <div class="noise"></div>
-  </div>
+  --gold:#e6c35c;
+  --gold2:#d3d0f7;
+  --good:#5eead4;
 
-  <!-- Watermark -->
-  <div class="bg-watermark" aria-hidden="true"></div>
+  --shadow: 0 24px 90px rgba(0,0,0,.70);
+  --shadow2: 0 12px 44px rgba(0,0,0,.55);
 
-  <!-- TOPBAR -->
-  <header class="topbar">
-    <div class="wrap topbar-inner">
-      <a class="brand" href="./index.html" aria-label="Voltar para a Área de Membros">
-        <span class="brand-mark" aria-hidden="true">
-          <img
-            src="../assets/logo.svg"
-            alt="Logo"
-            loading="lazy"
-            onerror="this.style.display='none'"
-          />
-        </span>
-        <span class="brand-col">
-          <strong class="brand-name">MÉTODO • ALTO TICKET</strong>
-          <span class="brand-sub">Área de Membros • Operação & Execução</span>
-        </span>
-      </a>
+  --r16: 16px;
+  --r18: 18px;
+  --r24: 24px;
 
-      <div class="top-actions">
-        <div class="pill" title="Seu progresso fica salvo neste dispositivo">
-          <span class="dot" aria-hidden="true"></span>
-          <span>Progresso: <b id="progressText">0%</b></span>
-        </div>
+  /* “Tela lado a lado” (mais largo) */
+  --max: 1680px;
 
-        <div class="pill" title="Status da sua assinatura">
-          <span class="muted">Acesso</span>
-          <b>LIBERADO</b>
-        </div>
+  --font: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+}
 
-        <!-- Ajuste esse link se quiser apontar pro seu logout real -->
-        <a class="btn-ghost" href="../index.html" title="Sair">
-          Sair
-        </a>
-      </div>
-    </div>
-  </header>
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+html{ scroll-behavior:smooth; }
 
-  <main class="page">
-    <div class="wrap">
+body{
+  margin:0;
+  font-family:var(--font);
+  color:var(--text);
+  background: linear-gradient(180deg, var(--bg0), var(--bg1));
+  overflow-x:hidden;
+}
 
-      <!-- HERO -->
-      <section class="hero">
-        <div class="heroGrid">
-          <div class="heroMain">
-            <div class="heroBadge">
-              <span class="chip">Nível 1</span>
-              <span class="chip chipGold">Premium</span>
-            </div>
+a{ color:inherit; text-decoration:none; }
+button, input{ font-family:inherit; }
 
-            <h1>Bem-vindo ao Método Vendas de Alto Ticket</h1>
+.wrap{
+  width: min(var(--max), calc(100% - 48px));
+  margin: 0 auto;
+}
 
-            <p class="lead">
-              A partir deste ponto você não é mais alguém tentando ganhar dinheiro.
-              <b>Você está construindo uma operação.</b><br><br>
-              Este treinamento não é informativo. Ele é formativo.
-            </p>
+@media (max-width: 520px){
+  .wrap{ width: calc(100% - 26px); }
+}
 
-            <div class="heroTags">
-              <span class="tag">• <strong>Mentalidade</strong> de gestor</span>
-              <span class="tag">• <strong>Estrutura</strong> operacional</span>
-              <span class="tag">• <strong>Parcerias</strong> estratégicas</span>
-              <span class="tag">• <strong>Sistema</strong> de controle</span>
-              <span class="tag">• <strong>Acompanhamento</strong> estruturado</span>
-              <span class="tag">• <strong>Previsibilidade</strong> de comissão</span>
-            </div>
+/* ===== Fundo vivo ===== */
+#particles{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.95;
+}
 
-            <div class="heroRule">
-              <span class="tag"><strong>Regra:</strong> Você executa → você recebe.</span>
-              <span class="tag"><strong>Se só assiste:</strong> nada muda.</span>
-            </div>
-          </div>
+.bg{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
 
-          <aside class="heroSide">
-            <div class="kpiCard">
-              <div class="kpiTop">
-                <span class="kpiLabel">Seu progresso na área</span>
-                <span class="kpiPct" id="progressPct">0%</span>
-              </div>
+.bg .aurora{
+  position:absolute;
+  inset:-20%;
+  background:
+    radial-gradient(800px 600px at 15% 20%, rgba(230,195,92,.16), transparent 60%),
+    radial-gradient(900px 700px at 75% 25%, rgba(94,234,212,.12), transparent 62%),
+    radial-gradient(1000px 800px at 55% 90%, rgba(230,195,92,.10), transparent 60%),
+    radial-gradient(900px 700px at 90% 75%, rgba(211,208,247,.10), transparent 60%);
+  filter: blur(24px);
+  opacity:.95;
+  transform: translateZ(0);
+  animation: aurora 14s ease-in-out infinite alternate;
+}
+@keyframes aurora{
+  from{ transform: translate3d(-1.2%, -0.6%, 0) scale(1); }
+  to{ transform: translate3d(1.2%, 0.8%, 0) scale(1.02); }
+}
+.bg .vignette{
+  position:absolute; inset:0;
+  background:
+    radial-gradient(1200px 900px at 50% 45%, transparent 32%, rgba(0,0,0,.35) 76%, rgba(0,0,0,.55) 100%),
+    linear-gradient(180deg, rgba(255,255,255,.05), transparent 24%);
+}
+.bg .noise{
+  position:absolute; inset:0;
+  opacity:.08;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
 
-              <div class="bar" aria-label="Barra de progresso">
-                <i id="progressBar"></i>
-              </div>
+.bg-watermark{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  opacity:.10;
+  background:
+    radial-gradient(800px 600px at 50% 45%, rgba(255,255,255,.06), transparent 65%),
+    radial-gradient(900px 700px at 50% 55%, rgba(230,195,92,.06), transparent 70%);
+}
 
-              <div class="kpiMini">
-                <span class="tag"><strong>Foco:</strong> rotina + controle</span>
-                <span class="tag"><strong>Resultado:</strong> consequência</span>
-              </div>
+/* ===== Topbar ===== */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:5;
+  backdrop-filter: blur(14px);
+  background: linear-gradient(180deg, rgba(9,12,18,.82), rgba(9,12,18,.50));
+  border-bottom: 1px solid rgba(255,255,255,.10);
+}
 
-              <div class="kpiBtns">
-                <button class="btn btnPrimary" type="button" id="focusContinue">
-                  Continuar de onde parou
-                </button>
-                <button class="btn" type="button" id="resetBtn">
-                  Resetar progresso
-                </button>
-              </div>
+.topbar-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding: 14px 0;
+}
 
-              <p class="small muted2">
-                * O progresso salva neste navegador/dispositivo.
-              </p>
-            </div>
-          </aside>
-        </div>
-      </section>
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+.brand-mark{
+  width:42px;
+  height:42px;
+  border-radius: 14px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.04);
+  box-shadow: 0 12px 26px rgba(0,0,0,.25);
+  overflow:hidden;
+  display:grid;
+  place-items:center;
+  flex:0 0 auto;
+}
+.brand-mark img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.brand-col{ min-width:0; }
+.brand-name{
+  display:block;
+  font-weight:900;
+  letter-spacing:.12em;
+  font-size:12px;
+  text-transform: uppercase;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.brand-sub{
+  display:block;
+  margin-top:3px;
+  color: rgba(255,255,255,.70);
+  font-size:12px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
 
-      <!-- LINHA: CONTINUAR (SÓ APARECE SE TIVER EM ANDAMENTO) -->
-      <section class="rowSection is-hidden" id="continueRow">
-        <div class="rowHead">
-          <div>
-            <h2>Continuar</h2>
-            <p>Somente itens iniciados e não concluídos.</p>
-          </div>
-          <div class="rowActions">
-            <button class="arrow" type="button" data-rail="continue" data-dir="left" aria-label="Voltar" title="Voltar">‹</button>
-            <button class="arrow" type="button" data-rail="continue" data-dir="right" aria-label="Avançar" title="Avançar">›</button>
-          </div>
-        </div>
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
 
-        <div class="rail" data-rail="continue">
-          <div class="cardList" id="railContinue" aria-label="Carrossel Continuar"></div>
-        </div>
-      </section>
+.pill{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.20);
+  color: rgba(255,255,255,.85);
+  font-size:12px;
+  box-shadow: var(--shadow2);
+  white-space:nowrap;
+}
+.pill b{ color:var(--text); font-weight:900; }
+.pill .muted{ color: rgba(255,255,255,.70); font-weight:700; }
+.dot{
+  width:8px; height:8px; border-radius:99px;
+  background: var(--good);
+  box-shadow: 0 0 0 4px rgba(94,234,212,.12);
+}
 
-      <!-- LINHA: MÓDULOS (UMA LINHA SÓ) -->
-      <section class="rowSection" id="modulesRow">
-        <div class="rowHead">
-          <div>
-            <h2>Módulos (Nível 1)</h2>
-            <p>Uma linha. Arraste ou use as setas.</p>
-          </div>
-          <div class="rowActions">
-            <div class="searchWrap">
-              <input id="search" class="search" type="search" placeholder="Buscar (ex.: Parceria, Captação, Módulo 4)..." />
-            </div>
-            <button class="arrow" type="button" data-rail="modules" data-dir="left" aria-label="Voltar" title="Voltar">‹</button>
-            <button class="arrow" type="button" data-rail="modules" data-dir="right" aria-label="Avançar" title="Avançar">›</button>
-          </div>
-        </div>
+.btn-ghost{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 12px;
+  border-radius: 999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.85);
+  font-size:12px;
+  font-weight:800;
+  cursor:pointer;
+  transition: transform .15s ease, filter .15s ease, background .2s ease;
+}
+.btn-ghost:hover{ transform: translateY(-1px); filter: brightness(1.06); }
+.btn-ghost:active{ transform: translateY(0px); filter: brightness(.98); }
 
-        <div class="rail" data-rail="modules">
-          <div class="cardList" id="railModules" aria-label="Carrossel Módulos"></div>
-        </div>
-      </section>
+@media (max-width: 860px){
+  .pill{ display:none; } /* no mobile: simplifica topo */
+}
 
-      <!-- LINHA: MATERIAIS -->
-      <section class="rowSection" id="materialsRow">
-        <div class="rowHead">
-          <div>
-            <h2>Materiais</h2>
-            <p>Conteúdo operacional para copiar e aplicar.</p>
-          </div>
-          <div class="rowActions">
-            <button class="arrow" type="button" data-rail="materials" data-dir="left" aria-label="Voltar" title="Voltar">‹</button>
-            <button class="arrow" type="button" data-rail="materials" data-dir="right" aria-label="Avançar" title="Avançar">›</button>
-          </div>
-        </div>
+/* ===== Página ===== */
+.page{
+  position:relative;
+  z-index:2;
+  padding: 16px 0 44px;
+}
 
-        <div class="rail" data-rail="materials">
-          <div class="cardList" id="railMaterials" aria-label="Carrossel Materiais"></div>
-        </div>
-      </section>
+/* ===== HERO ===== */
+.hero{
+  border:1px solid rgba(255,255,255,.14);
+  background: linear-gradient(180deg, rgba(16,22,38,.70), rgba(16,22,38,.28));
+  border-radius: var(--r24);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  overflow:hidden;
+  position:relative;
+}
+.hero::before{
+  content:"";
+  position:absolute; inset:-30%;
+  transform: rotate(-10deg);
+  background: radial-gradient(closest-side, rgba(255,255,255,.08), transparent 65%);
+  opacity:.45;
+  pointer-events:none;
+}
+.heroGrid{
+  position:relative;
+  z-index:1;
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 18px;
+  padding: 22px;
+}
+.heroMain h1{
+  margin: 10px 0 10px;
+  font-size: clamp(28px, 3.2vw, 54px);
+  line-height:1.05;
+  letter-spacing:-0.02em;
+}
+.lead{
+  margin: 0 0 16px;
+  color: rgba(255,255,255,.85);
+  line-height:1.55;
+  font-size: 15px;
+  max-width: 70ch;
+}
+.heroBadge{ display:flex; gap:10px; flex-wrap:wrap; }
+.chip{
+  display:inline-flex;
+  align-items:center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.22);
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.12em;
+  text-transform: uppercase;
+}
+.chipGold{
+  border-color: rgba(230,195,92,.30);
+  background: linear-gradient(180deg, rgba(230,195,92,.18), rgba(230,195,92,.08));
+  color: rgba(255,255,255,.92);
+}
 
-      <!-- Footer -->
-      <footer class="footer">
-        <div>
-          <strong>Nota:</strong> o progresso é salvo neste navegador (neste dispositivo).
-          Se você usar outro celular/PC, o progresso começa do zero.
-        </div>
-        <div class="muted2">© <span id="year"></span> Método Vendas de Alto Ticket</div>
-      </footer>
-    </div>
-  </main>
+.heroTags,
+.heroRule{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.tag{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.03);
+  color: rgba(255,255,255,.80);
+  font-size:12px;
+}
+.tag strong{ color: var(--text); font-weight:900; }
 
-  <!-- MODAL (preview estilo Netflix) -->
-  <div class="modal" id="modal" aria-hidden="true">
-    <div class="modalBackdrop" data-close></div>
-    <div class="modalCard" role="dialog" aria-modal="true" aria-label="Detalhes">
-      <button class="modalClose" type="button" data-close aria-label="Fechar">×</button>
+.heroSide{ display:flex; }
+.kpiCard{
+  width:100%;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.22);
+  border-radius: var(--r24);
+  box-shadow: var(--shadow2);
+  backdrop-filter: blur(12px);
+  padding: 16px;
+}
+.kpiTop{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:10px;
+}
+.kpiLabel{ font-size:12px; color: rgba(255,255,255,.70); }
+.kpiPct{ font-weight:900; color: var(--gold); letter-spacing:.2px; }
 
-      <div class="modalTop">
-        <div class="modalMeta">
-          <span class="modalBadge" id="mBadge">Módulo</span>
-          <span class="modalTag" id="mTag">Tag</span>
-        </div>
-        <h3 class="modalTitle" id="mTitle">Título</h3>
-        <p class="modalDesc" id="mDesc">Descrição</p>
+.bar{
+  width:100%;
+  height:10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);
+  overflow:hidden;
+}
+.bar i{
+  display:block;
+  height:100%;
+  width:0%;
+  border-radius:999px;
+  background: linear-gradient(90deg, rgba(230,195,92,.95), rgba(94,234,212,.60));
+  box-shadow: 0 10px 20px rgba(230,195,92,.12);
+  transition: width .35s ease;
+}
 
-        <div class="modalPills">
-          <span class="pill pillSoft" id="mStatus">Status</span>
-          <span class="pill pillSoft">Progresso local</span>
-        </div>
-      </div>
+.kpiMini{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:12px;
+}
+.kpiBtns{
+  display:flex;
+  gap:10px;
+  margin-top: 12px;
+  flex-wrap:wrap;
+}
+.btn{
+  appearance:none;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.88);
+  border-radius: 999px;
+  padding: 11px 14px;
+  font-weight: 900;
+  font-size: 12px;
+  cursor:pointer;
+  transition: transform .12s ease, background .2s ease, border-color .2s ease;
+  white-space: nowrap;
+}
+.btn:hover{ background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.20); }
+.btn:active{ transform: translateY(1px); }
 
-      <div class="modalBottom">
-        <label class="check">
-          <input type="checkbox" id="mDone" />
-          <span>Marcar como concluído</span>
-        </label>
+.btnPrimary{
+  border-color: rgba(230,195,92,.30);
+  background: linear-gradient(180deg, rgba(230,195,92,.20), rgba(230,195,92,.08));
+}
 
-        <div class="modalBtns">
-          <a class="btn btnPrimary" id="mGo" href="#" target="_self" rel="noopener">Acessar →</a>
-          <button class="btn" type="button" data-close>Voltar</button>
-        </div>
-      </div>
-    </div>
-  </div>
+.small{ font-size:12px; margin:10px 0 0; }
+.muted2{ color: rgba(255,255,255,.60); }
+.muted{ color: rgba(255,255,255,.70); }
 
-  <script src="./app.js"></script>
-</body>
-</html>
+@media (max-width: 980px){
+  .heroGrid{ grid-template-columns: 1fr; }
+}
+
+/* ===== Seções de Carrossel ===== */
+.rowSection{
+  margin-top: 18px;
+}
+
+.rowSection.is-hidden{
+  display:none;
+}
+
+.rowHead{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:12px;
+  margin: 0 0 10px;
+}
+.rowHead h2{
+  margin:0;
+  font-size: 18px;
+}
+.rowHead p{
+  margin:4px 0 0;
+  color: rgba(255,255,255,.70);
+  font-size: 13px;
+}
+.rowActions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.searchWrap{
+  width: min(520px, 46vw);
+}
+.search{
+  width:100%;
+  padding: 11px 14px;
+  border-radius: 999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.20);
+  color: rgba(255,255,255,.85);
+  outline:none;
+}
+.search::placeholder{ color: rgba(255,255,255,.45); }
+
+.arrow{
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.22);
+  color: rgba(255,255,255,.90);
+  font-size: 18px;
+  font-weight: 900;
+  cursor:pointer;
+  transition: transform .12s ease, background .2s ease, border-color .2s ease;
+}
+.arrow:hover{ background: rgba(0,0,0,.30); border-color: rgba(255,255,255,.20); }
+.arrow:active{ transform: translateY(1px); }
+
+.rail{
+  position:relative;
+  border-radius: var(--r24);
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(0,0,0,.12);
+  box-shadow: var(--shadow2);
+  overflow:hidden;
+}
+
+/* ===== O segredo do “4 por linha e carrossel” =====
+   - grid-auto-flow: column
+   - grid-auto-columns: calc((100% - gaps)/4)
+   - overflow-x: auto + scroll-snap */
+.cardList{
+  display:grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - (3 * 14px)) / 4);
+  gap: 14px;
+
+  padding: 14px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 14px;
+
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.cardList::-webkit-scrollbar{ display:none; }
+
+@media (max-width: 1120px){
+  .cardList{
+    grid-auto-columns: calc((100% - (1 * 14px)) / 2);
+  }
+}
+@media (max-width: 640px){
+  .searchWrap{ width: 100%; }
+  .cardList{
+    grid-auto-columns: 86%;
+  }
+}
+
+/* ===== Card ===== */
+.card{
+  scroll-snap-align: start;
+  border-radius: var(--r24);
+  border: 1px solid rgba(255,255,255,.14);
+  background: linear-gradient(180deg, rgba(16,22,38,.70), rgba(16,22,38,.25));
+  box-shadow: 0 18px 60px rgba(0,0,0,.45);
+  backdrop-filter: blur(12px);
+  overflow:hidden;
+  position:relative;
+  min-height: 190px;
+  display:flex;
+  flex-direction:column;
+  padding: 14px;
+  transition: transform .16s ease, filter .16s ease, border-color .2s ease;
+}
+.card:hover{
+  transform: translateY(-2px);
+  filter: brightness(1.03);
+  border-color: rgba(255,255,255,.18);
+}
+
+.cardTop{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+  margin-bottom: 10px;
+}
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.22);
+  font-size: 12px;
+  font-weight: 900;
+}
+.badgeGold{
+  border-color: rgba(230,195,92,.35);
+  background: linear-gradient(180deg, rgba(230,195,92,.18), rgba(230,195,92,.06));
+}
+.status{
+  padding: 8px 10px;
+  border-radius: 999px;
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+  color: rgba(255,255,255,.75);
+  font-size: 12px;
+  font-weight: 900;
+}
+.status.blocked{
+  border-color: rgba(255,70,70,.28);
+  color: rgba(255,200,200,.85);
+  background: rgba(255,70,70,.06);
+}
+.status.progress{
+  border-color: rgba(94,234,212,.22);
+  color: rgba(210,255,245,.90);
+  background: rgba(94,234,212,.06);
+}
+.status.done{
+  border-color: rgba(230,195,92,.25);
+  color: rgba(255,255,255,.90);
+  background: rgba(230,195,92,.08);
+}
+
+.cardTag{
+  color: rgba(255,255,255,.65);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.cardTitle{
+  font-size: 16px;
+  margin: 0 0 8px;
+  letter-spacing:-0.01em;
+}
+.cardDesc{
+  margin: 0;
+  color: rgba(255,255,255,.72);
+  font-size: 13px;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.cardBottom{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-top: 12px;
+}
+.cardBtn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.22);
+  color: rgba(255,255,255,.90);
+  font-size: 12px;
+  font-weight: 900;
+  cursor:pointer;
+  transition: transform .12s ease, filter .12s ease, background .2s ease;
+}
+.cardBtn:hover{ filter: brightness(1.06); background: rgba(0,0,0,.28); }
+.cardBtn:active{ transform: translateY(1px); }
+
+.cardBtnPrimary{
+  border-color: rgba(230,195,92,.30);
+  background: linear-gradient(180deg, rgba(230,195,92,.18), rgba(230,195,92,.06));
+}
+
+.moreBtn{
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border:1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.90);
+  cursor:pointer;
+  font-weight:900;
+}
+
+/* ===== Footer ===== */
+.footer{
+  margin-top: 18px;
+  padding: 16px 18px;
+  border-radius: var(--r24);
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.18);
+  box-shadow: var(--shadow2);
+  color: rgba(255,255,255,.70);
+  font-size: 12px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+/* ===== Modal ===== */
+.modal{
+  position: fixed;
+  inset:0;
+  display:none;
+  z-index: 50;
+}
+.modal[aria-hidden="false"]{ display:block; }
+.modalBackdrop{
+  position:absolute; inset:0;
+  background: rgba(0,0,0,.62);
+  backdrop-filter: blur(6px);
+}
+.modalCard{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform: translate(-50%, -50%);
+  width: min(720px, calc(100% - 26px));
+  border-radius: var(--r24);
+  border: 1px solid rgba(255,255,255,.14);
+  background: linear-gradient(180deg, rgba(16,22,38,.86), rgba(16,22,38,.55));
+  box-shadow: var(--shadow);
+  overflow:hidden;
+}
+.modalClose{
+  position:absolute;
+  right: 12px;
+  top: 10px;
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.22);
+  color: rgba(255,255,255,.90);
+  cursor:pointer;
+  font-size: 18px;
+  font-weight: 900;
+}
+.modalTop{
+  padding: 18px 18px 12px;
+}
+.modalMeta{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+  margin-bottom: 10px;
+}
+.modalBadge{
+  padding: 8px 10px;
+  border-radius: 999px;
+  border:1px solid rgba(230,195,92,.30);
+  background: rgba(230,195,92,.10);
+  font-weight: 900;
+  font-size: 12px;
+}
+.modalTag{
+  padding: 8px 10px;
+  border-radius: 999px;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  font-weight: 900;
+  font-size: 12px;
+  color: rgba(255,255,255,.78);
+}
+.modalTitle{
+  margin:0 0 8px;
+  font-size: 22px;
+  letter-spacing:-0.02em;
+}
+.modalDesc{
+  margin:0;
+  color: rgba(255,255,255,.78);
+  line-height: 1.55;
+}
+.modalPills{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top: 12px;
+}
+.pillSoft{
+  background: rgba(255,255,255,.04);
+  border-color: rgba(255,255,255,.12);
+  box-shadow:none;
+}
+.modalBottom{
+  padding: 14px 18px 18px;
+  border-top: 1px solid rgba(255,255,255,.10);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.check{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size: 13px;
+  color: rgba(255,255,255,.82);
+}
+.check input{
+  width: 18px;
+  height: 18px;
+  accent-color: var(--gold);
+}
+.modalBtns{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
